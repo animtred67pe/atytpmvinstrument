@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>My Instruments - Player</title>
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+				font-family: monospace;
+			}
+			.hfgfhh {
+				background-color: rgb(0, 0, 0);
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+			label {
+				color: rgb(255, 65, 192);
+			}
+			.hfgfhh2 {
+				background-color: rgb(247, 231, 210);
+				width: 360px;
+				height: 46px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				padding: 4px;
+				border-radius: 8px;
+			}
+		</style>
+	</head>
+	<body id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+		<div class="hfgfhh">
+			<div class="hfgfhh2">
+				<input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 355px;" disabled>
+				<br>
+				<button id="loadmidifile">Load Mid</button>
+				<button id="playstop" disabled>Play</button>
+				<label id="cuer">0:00/0:00</label>
+				<div style="float: right; margin: 0;">
+					<label>Volume:</label>
+					<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
+				</div>	
+			</div>
+		</div>
+		<div style="position: absolute; bottom: 0%; left: 50%; transform: translate(-50%, 0%); padding: 8px; color: #fff;">
+			<a href="./">Back</a>
+		</div>
+		<script src="animtredinstruments.js"></script>
+		<script>
+			var player = new AnimTredInstruments.Player();
+			var cuer = document.getElementById('cuer');
+			function mod(x, y) {
+				var r = x % y;
+				if (r / y < 0) {
+				r += y;
+				}
+				return r; 
+			};
+			function getDuraction(num) {
+				var txt = '';
+				if (Math.floor(num) > 3599) {
+					txt += '' + Math.floor(num / 3600);
+					txt += ':';
+					if (mod(Math.floor(num / 60), 60) > 9) {
+						txt += '' + mod(Math.floor(num / 60), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num / 60), 60);
+					}
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				} else {
+					txt += '' + mod(Math.floor(num / 60), 60);
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				}
+				return txt;
+			}
+			var fgdgdfg = document.getElementById("yrtyryry");
+			var fgdgdfg2 = document.getElementById("yrtyryry2");
+			var playstop = document.getElementById('playstop');
+			var z_dir2 = null;
+			function z_dir() {
+				fgdgdfg.value = (player.currentTime / player.duration) * 100000;
+				var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
+				if (f_ggg !== cuer.innerHTML) {
+					cuer.innerHTML = f_ggg;
+				}
+			}
+			fgdgdfg2.addEventListener('input', function() {
+				player.setVolume(fgdgdfg2.value / 100);
+			}, false);
+			fgdgdfg.addEventListener('input', function() {
+				player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
+			}, false);
+			player.onended = function () {
+				player.setCurrentTime(0);
+				playstop.innerHTML = 'Play';
+			}
+			function URLsearchParams(name, isD) {
+				var _u = new URL(window.location.href);
+				if (isD) {
+					return _u.searchParams.has(name);
+				} else {
+					return _u.searchParams.get(name);
+				}
+			}
+			if (URLsearchParams('offeffect', true)) {
+				player.isEffect = false;
+			}
+			function loadMidiFile(file) {
+				var a = new FileReader();
+				a.onload = (function() {
+					if (z_dir2) {
+						clearInterval(z_dir2);
+					}
+					fgdgdfg.value = 0;
+					cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
+					playstop.innerHTML = 'Play';
+					playstop.setAttribute("disabled", true);
+					fgdgdfg.setAttribute("disabled", true);
+					setTimeout(function () {
+						player.loadMid(a.result);
+						fgdgdfg.removeAttribute("disabled");
+						z_dir2 = setInterval(z_dir, 100);
+						player.loadSoundbank().then(function(e) {
+							playstop.removeAttribute("disabled");
+							playstop.innerHTML = 'Pause';
+							player.play();
+						});
+					}, 2);
+				}).bind(this);
+				a.readAsArrayBuffer(file);
+			}
+			var loadmidifile = document.getElementById('loadmidifile');
+			function dropHandler(ev) {
+				ev.preventDefault();
+				if (ev.dataTransfer.items) {
+					[...ev.dataTransfer.items].forEach((item, i) => {
+					if (item.kind === 'file') {
+						const file = item.getAsFile();
+						loadMidiFile(file);
+					}
+					});
+				}
+			}
+			function dragOverHandler(ev) {
+				ev.preventDefault();
+			}
+			loadmidifile.onclick = function () {
+				var sa = document.createElement('input');
+				sa.type = 'file';
+				sa.accept = '.mid, .rmi, .midi';
+				sa.addEventListener('change', function (e) {
+					var file = e.target.files[0];
+					loadMidiFile(file);
+				}, false);
+				sa.click();
+			}
+			playstop.onclick = function () {
+				if (player.isPaused) {
+					playstop.innerHTML = 'Pause';
+					player.play();
+				} else {
+					playstop.innerHTML = 'Play';
+					player.pause();
+				}
+			}
+		</script>
+	</body>
+</html>

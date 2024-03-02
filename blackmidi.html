@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style>
+			body{
+				font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+				margin: 0;
+				overflow: hidden;
+			}
+			.app{
+				position: absolute;
+				background-color: rgb(0, 0, 0);
+				color: white;
+				margin: 0;
+				padding: 0;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			.hfgfhh2{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			#hfggf2{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app">
+			<div class="hfgfhh2">
+				<a href="./">back</a>
+				<br>
+				<button id="loadmidifile">Open Mid</button>
+				<br>
+				<input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 360px;">
+				<br>
+				<button id="playstop">Play</button>
+				<label id="cuer">0:00/0:00</label>
+				<label>Volume:</label>
+				<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
+				<br>
+				<label>Display Speed:</label>
+				<input type="range" name="" value="100" min="50" max="5000" step="0.01" id="yrtyryr6464" style="width: 200px;">
+			</div>
+			<canvas width="1280" height="720" id="hfggf2"></canvas>
+		</div>
+		<canvas width="1000" height="622" id="hfggf3" style="display: none;"></canvas>
+		<script src="animtredinstruments.js"></script>
+		<script>
+			var hfggf2 = document.getElementById("hfggf2");
+			var hfggf3 = document.getElementById("hfggf3");
+			var yrtyryr6464 = document.getElementById('yrtyryr6464');
+			var ss_isplaySpeed = 100;
+			var ctx2 = hfggf2.getContext("2d");
+			var ctx3 = hfggf3.getContext("2d");
+			var mousePoint = [0, 0];
+			hfggf2.onmousemove = function(e) {
+				var df = hfggf2.getBoundingClientRect();
+				mousePoint[0] = e.clientX - df.left;
+				mousePoint[1] = e.clientY - df.top;
+			}
+			hfggf2.onmousedown = function(e) {
+				e.preventDefault();
+				mouseDown = true;
+			}
+			hfggf2.onmouseup = function(e) {
+				e.preventDefault();
+				mouseDown = false;
+			}
+			var player = new AnimTredInstruments.Player();
+			player.setVolume(1);
+			var cuer = document.getElementById('cuer');
+			var Adfgdgfd = "01010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010";
+			var xpiano = [];
+			var g = 0;
+			for (var i = 0; i < Adfgdgfd.length; i++) {
+				if (Adfgdgfd[i] == "1") {
+					g += 0;
+					xpiano.push(g + 0.5);
+				} else {
+					g++;
+					xpiano.push(g);
+				}
+			}
+			function mod(x, y) {
+				var r = x % y;
+				if (r / y < 0) {
+				r += y;
+				}
+				return r; 
+			};
+			function URLsearchParams(name,isD) {
+				var _u = new URL(window.location.href);
+				if (isD) {
+					return _u.searchParams.has(name);
+				} else {
+					return _u.searchParams.get(name);
+				}
+			}
+			if (URLsearchParams('offeffect', true)) {
+				player.isEffect = false;
+			}
+			function getDuraction(num) {
+				var txt = '';
+				if (Math.floor(num) > 3599) {
+					txt += '' + Math.floor(num / 3600);
+					txt += ':';
+					if (mod(Math.floor(num / 60), 60) > 9) {
+						txt += '' + mod(Math.floor(num / 60), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num / 60), 60);
+					}
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				} else {
+					txt += '' + mod(Math.floor(num / 60), 60);
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				}
+				return txt;
+			}
+			var trackRender = [];
+			var fdgfdg = 0;
+			var fgdgdfg = document.getElementById("yrtyryry");
+			var fgdgdfg2 = document.getElementById("yrtyryry2");
+			var playstop = document.getElementById('playstop');
+			var z_dir2 = null;
+			var channelColor = [
+				"#2f5fed", // 0
+				"#ed752f", // 1
+				"#2fed5f", // 2
+				"#ed2f78", // 3
+				"#31f7f7", // 4
+				"#dd31f7", // 5
+				"#94f731", // 6
+				"#4931f7", // 7
+				"#f7c631", // 8
+				"#31aef7", // 9
+				"#f73131", // 10
+				"#31f7ab", // 11
+				"#f731c6", // 12
+				"#4cf731", // 13
+				"#9431f7", // 14
+				"#e2fa32", // 15
+			];
+			var sdfsdf = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+			var fghfhfbnvnv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			var jj2 = 0;
+			player.oncleanup = function () {
+				jj2 = 0;
+				fghfhfbnvnv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+				sdfsdf = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+			}
+			var fgjhjh = [
+				"Tempo Change",
+				"Time Signature",
+				"Key Signature",
+				"Program Change",
+				"Control Change",
+				"Key Pressure",
+				"Channel Pressure",
+				"Text",
+				"Pitch Bend",
+				"System Exclusive",
+				"Unknown",
+			];
+			player.onload = function () {
+				player.loadSoundbank().then(function(e) {
+					playstop.innerHTML = 'Pause';
+					player.play();
+				});
+				trackRender = [];
+				for (var i = 0; i < player.trackQueue.length; i++) {
+					var track = player.trackQueue[i];
+					trackRender.push({
+						indexRe: 0,
+						tes: [0,0,0,0,0,0,0,0,0,0,0],
+						ref: [
+							track.tempoQueue,
+							track.timeSignatureQueue,
+							track.keySignatureQueue,
+							track.programQueue,
+							track.controllerQueue,
+							track.keyPressureQueue,
+							track.channelPressureQueue,
+							track.textQueue,
+							track.pitchBendQueue,
+							track.systemExclusiveQueue,
+							null,
+						]
+					});
+				}
+			}
+			function dddhgkjh2(ct, x, y, min, max, value) {
+				var gf = ct.fillStyle;
+				ct.fillStyle = '#ccc';
+				ct.beginPath();
+				ct.arc(x, y, 12, 0, 2 * Math.PI);
+				ct.fill();
+				ct.beginPath();
+				ct.moveTo(x, y);
+				ct.lineWidth = 2;
+				var h = (180 - (((value - min) / (max - min)) - 0.5) * 270);
+				ct.lineTo(x + (Math.sin(h * Math.PI / 180) * 10), y + (Math.cos(h * Math.PI / 180) * 10));
+				ct.stroke();
+				ct.fillStyle = gf;
+			}
+			function dddhgkjh(ct, x, y, channel, gghf) {
+				ct.globalAlpha = 1;
+				ct.fillRect(x, y, 240, 45);
+				ct.globalAlpha = 1 - gghf;
+				ct.fillStyle = "#ddd";
+				ct.fillRect(x, y, 240, 45);
+				ct.globalAlpha = 1;
+				ct.fillStyle = "#000";
+				ct.textAlign = "right";
+				ct.font = "10px Arial";
+				ct.fillText(channel, x + 237, y + 12);
+				ct.textAlign = "center";
+				dddhgkjh2(ct, x + 20, y + 20, -1, 1, player.pitchBendChannel[channel]);
+				ct.fillText("pitch", x + 20, y + 40);
+				dddhgkjh2(ct, x + 50, y + 20, -0.64, 0.63, player.controller.panChannel[channel]);
+				ct.fillText("pad", x + 50, y + 40);
+				ct.font = "15px Arial";
+				ct.fillText(player.programChannel[channel], x + 80, y + 25);
+				ct.font = "10px Arial";
+				ct.fillText("program", x + 80, y + 40);
+				dddhgkjh2(ct, x + 120, y + 20, 0, 1.27, player.controller.volumeChannel[channel]);
+				ct.fillText("volume", x + 120, y + 40);
+				dddhgkjh2(ct, x + 165, y + 20, 0, 1, player.controller.expressionChannel[channel]);
+				ct.fillText("expression", x + 165, y + 40);
+				ct.font = "15px Arial";
+				ct.fillText(player.controller.sustainPedalChannel[channel] > 0, x + 210, y + 25);
+				ct.font = "10px Arial";
+				ct.fillText("sustain", x + 210, y + 40);
+			}
+			function z_dir() {
+				var bdfgdgd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+				if (!player.muteMusicr) fgdgdfg.value = (player.currentTime / player.duration) * 100000;
+				var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
+				if (f_ggg !== cuer.innerHTML) {
+					cuer.innerHTML = f_ggg;
+				}
+				var fd = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+				var f6fhf = 0;
+				for (var cid = 0; cid < 16; cid++) {
+					var rchannel = player.notesPlayingChannel[cid];
+					for (var i = 0; i < rchannel.length; i++) {
+						if (rchannel[i]) {
+							sdfsdf[rchannel[i].channel] = true;
+							fghfhfbnvnv[rchannel[i].channel] = 1;
+							fd[rchannel[i].channel] = true;
+							f6fhf++;
+						}
+					}
+				}
+				ctx2.clearRect(0, 0, hfggf2.width, hfggf2.height);
+				ctx2.fillStyle = "#eee";
+				ctx2.fillRect(0, 0, hfggf2.width, hfggf2.height);
+				ctx3.clearRect(0, 0, hfggf2.width, hfggf2.height);
+				ctx3.fillStyle = "#eee";
+				ctx3.fillRect(0, 0, hfggf3.width, hfggf3.height);
+				var gfddf = '';
+				ctx3.fillStyle = "#fff";
+				ctx3.fillRect(0, 110, 1000, 512);
+				for (var i = 0; i < 128; i++) {
+					ctx3.fillStyle = "#333";
+					if (Adfgdgfd[i] == '1') {
+						ctx3.fillStyle = "#111";
+					}
+					ctx3.fillRect(0, (622 - 4) - (i * 4), 1000, 4);
+				}
+				for (var i = 0; i < 11; i++) {
+					ctx3.fillStyle = "#777";
+					if (i % 2 == 1) {
+						ctx3.fillStyle = "#555";
+					}
+					ctx3.fillRect(0, (i * 9), 1000, 9);
+				}
+				ctx3.save();
+				var _displaySpeed = ss_isplaySpeed * (player.tempo / 1000000);
+				var resultR = [];
+				resultR[0] = false;
+				resultR[1] = 0;
+				resultR[2] = 0;
+				resultR[3] = 0;
+				var resultT = [];
+				resultT[0] = false;
+				resultT[1] = null;
+				resultT[2] = 0;
+				resultT[3] = null;
+				for (var trackID = 0; trackID < trackRender.length; trackID++) {
+					var tracksRender = trackRender[trackID];
+					var track = player.trackQueue[trackID];
+					var noteQueue = track.noteQueue;
+					if (noteQueue.tickOn.length > 0) {
+						while (tracksRender.indexRe < noteQueue.tickOn.length && player.currentPulse >= noteQueue.tickOff[tracksRender.indexRe]) {
+							tracksRender.indexRe++;
+						}
+						tracksRender.indexRe--;
+						while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) {
+							tracksRender.indexRe--;
+						}
+						tracksRender.indexRe++;
+						for (let id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
+							var TINEd = noteQueue.tickOn[id] - player.currentPulse;
+							var durH = (noteQueue.tickOff[id] - noteQueue.tickOn[id]);
+							if (TINEd < 0 && TINEd > (0 - durH)) {
+								bdfgdgd[noteQueue.pitch[id]] = channelColor[noteQueue.channel[id]];
+							}
+							// mousePoint 260 78
+							var fx = 80 + (TINEd * _displaySpeed);
+							var fy = (622 - 4) - (noteQueue.pitch[id] * 4);
+							var fw = (durH * _displaySpeed);
+							var fh = 4;
+							if ((((mousePoint[0] - 260) > fx) && (mousePoint[0] - 260) < (fx + fw)) && (((mousePoint[1] - 78) > fy) && ((mousePoint[1] - 78) < (fy + fh)))) {
+								ctx3.fillStyle = "#000";
+								resultR[0] = true;
+								resultR[1] = noteQueue.pitch[id];
+								resultR[2] = noteQueue.velocity[id];
+								resultR[3] = noteQueue.channel[id];
+							} else {
+								ctx3.fillStyle = channelColor[noteQueue.channel[id]];
+							}
+							ctx3.fillRect(fx, fy, fw, fh);
+							if (80 + (TINEd * _displaySpeed) > 1000) break;
+						}
+					}
+					for (let idxd = 0; idxd < 11; idxd++) {
+						var tempoQueue = tracksRender.ref[idxd];
+						if (!tempoQueue) continue;
+						if (tempoQueue.tick.length > 0) {
+							while (tracksRender.tes[idxd] < tempoQueue.tick.length && player.currentPulse > tempoQueue.tick[tracksRender.tes[idxd]]) {
+								tracksRender.tes[idxd]++;
+							}
+							tracksRender.tes[idxd]--;
+							while (tracksRender.tes[idxd] >= 0 && player.currentPulse <= tempoQueue.tick[tracksRender.tes[idxd]]) {
+								tracksRender.tes[idxd]--;
+							}
+							tracksRender.tes[idxd]++;
+							for (let id = tracksRender.tes[idxd]; id < tempoQueue.tick.length; id++) {
+								var TINEd = tempoQueue.tick[id] - player.currentPulse;
+								ctx3.fillStyle = "#00f";
+								var fx = 80 + (TINEd * _displaySpeed);
+								var fy = (idxd * 9);
+								if ("channel" in tempoQueue) {
+									ctx3.fillStyle = channelColor[tempoQueue.channel[id]];
+								}
+								if ((((mousePoint[0] - 260) > fx) && (mousePoint[0] - 260) < (fx + 9)) && (((mousePoint[1] - 78) > fy) && (mousePoint[1] - 78) < (fy + 9))) {
+									ctx3.fillStyle = "#faf";
+									resultT[0] = true;
+									if ("channel" in tempoQueue) {
+										resultT[1] = tempoQueue.channel[id];
+									}
+									if ("control" in tempoQueue) {
+										resultT[3] = tempoQueue.control[id];
+									}
+									if ("value" in tempoQueue) {
+										resultT[2] = tempoQueue.value[id];
+									}
+									if ("setting" in tempoQueue) {
+										resultT[2] = tempoQueue.setting[id];
+									}
+									if ("pitch" in tempoQueue) {
+										resultT[2] = tempoQueue.pitch[id];
+									}
+									if ("program" in tempoQueue) {
+										resultT[2] = tempoQueue.program[id];
+									}
+									if ("key" in tempoQueue) {
+										resultT[2] = tempoQueue.key[id];
+									}
+									if ("text" in tempoQueue) {
+										resultT[2] = tempoQueue.text[id];
+									}
+								}
+								ctx3.fillRect(fx, fy, 9, 9);
+								if (80 + (TINEd * _displaySpeed) > 1000) break;
+							}
+						}
+					}
+				}
+				for (var i = 0; i < 128; i++) {
+					ctx3.fillStyle = "#fff";
+					if (Adfgdgfd[i] == '1') {
+						ctx3.fillStyle = "#111";
+					}
+					if (bdfgdgd[i]) {
+						ctx3.fillStyle = bdfgdgd[i];
+					}
+					ctx3.fillRect(0, (622 - 4) - (i * 4), 80, 4);
+				}
+				for (var i = 0; i < 11; i++) {
+					ctx3.fillStyle = "#fff";
+					if (i % 2 == 1) {
+						ctx3.fillStyle = "#ccc";
+					}
+					ctx3.fillRect(0, (i * 9), 80, 9);
+					ctx3.fillStyle = "#000";
+					ctx3.textAlign = "left";
+					ctx3.font = "8px Arial";
+					ctx3.fillText(fgjhjh[i], 2, (i * 9) + 8);
+				}
+				ctx3.restore();
+				ctx2.drawImage(hfggf3, 260, 700 - 622);
+				ctx2.fillStyle = "#000";
+				ctx2.textAlign = "left";
+				ctx2.font = "18px Arial";
+				ctx2.fillText("Tracks: " + player.trackQueue.length + ' Type: ' + player.formatType + ' PPQN: ' + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM notes: " + player.getNoteTracker() + "/" + player.getNoteLength() + " tempos: " + player.getTempoTracker() + "/" + player.getTempoLength() + " Voices: " + f6fhf, 
+					260,
+					25
+				);
+				ctx2.fillStyle = "#000";
+				ctx2.fillRect(260, (25 + 10), 1000, 18);
+				ctx2.fillStyle = "#0f0";
+				ctx2.fillRect(260, (25 + 10), (player.currentTime / player.duration) * 1000, 18);
+				
+				ctx2.fillStyle = "#bbb";
+				ctx2.textAlign = "left";
+				ctx2.font = "12px Arial";
+				ctx2.fillText(f_ggg + " time: " + player.currentTime + " duration: " + player.duration, 
+					262,
+					(25 + 24)
+				);
+
+				if (resultR[0]) {
+					ctx2.textAlign = "left";
+					ctx2.font = "16px Arial";
+					var rr8 = "Pitch: " + resultR[1] + " Velocity: " + resultR[2] + " Channel: " + resultR[3];
+					var rrr = ctx2.measureText(rr8).width;
+					ctx2.fillStyle = "#000";
+					ctx2.fillRect(mousePoint[0], mousePoint[1] - 14, rrr, 16);
+					ctx2.fillStyle = "#bbb";
+					ctx2.fillText(rr8,
+						mousePoint[0],
+						mousePoint[1]
+					);
+				}
+
+				if (resultT[0]) {
+					ctx2.fillStyle = "#bbb";
+					ctx2.textAlign = "left";
+					ctx2.font = "16px Arial";
+					if (resultT[3] === null) {
+						ctx2.fillText("Value: " + resultT[2] + " Channel: " + resultT[1],
+							mousePoint[0],
+							mousePoint[1]
+						);
+					} else {
+						ctx2.fillText("Value: " + resultT[2] + " Control: " + resultT[3] + " Channel: " + resultT[1],
+							mousePoint[0],
+							mousePoint[1]
+						);
+					}
+				}
+
+				var hhh = 0;
+				for (var i = 0; i < 16; i++) {
+					ctx2.fillStyle = channelColor[i];
+					dddhgkjh(ctx2, 0, i * 45, i, fghfhfbnvnv[i]);
+					hhh++;
+				}
+				for (let index = 0; index < fghfhfbnvnv.length; index++) {
+					fghfhfbnvnv[index] -= 0.06;
+					if (fghfhfbnvnv[index] < 0) {
+						fghfhfbnvnv[index] = 0;
+					}
+				}
+			}
+			fgdgdfg2.addEventListener('input', function() {
+				player.setVolume(fgdgdfg2.value / 100);
+			}, false);
+			yrtyryr6464.addEventListener('input', function() {
+				ss_isplaySpeed = yrtyryr6464.value;
+			}, false);
+			fgdgdfg.addEventListener('input', function() {
+				player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
+			}, false);
+			player.onended = function () {
+				player.setCurrentTime(0);
+				playstop.innerHTML = 'Play';
+			}
+			z_dir2 = setInterval(z_dir, 1000 / 60);
+			function loadMidiFile(file) {
+				var a = new FileReader();
+				a.onload = (function() {
+					fgdgdfg.value = 0;
+					cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
+					playstop.innerHTML = 'Play';
+					setTimeout(function () {
+						player.loadMid(a.result);
+					}, 2);
+				}).bind(this);
+				a.readAsArrayBuffer(file);
+			}
+			var loadmidifile = document.getElementById('loadmidifile');
+			loadmidifile.onclick = function () {
+				var sa = document.createElement('input');
+				sa.type = 'file';
+				sa.accept = '.mid, .rmi, .midi';
+				sa.addEventListener('change', function (e) {
+					var file = e.target.files[0];
+					loadMidiFile(file);
+				}, false);
+				sa.click();
+			}
+			function dropHandler(ev) {
+				ev.preventDefault();
+				if (ev.dataTransfer.items) {
+					[...ev.dataTransfer.items].forEach((item, i) => {
+					if (item.kind === 'file') {
+						const file = item.getAsFile();
+						loadMidiFile(file);
+					}
+					});
+				}
+			}
+			function dragOverHandler(ev) {
+				ev.preventDefault();
+			}
+			playstop.onclick = function () {
+				if (player.isPaused) {
+					playstop.innerHTML = 'Pause';
+					player.play();
+				} else {
+					playstop.innerHTML = 'Play';
+					player.pause();
+				}
+			}
+		</script>
+	</body>
+</html>

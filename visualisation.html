@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>My Instruments</title>
+		<style type="text/css">
+			body {
+				margin: 0;
+				background: #000;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.hfgfhh {
+				background-color: rgb(0, 0, 0);
+				width: 100%;
+				height: 100%;
+				position: absolute;
+			}
+			label {
+				color: #fff;
+			}
+			#playermidi {
+				margin: 0;
+				width: 360px;
+				height: 250px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border: 2px solid #666;
+				padding: 4px;
+				border-radius: 8px;
+			}
+		</style>
+	</head>
+	<body id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+		<div class="hfgfhh">
+			<div id="playermidi">
+				<button id="loadmidifile">Load Mid</button>
+				<button id="playstop">Play/Pause</button>
+				<label id="cuer">0:00/0:00</label>
+				<canvas width="360" height="200" id="midiscene"></canvas>
+				<label>Volume: </label>
+				<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 265px;">
+			</div>
+			<div style="position: absolute; bottom: 0%; left: 50%; transform: translate(-50%, 0%); padding: 8px; color: #fff;">
+				<a href="./">Back</a>
+			</div>
+		</div>
+		<script src="animtredinstruments.js"></script>
+		<script>
+			var player = new AnimTredInstruments.Player();
+			var cuer = document.getElementById('cuer');
+			function mod(x, y) {
+				var r = x % y;
+				if (r / y < 0) {
+				r += y;
+				}
+				return r; 
+			};
+			function getDuraction(num) {
+				var txt = '';
+				if (Math.floor(num) > 3599) {
+					txt += '' + Math.floor(num / 3600);
+					txt += ':';
+					if (mod(Math.floor(num / 60), 60) > 9) {
+						txt += '' + mod(Math.floor(num / 60), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num / 60), 60);
+					}
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				} else {
+					txt += '' + mod(Math.floor(num / 60), 60);
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				}
+				return txt;
+			}
+			function z_dir(dx,dy) {
+				return Math.sqrt((dx * dx) + (dy * dy));
+			}
+			function URLsearchParams(name, isD) {
+				var _u = new URL(window.location.href);
+				if (isD) {
+					return _u.searchParams.has(name);
+				} else {
+					return _u.searchParams.get(name);
+				}
+			}
+			if (URLsearchParams('offeffect', true)) {
+				player.isEffect = false;
+			}
+			var MidiControls = function (mse, canvas) {
+				this.channelColor = [
+					"#2f5fed", // 0
+					"#ed752f", // 1
+					"#2fed5f", // 2
+					"#ed2f78", // 3
+					"#31f7f7", // 4
+					"#dd31f7", // 5
+					"#94f731", // 6
+					"#4931f7", // 7
+					"#f7c631", // 8
+					"#31aef7", // 9
+					"#f73131", // 10
+					"#31f7ab", // 11
+					"#f731c6", // 12
+					"#4cf731", // 13
+					"#9431f7", // 14
+					"#e2fa32", // 15
+				];
+				this.mse = mse;
+				this.canvas = canvas;
+				this.ctx = this.canvas.getContext('2d');
+				this.step = this.step.bind(this);
+				this.interval = setInterval(this.step, 1000 / 60);
+				this.onmousedown = this.onmousedown.bind(this);
+				this.onmouseup = this.onmouseup.bind(this);
+				this.onmousemove = this.onmousemove.bind(this);
+				this.mouseX = 0;
+				this.mouseY = 0;
+				this._counter = 0;
+				this._rotation = 0;
+
+				this.visualisationType = Math.round(Math.random());
+
+				this.circles = [];
+				this.graphicEqualizers = [];
+
+				this.maxGraphicEqualizers = 40;
+
+				this.graphicEqualizersArr = new Array(this.maxGraphicEqualizers);
+				for (var i = 0; i < this.maxGraphicEqualizers; i++) {
+					this.graphicEqualizersArr[i] = 0;
+				}
+				this.isTimelineTime = false;
+				this.isTimelinePaused = false;
+				this.mousePressed = false;
+				this.mse.duration = 0;
+				this.onplaynote = this.onplaynote.bind(this);
+				this.mse.onplaynote = this.onplaynote;
+				this.onprogress = this.onprogress.bind(this);
+				mse.onprogress = this.onprogress;
+				mse.onended = this.onended.bind(this);
+				this.textprogress = "";
+				this.ontouchstart = this.ontouchstart.bind(this);
+				this.ontouchend = this.ontouchend.bind(this);
+				this.ontouchmove = this.ontouchmove.bind(this);
+				this.isTouch = ("ontouchstart" in window);
+				this.touchVis = !this.isTouch;
+				document.addEventListener('mousedown', this.onmousedown);
+				document.addEventListener('mouseup', this.onmouseup);
+				document.addEventListener('mousemove', this.onmousemove);
+				document.addEventListener('touchstart', this.ontouchstart);
+				document.addEventListener('touchend', this.ontouchend);
+				document.addEventListener('touchmove', this.ontouchmove);
+			}
+			MidiControls.prototype.ontouchmove = function (e) {
+				var rect = this.canvas.getBoundingClientRect();
+				var gh = e.changedTouches[0];
+				if (gh) {
+					var x = (gh.clientX - rect.left);
+					var y = (gh.clientY - rect.top);
+					this.mouseX = x;
+					this.mouseY = y;
+				}
+			}
+			MidiControls.prototype.ontouchstart = function () {
+				this.mousePressed = true;
+				this.touchVis = true;
+			}
+			MidiControls.prototype.onended = function () {
+				this.resetVir();
+			}
+			MidiControls.prototype.ontouchend = function () {
+				this.mousePressed = false;
+				this.touchVis = false;
+				if (this.isTouch) {
+					this.mouseX = -900;
+					this.mouseY = -900;
+				}
+			}
+			MidiControls.prototype.onprogress = function (e) {
+				this.textprogress = e;
+			}
+			MidiControls.prototype.onplaynote = function (e) {
+				if (this.graphicEqualizers.length < 150) {
+					if (e.type == 1) {
+						this.graphicEqualizers.push({
+							pitch: e.pitch,
+							volume: e.volume,
+							d: e.dur + 0.2,
+							s: this.mse.currentTime,
+							b: 0,
+							c: 0,
+							h: 0,
+						});
+					}
+				}
+				if (this.circles.length < 150) {
+					if (e.type == 1) {
+						this.circles.push({
+							pitch: 32 + ((e.pitch - 32) / 2),
+							volume: e.volume,
+							color: this.channelColor[e.channel],
+							d: Math.max(0.3, e.dur) * 30,
+							b: 0,
+							x: 0,
+							y: 0,
+							c: this._counter,
+						});
+					} else {
+						this.circles.push({
+							pitch: 50,
+							d: 10,
+							color: this.channelColor[e.channel],
+							volume: e.volume,
+							b: 0,
+							c: this._counter,
+						});
+					}
+					this._counter += 32;
+				}
+			}
+			MidiControls.prototype.playStop = function () {
+				this.resetVir();
+				if (this.mse.isPaused) {
+					this.mse.play();
+				} else {
+					this.mse.pause();
+				}
+			}
+			MidiControls.prototype.resetVir = function () {
+				this.circles = [];
+				this.graphicEqualizers = [];
+			}
+			MidiControls.prototype.step = function () {
+				var ds = [];
+				for (var i5 = 0; i5 < this.circles.length; i5++) {
+					var s2 = this.circles[i5];
+					if (s2.b < s2.d) {
+						ds.push(s2);
+					}
+				}
+				this.circles = ds;
+				for (var i2 = 0; i2 < this.circles.length; i2++) {
+					var o = this.circles[i2];
+					var tdir = (o.c + (this._rotation * Math.sin((o.d * 4) * Math.PI / 180)));
+					var tradius = Math.min((o.d / 64) * (o.volume * 250), 100);
+					o.x = (Math.sin(tdir * Math.PI / 180)) * tradius;
+					o.y = (Math.cos(tdir * Math.PI / 180)) * tradius;
+					o.b += 0.5;
+				}
+				var ds2 = [];
+				for (var i5 = 0; i5 < this.graphicEqualizers.length; i5++) {
+					var s2 = this.graphicEqualizers[i5];
+					if (s2.b < s2.d) {
+						ds2.push(s2);
+					}
+				}
+				this.graphicEqualizers = ds2;
+				for (var i = 0; i < this.maxGraphicEqualizers; i++) {
+					this.graphicEqualizersArr[i] = 0;
+				}
+				for (var i2 = 0; i2 < this.graphicEqualizers.length; i2++) {
+					var o = this.graphicEqualizers[i2];
+					o.b = this.mse.currentTime - o.s;
+					if (o.b > (o.d - 0.2)) {
+						o.c = 1 - ((o.b - (o.d - 0.2)) / 0.2);
+					} else {
+						o.c = 1;
+					}
+					this.graphicEqualizersArr[Math.round((o.pitch / 127) * this.maxGraphicEqualizers)] += Math.max(0, (o.c * o.volume));
+				}
+				this._rotation = this.mse.currentTime * 50;
+				cuer.innerHTML = getDuraction(this.mse.currentTime) + '/' + getDuraction(this.mse.duration);
+				var duH1 = (this.mse.currentTime / this.mse.duration);
+				this.ctx.clearRect(0, 0, 360, 210);
+				this.ctx.globalAlpha = 1;
+				this.ctx.save();
+				this.ctx.rect(10, 30, 340, 170);
+				this.ctx.clip();
+				this.ctx.save();
+				this.ctx.translate(10, 30);
+				if (this.visualisationType == 0) {
+					for (var i2 = 0; i2 < this.circles.length; i2++) {
+						var o = this.circles[i2];
+						this.ctx.save();
+						this.ctx.translate(170 + o.x, 85 + o.y);
+						this.ctx.fillStyle = o.color;
+						this.ctx.globalAlpha = Math.min(((o.d - o.b) / o.d) * 2, 1);
+						this.ctx.beginPath();
+						this.ctx.arc(0, 0, Math.max(1, ((o.d / 80) * (o.volume * 140)) * ((o.d - o.b) / o.d)), 0, 2 * Math.PI);
+						this.ctx.fill();
+						this.ctx.restore();
+					}
+				} else {
+					this.ctx.globalAlpha = 1;
+					for (var i2 = 0; i2 < this.maxGraphicEqualizers; i2++) {
+						var o = this.graphicEqualizersArr[i2];
+						var gh = o * 40;
+						this.ctx.fillStyle = "hsl(" + ((i2 / this.maxGraphicEqualizers) * 400) + ", 100%, 50%)";
+						this.ctx.fillRect((i2 * (340 / this.maxGraphicEqualizers)), 170 - gh, (340 / this.maxGraphicEqualizers), gh);
+					}
+				}
+				this.ctx.restore();
+				this.ctx.globalAlpha = 1;
+				this.ctx.restore();
+				if (this.mousePressed == false) {
+					this.nb = false;
+				}
+				if ((this.mouseX > 335 && this.mouseX < 360) && (this.mouseY > 40 && this.mouseY < 200) && this.visualisationType < 1) {
+					this.ctx.beginPath();
+					this.ctx.moveTo(340, 105 + 20);
+					this.ctx.lineTo(340, 105 - 20);
+					this.ctx.lineTo(350, 105);
+					this.ctx.fill();
+					if (this.mousePressed && !this.nb) {
+						this.visualisationType++;
+						this.nb = true;
+					}
+				}
+				if ((this.mouseX < 35 && this.mouseX > 0) && (this.mouseY > 40 && this.mouseY < 200) && this.visualisationType > 0) {
+					this.ctx.beginPath();
+					this.ctx.moveTo(20, 105 + 20);
+					this.ctx.lineTo(20, 105 - 20);
+					this.ctx.lineTo(10, 105);
+					this.ctx.fill();
+					if (this.mousePressed && !this.nb) {
+						this.visualisationType--;
+						this.nb = true;
+					}
+				}
+				this.ctx.strokeStyle = "#555";
+				this.ctx.beginPath();
+				this.ctx.lineCap = "round";
+				this.ctx.lineWidth = 12;
+				this.ctx.moveTo(16, 16);
+				this.ctx.lineTo(344, 16);
+				this.ctx.stroke();
+				this.ctx.strokeStyle = "#FFF";
+				this.ctx.beginPath();
+				this.ctx.lineCap = "round";
+				this.ctx.lineWidth = 12;
+				this.ctx.moveTo(16, 16);
+				this.ctx.lineTo(16 + (duH1 * (360 - 32)), 16);
+				this.ctx.stroke();
+				this.ctx.fillStyle = '#fff';
+				this.ctx.font = "14px Arial";
+				this.ctx.textAlign = "center";
+				this.ctx.fillText(this.textprogress, 180, 66);
+				var g = (16 + (duH1 * (360 - 32)));
+				var radius = z_dir(g - this.mouseX, 16 - this.mouseY);
+				this.ctx.lineWidth = 18;
+				if (this.touchVis && (radius < 12 || this.isTimelineTime)) {
+					this.ctx.beginPath();
+					this.ctx.lineCap = "round";
+					this.ctx.strokeStyle = "#FFF";
+					this.ctx.moveTo(16 + (duH1 * (360 - 32)), 16);
+					this.ctx.lineTo(16 + (duH1 * (360 - 32)), 16);
+					this.ctx.stroke();
+				}
+				if (!(this.mousePressed == true)) {
+					if (this.isTimelineTime) {
+						this.isTimelineTime = false;
+						if (!this.isTimelinePaused) {
+							if (this.mse.currentTime !== this.mse.duration) {
+								this.mse.play();
+							}
+						}
+					}
+				}
+				if (radius < 12 && this.mousePressed) {
+					if (!this.isTimelineTime) {
+						this.isTimelineTime = true;
+						this.isTimelinePaused = this.mse.isPaused;
+						if (!this.isTimelinePaused) {
+							this.mse.pause();
+						}
+					}
+				}
+				if (this.isTimelineTime) {
+					this.resetVir();
+					this.mse.setCurrentTime((((this.mouseX - 16) / (360 - 32)) * this.mse.duration));
+				}
+			}
+			MidiControls.prototype.onmousemove = function (e) {
+				var rect = this.canvas.getBoundingClientRect();
+				var x = (e.clientX - rect.left);
+				var y = (e.clientY - rect.top);
+				this.mouseX = x;
+				this.mouseY = y;
+			}
+			MidiControls.prototype.onmousedown = function () {
+				this.mousePressed = true;
+				
+			}
+			MidiControls.prototype.onmouseup = function () {
+				this.mousePressed = false;
+			}
+			var midcontrol = new MidiControls(player, document.getElementById('midiscene'));
+			player.setVolume(0.67);
+			function loadMidiFile(file) {
+				var a = new FileReader();
+				a.onload = (function() {
+					midcontrol.resetVir();
+					player.loadMid(a.result);
+					player.loadSoundbank().then(function(e) {
+						player.play();
+					})
+				}).bind(this);
+				a.readAsArrayBuffer(file);
+			}
+			var loadmidifile = document.getElementById('loadmidifile');
+			var yrtyryry2 = document.getElementById('yrtyryry2');
+			yrtyryry2.addEventListener('input', function() {
+				player.setVolume(yrtyryry2.value / 100);
+			}, false);
+			var playstop = document.getElementById('playstop');
+			function dropHandler(ev) {
+				ev.preventDefault();
+				if (ev.dataTransfer.items) {
+					[...ev.dataTransfer.items].forEach((item, i) => {
+					if (item.kind === 'file') {
+						const file = item.getAsFile();
+						loadMidiFile(file);
+					}
+					});
+				}
+			}
+			function dragOverHandler(ev) {
+				ev.preventDefault();
+			}
+			loadmidifile.onclick = function () {
+				var sa = document.createElement('input');
+				sa.type = 'file';
+				sa.accept = '.mid, .rmi, .midi';
+				sa.addEventListener('change', function (e) {
+					var file = e.target.files[0];
+					loadMidiFile(file);
+				}, false);
+				sa.click();
+			}
+			playstop.onclick = function () {
+				midcontrol.playStop();
+			}
+		</script>
+	</body>
+</html>

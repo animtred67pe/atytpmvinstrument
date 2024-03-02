@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>YTPMV Cartoon Instruments</title>
+		<style>
+			body{
+				font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+				background-color: rgb(0, 0, 0);
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="./">back</a>
+		<p id="demo">please wait</p>
+		<div id="demo2">
+			<button id="demo3" hidden>test all</button>
+			<br>
+			<label>instrument:</label>
+			<input id="demo4" type="number" name="" value="1" min="1" max="128">
+			<button id="demo5">test</button>
+			<label>pitch:</label>
+			<input id="demo9" type="number" name="" value="60" min="1" max="130">
+			<br>
+			<canvas id="pianos" width="1048" height="80" style="background-color: rgb(0, 0, 0);"></canvas>
+			<br>
+			<label>drum:</label>
+			<input id="demo6" type="number" name="" value="27" min="27" max="87">
+			<button id="demo7">test</button>
+		</div>
+		<script type="text/javascript" src="animtredinstruments.js"></script>
+		<script type="text/javascript">
+			var player = new AnimTredInstruments.Player();
+			document.getElementById('demo2').style.display = "none";
+			var gfgfhg = 1;
+			var mouseDown = false;
+
+			var pianos = document.getElementById("pianos");
+			var pianoCTX = pianos.getContext("2d");
+			var mousePoint = [0, 0];
+
+			pianos.onmousemove = function(e) {
+				var df = pianos.getBoundingClientRect();
+				mousePoint[0] = e.clientX - df.left;
+				mousePoint[1] = e.clientY - df.top;
+			}
+			pianos.onmousedown = function(e) {
+				e.preventDefault();
+				mouseDown = true;
+			}
+			pianos.onmouseup = function(e) {
+				e.preventDefault();
+				mouseDown = false;
+			}
+			
+			var Adfgdgfd = "01010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010";
+			var xpiano = [];
+			var g = 0;
+			for (var i = 0; i < Adfgdgfd.length; i++) {
+				if (Adfgdgfd[i] == "1") {
+					g += 0;
+					xpiano.push(g + 1);
+				} else {
+					g++;
+					xpiano.push(g);
+				}
+			}
+
+			var notesG = [];
+			for (var i = 0; i < Adfgdgfd.length; i++) {
+				if (Adfgdgfd[i] == "0") {
+					notesG.push(['#fff', ((xpiano[i] - 1) * 14), 0, 13, 80, i]);
+				}
+			}
+			for (var i = 0; i < Adfgdgfd.length; i++) {
+				if (Adfgdgfd[i] == "1") {
+					notesG.push(['#000', (((xpiano[i] - 1) * 14) - 4), 0, 7, 50, i]);
+				}
+			}
+
+			var ridID = -1;
+			var ridIDnote = null;
+
+			setInterval(function () {
+				pianoCTX.clearRect(0, 0, 748, 80);
+				var rid = -1;
+				if (mouseDown) {
+					for (let i = notesG.length - 1; i >= 0; i--) {
+						const note = notesG[i];
+						if ((mousePoint[0] > note[1]) && (mousePoint[0] < (note[1] + (note[3] + 2)))) {
+							if ((mousePoint[1] > note[2]) && (mousePoint[1] < (note[2] + note[4]))) {
+								rid = i;
+								break;
+							}
+						}
+					}
+				} else {
+					if (ridIDnote) {
+						ridIDnote.source.disconnect();
+						ridIDnote = null;
+					}
+				}
+				if (ridID !== rid) {
+					ridID = rid;
+					if (ridID !== -1) {
+						if (ridIDnote) {
+							ridIDnote.source.disconnect();
+							ridIDnote = null;
+						}
+						//ridIDnote = 25;
+						ridIDnote = player.playNote({type: 1, instrument: document.getElementById("demo4").value, pitch: notesG[ridID][5], duration: 3600, volume: 1});
+						//player.playNote({type: 0, drum: notesG[ridID][5], duration: 3600, volume: 1});
+
+					}
+				}
+				for (let i = 0; i < notesG.length; i++) {
+					const note = notesG[i];
+					pianoCTX.fillStyle = note[0];
+					if (rid == i) {
+						pianoCTX.fillStyle = "#ccc";
+					}
+					pianoCTX.fillRect(note[1], note[2], note[3], note[4]);
+				}
+			}, 1000 / 60);
+
+			document.getElementById('demo5').onclick = function () {
+				player.playNote({type: 1, instrument: document.getElementById("demo4").value, pitch: +document.getElementById("demo9").value, duration: 0.25, volume: 1});
+			};
+			document.getElementById('demo7').onclick = function () {
+				player.playNote({type: 0, drum: document.getElementById("demo6").value, pitch: 60, dur: 0.25, volume: 1});
+			};
+			function testtdt() {
+				if (gfgfhg > 128) {	
+					if ((gfgfhg - 128) > 46) {
+						gfgfhg = 0;
+					}
+					player.playNote({type: 0, drum: (gfgfhg - 128) + 27, pitch: 60, dur: 0.25, volume: 1});
+				} else {
+					player.playNote({type: 1, instrument: gfgfhg, pitch: 60, dur: 0.25, volume: 1});
+				}
+				gfgfhg++;
+			}
+			document.getElementById('demo3').onclick = function () {
+				setInterval(testtdt, 100);
+			};
+			player.loadSoundbank().then(function(e) {
+				document.getElementById('demo2').style.display = "";
+				document.getElementById('demo').remove();
+			});
+		</script>
+	</body>
+</html>
