@@ -8,11 +8,16 @@
 			body{
 				font-family: monospace;
 				margin: 0;
-				background-color: #000;
+				background-color: #111;
+			}
+			a{
+				text-decoration-line: underline;
+				cursor: pointer;
+				color: #ddd;
 			}
 			.app{
 				position: absolute;
-				background-color: rgb(0, 0, 0);
+				background-color: #111;
 				margin: 0;
 				padding: 0;
 				top: 0;
@@ -21,7 +26,7 @@
 				height: 100%;
 			}
 			label {
-				color: #fff;
+				color: #ddd;
 			}
 			.hfgfhh2{
 				position: absolute;
@@ -29,9 +34,9 @@
 				left: 50%;
 				transform: translate(-50%, -50%);
 				width: 452px;
-				background-color: black;
+				background-color: #111;
 				padding: 6px;
-				border: 2px solid #fff;
+				border: 2px solid #ddd;
 				border-radius: 12px;
 			}
 			.dgdggggg{
@@ -43,24 +48,25 @@
 			.dgdggggg a{
 				padding: 6px 6px;
 				border-radius: 15px;
-				border: 2px solid rgb(255, 255, 255);
-				background-color: rgb(0, 0, 0);
-				color: rgb(255, 255, 255);
+				border: 2px solid #ddd;
+				background-color: #111;
+				color: #ddd;
 				text-decoration-line: none;
+				transition: 0.2s;
 			}
 			.dgdggggg a:hover{
-				background-color: rgb(255, 255, 255);
-				color: rgb(0, 0, 0);
+				background-color: #ddd;
+				color: #111;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="app">
 			<div class="hfgfhh2">
-				<button id="loadmidifile">Open Mid</button>
+				<a id="loadmidifile">Open Mid</a>
 				<label id="cuer46"></label>
 				<br>
-				<div style="background-color: black;" id="viewe555" title="">
+				<div id="viewe555" title="">
 					<label id="cuer44">YTPMV Cartoon Instruments</label>
 					<br>
 					<label id="cuer">Support RMI,MID,MIDI</label>
@@ -75,20 +81,19 @@
 				<label>Speed:</label>
 				<input type="range" name="" value="1" min="0.25" max="2" step="0.25" id="yrtyryry3" style="width: 50px;">
 				<br>
-				<canvas id="pianos" width="448" height="30" style="background-color: black; border: 2px solid;"></canvas>
+				<canvas id="pianos" width="448" height="30" style="padding: 2px;"></canvas>
 			</div>
 			<div class="dgdggggg">
 				<a href="test.html">Instruments</a>
 				<a href="blackmidi.html">Black midi</a>
 				<a href="visualisation.html">Midi Visualisation</a>
 				<a href="player.html">Midi Player</a>
-				<a href="about.html">About me</a>
+				<a href="about.html">About</a>
 			</div>
 		</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
-				"use strict";
 				var player = new AnimTredInstruments.Player();
 
 				window.player = player;
@@ -340,6 +345,7 @@
 				playstop2.setAttribute("disabled", true);
 				fgdgdfg.setAttribute("disabled", true);
 			}());
+			
 		</script>
 	</body>
 </html>

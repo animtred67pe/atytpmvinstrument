@@ -7,11 +7,11 @@
 		<style>
 			body{
 				font-family: monospace;
-				background-color: black;
-				color: white;
+				background-color: #111;
+				color: #ddd;
 			}
 			a {
-				color: white;
+				color: #ddd;
 			}
 			.app {
 				width: 480px;
@@ -22,13 +22,13 @@
 				padding: 5px;
 			}
 			label {
-				color: rgb(255, 255, 255);
+				color: #ddd;
 			}
 			.hfgfhh2 {
-				background-color: rgb(0, 0, 0);
+				background-color: #111;
 				width: 480px;
 				height: 46px;
-				border: 2px solid #ffffff;
+				border: 2px solid #ddd;
 				padding: 4px;
 				border-radius: 8px;
 			}
@@ -50,142 +50,139 @@
 				</div>	
 			</div>
 			<p>sounds source used: <a href="animtredinstruments.js">view soundbank sources</a></p>
-			<p>program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3 & Visual Studo Code & Sublime 3 & Sublime 4</p>
-			<p style="color: #999999;">(c) 2024, <a style="color: #999999;" href="https://www.youtube.com/channel/UCOvoRZ-BUCN_9vdKQckq9gg" target="_blank">THandPEPeerTDP</a></p>
+			<p>program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3 & Visual Studo Code & Sublime Text 3 & Sublime Text 4</p>
+			<p>website source code available on <a href="https://github.com/animtred67pe/atytpmvinstrument">GitHub.</a></p>
+			<p style="color: #999999;">created by <a style="color: #999999;" href="https://scratch.mit.edu/users/atfsmedia25/" target="_blank">atfsmedia25</a></p>
 		</div>
 		<script src="animtredinstruments.js"></script>
 		<script src="abmidbin.js"></script>
 		<script>
-			(function() {
-				"use strict";
-				var autoplayL = false;
+			(function() {}());
+			var autoplayL = false;
 
-				var player = new AnimTredInstruments.Player();
+			var player = new AnimTredInstruments.Player();
 
-				window.player = player;
+			window.player = player;
 
-				var cuer = document.getElementById('cuer');
-				function mod(x, y) {
-					var r = x % y;
-					if (r / y < 0) {
-					r += y;
-					}
-					return r; 
-				};
-				function getDuraction(num) {
-					var txt = '';
-					if (Math.floor(num) > 3599) {
-						txt += '' + Math.floor(num / 3600);
-						txt += ':';
-						if (mod(Math.floor(num / 60), 60) > 9) {
-							txt += '' + mod(Math.floor(num / 60), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num / 60), 60);
-						}
-						txt += ':';
-						if (mod(Math.floor(num), 60) > 9) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
-					} else {
+			var cuer = document.getElementById('cuer');
+			function mod(x, y) {
+				var r = x % y;
+				if (r / y < 0) r += y;
+				return r; 
+			};
+			function getDuraction(num) {
+				var txt = '';
+				if (Math.floor(num) > 3599) {
+					txt += '' + Math.floor(num / 3600);
+					txt += ':';
+					if (mod(Math.floor(num / 60), 60) > 9) {
 						txt += '' + mod(Math.floor(num / 60), 60);
-						txt += ':';
-						if (mod(Math.floor(num), 60) > 9) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
+					} else {
+						txt += '0' + mod(Math.floor(num / 60), 60);
 					}
-					return txt;
-				}
-				var fgdgdfg = document.getElementById("yrtyryry");
-				var fgdgdfg2 = document.getElementById("yrtyryry2");
-				var playstop = document.getElementById('playstop');
-				var z_dir2 = null;
-				function z_dir() {
-					fgdgdfg.value = (player.currentTime / player.duration) * 100000;
-					var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
-					if (f_ggg !== cuer.innerHTML) {
-						cuer.innerHTML = f_ggg;
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
+					}
+				} else {
+					txt += '' + mod(Math.floor(num / 60), 60);
+					txt += ':';
+					if (mod(Math.floor(num), 60) > 9) {
+						txt += '' + mod(Math.floor(num), 60);
+					} else {
+						txt += '0' + mod(Math.floor(num), 60);
 					}
 				}
-				fgdgdfg2.addEventListener('input', function() {
-					player.setVolume(fgdgdfg2.value / 100);
-				}, false);
-				fgdgdfg.addEventListener('input', function() {
-					player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
-				}, false);
-				player.onended = function () {
-					player.setCurrentTime(0);
+				return txt;
+			}
+			var fgdgdfg = document.getElementById("yrtyryry");
+			var fgdgdfg2 = document.getElementById("yrtyryry2");
+			var playstop = document.getElementById('playstop');
+			var z_dir2 = null;
+			function z_dir() {
+				fgdgdfg.value = (player.currentTime / player.duration) * 100000;
+				var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
+				if (f_ggg !== cuer.innerHTML) {
+					cuer.innerHTML = f_ggg;
+				}
+			}
+			fgdgdfg2.addEventListener('input', function() {
+				player.setVolume(fgdgdfg2.value / 100);
+			}, false);
+			fgdgdfg.addEventListener('input', function() {
+				player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
+			}, false);
+			player.onended = function () {
+				player.setCurrentTime(0);
+				playstop.innerHTML = 'Play';
+			}
+			function URLsearchParams(name, isD) {
+				var _u = new URL(window.location.href);
+				if (isD) {
+					return _u.searchParams.has(name);
+				} else {
+					return _u.searchParams.get(name);
+				}
+			}
+			if (URLsearchParams('offeffect', true)) {
+				player.isEffect = false;
+			}
+			function loadMidiFile(file) {
+				document.querySelector(".hfgfhh2").title = '';
+				var a = new FileReader();
+				a.onload = (function() {
+					if (z_dir2) {
+						clearInterval(z_dir2);
+					}
+					fgdgdfg.value = 0;
+					cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
 					playstop.innerHTML = 'Play';
-				}
-				function URLsearchParams(name, isD) {
-					var _u = new URL(window.location.href);
-					if (isD) {
-						return _u.searchParams.has(name);
-					} else {
-						return _u.searchParams.get(name);
-					}
-				}
-				if (URLsearchParams('offeffect', true)) {
-					player.isEffect = false;
-				}
-				function loadMidiFile(file) {
-					document.querySelector(".hfgfhh2").title = '';
-					var a = new FileReader();
-					a.onload = (function() {
-						if (z_dir2) {
-							clearInterval(z_dir2);
-						}
-						fgdgdfg.value = 0;
-						cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
-						playstop.innerHTML = 'Play';
-						playstop.setAttribute("disabled", true);
-						fgdgdfg.setAttribute("disabled", true);
-						setTimeout(function () {
-							player.loadMid(a.result);
-							fgdgdfg.removeAttribute("disabled");
-							z_dir2 = setInterval(z_dir, 100);
-							player.loadSoundbank(function(e) {
-								playstop.removeAttribute("disabled");
-								if (autoplayL) {
-									playstop.innerHTML = 'Pause';
-									player.play();
-								}
-								autoplayL = true;
-							});
-						}, 2);
-					}).bind(this);
-					a.readAsArrayBuffer(file);
-				}
-				function dropHandler(ev) {
-					ev.preventDefault();
-					if (ev.dataTransfer.items) {
-						[...ev.dataTransfer.items].forEach((item, i) => {
-						if (item.kind === 'file') {
-							const file = item.getAsFile();
-							loadMidiFile(file);
-						}
+					playstop.setAttribute("disabled", true);
+					fgdgdfg.setAttribute("disabled", true);
+					setTimeout(function () {
+						player.loadMid(a.result);
+						fgdgdfg.removeAttribute("disabled");
+						z_dir2 = setInterval(z_dir, 100);
+						player.loadSoundbank(function(e) {
+							playstop.removeAttribute("disabled");
+							if (autoplayL) {
+								playstop.innerHTML = 'Pause';
+								player.play();
+							}
+							autoplayL = true;
 						});
+					}, 2);
+				}).bind(this);
+				a.readAsArrayBuffer(file);
+			}
+			function dropHandler(ev) {
+				ev.preventDefault();
+				if (ev.dataTransfer.items) {
+					[...ev.dataTransfer.items].forEach((item, i) => {
+					if (item.kind === 'file') {
+						const file = item.getAsFile();
+						loadMidiFile(file);
 					}
+					});
 				}
-				function dragOverHandler(ev) {
-					ev.preventDefault();
+			}
+			function dragOverHandler(ev) {
+				ev.preventDefault();
+			}
+			document.body.addEventListener("drop", dropHandler);
+			document.body.addEventListener("dragover", dragOverHandler);
+			playstop.onclick = function () {
+				if (player.isPaused) {
+					playstop.innerHTML = 'Pause';
+					player.play();
+				} else {
+					playstop.innerHTML = 'Play';
+					player.pause();
 				}
-				document.body.addEventListener("drop", dropHandler);
-				document.body.addEventListener("dragover", dragOverHandler);
-				playstop.onclick = function () {
-					if (player.isPaused) {
-						playstop.innerHTML = 'Pause';
-						player.play();
-					} else {
-						playstop.innerHTML = 'Play';
-						player.pause();
-					}
-				}
-				loadMidiFile(new Blob([new Uint8Array(atexplacemidi)]));	
-			}());
+			}
+			loadMidiFile(new Blob([new Uint8Array(atexplacemidi)]));
 		</script>
 	</body>
 </html>

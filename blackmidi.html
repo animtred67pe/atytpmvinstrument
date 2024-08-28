@@ -11,12 +11,12 @@
 				overflow: hidden;
 			}
 			a{
-				color: #fff;
+				color: #ddd;
 			}
 			.app{
 				position: absolute;
-				background-color: rgb(0, 0, 0);
-				color: white;
+				background-color: #111;
+				color: #ddd;
 				margin: 0;
 				padding: 0;
 				top: 0;
@@ -56,7 +56,6 @@
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
-				"use strict";
 				var hfggf2 = document.getElementById("hfggf2f");
 				var hfggf3 = document.getElementById("hfggf3");
 				var yrtyryr6464 = document.getElementById('yrtyryr6464');
@@ -259,9 +258,7 @@
 					var bdfgdgd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 					if (!player.muteMusicr) fgdgdfg.value = (player.currentTime / player.duration) * 100000;
 					var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
-					if (f_ggg !== cuer.innerHTML) {
-						cuer.innerHTML = f_ggg;
-					}
+					if (f_ggg !== cuer.innerHTML) cuer.innerHTML = f_ggg;
 					var fd = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 					var f6fhf = 0;
 					for (var cid = 0; cid < 16; cid++) {
@@ -286,16 +283,12 @@
 					ctx3.fillRect(0, 110, 1000, 512);
 					for (var i = 0; i < 128; i++) {
 						ctx3.fillStyle = "#333";
-						if (Adfgdgfd[i] == '1') {
-							ctx3.fillStyle = "#111";
-						}
+						if (Adfgdgfd[i] == '1') ctx3.fillStyle = "#111";
 						ctx3.fillRect(0, (622 - 4) - (i * 4), 1000, 4);
 					}
 					for (var i = 0; i < 11; i++) {
 						ctx3.fillStyle = "#777";
-						if (i % 2 == 1) {
-							ctx3.fillStyle = "#555";
-						}
+						if (i % 2 == 1) ctx3.fillStyle = "#555";
 						ctx3.fillRect(0, (i * 9), 1000, 9);
 					}
 					ctx3.save();
@@ -315,13 +308,9 @@
 						var track = player.trackQueue[trackID];
 						var noteQueue = track.noteQueue;
 						if (noteQueue.tickOn.length > 0) {
-							while (tracksRender.indexRe < noteQueue.tickOn.length && player.currentPulse >= noteQueue.tickOff[tracksRender.indexRe]) {
-								tracksRender.indexRe++;
-							}
+							while (tracksRender.indexRe < noteQueue.tickOn.length && player.currentPulse >= noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe++;
 							tracksRender.indexRe--;
-							while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) {
-								tracksRender.indexRe--;
-							}
+							while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe--;
 							tracksRender.indexRe++;
 							for (let id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
 								var TINEd = noteQueue.tickOn[id] - player.currentPulse;
@@ -351,49 +340,27 @@
 							var tempoQueue = tracksRender.ref[idxd];
 							if (!tempoQueue) continue;
 							if (tempoQueue.tick.length > 0) {
-								while (tracksRender.tes[idxd] < tempoQueue.tick.length && player.currentPulse > tempoQueue.tick[tracksRender.tes[idxd]]) {
-									tracksRender.tes[idxd]++;
-								}
+								while (tracksRender.tes[idxd] < tempoQueue.tick.length && player.currentPulse > tempoQueue.tick[tracksRender.tes[idxd]]) tracksRender.tes[idxd]++;
 								tracksRender.tes[idxd]--;
-								while (tracksRender.tes[idxd] >= 0 && player.currentPulse <= tempoQueue.tick[tracksRender.tes[idxd]]) {
-									tracksRender.tes[idxd]--;
-								}
+								while (tracksRender.tes[idxd] >= 0 && player.currentPulse <= tempoQueue.tick[tracksRender.tes[idxd]]) tracksRender.tes[idxd]--;
 								tracksRender.tes[idxd]++;
 								for (let id = tracksRender.tes[idxd]; id < tempoQueue.tick.length; id++) {
 									var TINEd = tempoQueue.tick[id] - player.currentPulse;
 									ctx3.fillStyle = "#00f";
 									var fx = 80 + (TINEd * _displaySpeed);
 									var fy = (idxd * 9);
-									if ("channel" in tempoQueue) {
-										ctx3.fillStyle = channelColor[tempoQueue.channel[id]];
-									}
+									if ("channel" in tempoQueue) ctx3.fillStyle = channelColor[tempoQueue.channel[id]];
 									if ((((mousePoint[0] - 260) > fx) && (mousePoint[0] - 260) < (fx + 9)) && (((mousePoint[1] - 78) > fy) && (mousePoint[1] - 78) < (fy + 9))) {
 										ctx3.fillStyle = "#faf";
 										resultT[0] = true;
-										if ("channel" in tempoQueue) {
-											resultT[1] = tempoQueue.channel[id];
-										}
-										if ("control" in tempoQueue) {
-											resultT[3] = tempoQueue.control[id];
-										}
-										if ("value" in tempoQueue) {
-											resultT[2] = tempoQueue.value[id];
-										}
-										if ("setting" in tempoQueue) {
-											resultT[2] = tempoQueue.setting[id];
-										}
-										if ("pitch" in tempoQueue) {
-											resultT[2] = tempoQueue.pitch[id];
-										}
-										if ("program" in tempoQueue) {
-											resultT[2] = tempoQueue.program[id];
-										}
-										if ("key" in tempoQueue) {
-											resultT[2] = tempoQueue.key[id];
-										}
-										if ("text" in tempoQueue) {
-											resultT[2] = tempoQueue.text[id];
-										}
+										if ("channel" in tempoQueue) resultT[1] = tempoQueue.channel[id];
+										if ("control" in tempoQueue) resultT[3] = tempoQueue.control[id];
+										if ("value" in tempoQueue) resultT[2] = tempoQueue.value[id];
+										if ("setting" in tempoQueue) resultT[2] = tempoQueue.setting[id];
+										if ("pitch" in tempoQueue) resultT[2] = tempoQueue.pitch[id];
+										if ("program" in tempoQueue) resultT[2] = tempoQueue.program[id];
+										if ("key" in tempoQueue) resultT[2] = tempoQueue.key[id];
+										if ("text" in tempoQueue) resultT[2] = tempoQueue.text[id];
 									}
 									ctx3.fillRect(fx, fy, 9, 9);
 									if (80 + (TINEd * _displaySpeed) > 1000) break;
@@ -403,19 +370,13 @@
 					}
 					for (var i = 0; i < 128; i++) {
 						ctx3.fillStyle = "#fff";
-						if (Adfgdgfd[i] == '1') {
-							ctx3.fillStyle = "#111";
-						}
-						if (bdfgdgd[i]) {
-							ctx3.fillStyle = bdfgdgd[i];
-						}
+						if (Adfgdgfd[i] == '1') ctx3.fillStyle = "#111";
+						if (bdfgdgd[i]) ctx3.fillStyle = bdfgdgd[i];
 						ctx3.fillRect(0, (622 - 4) - (i * 4), 80, 4);
 					}
 					for (var i = 0; i < 11; i++) {
 						ctx3.fillStyle = "#fff";
-						if (i % 2 == 1) {
-							ctx3.fillStyle = "#ccc";
-						}
+						if (i % 2 == 1) ctx3.fillStyle = "#ccc";
 						ctx3.fillRect(0, (i * 9), 80, 9);
 						ctx3.fillStyle = "#000";
 						ctx3.textAlign = "left";
@@ -427,23 +388,15 @@
 					ctx2.fillStyle = "#000";
 					ctx2.textAlign = "left";
 					ctx2.font = "18px Arial";
-					ctx2.fillText("Tracks: " + player.trackQueue.length + ' Type: ' + player.formatType + ' PPQN: ' + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM notes: " + player.getNoteTracker() + "/" + player.getNoteLength() + " tempos: " + player.getTempoTracker() + "/" + player.getTempoLength() + " Voices: " + f6fhf, 
-						260,
-						25
-					);
+					ctx2.fillText("Tracks: " + player.trackQueue.length + ' Type: ' + player.formatType + ' PPQN: ' + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM notes: " + player.getNoteTracker() + "/" + player.getNoteLength() + " tempos: " + player.getTempoTracker() + "/" + player.getTempoLength() + " Voices: " + f6fhf, 260, 25);
 					ctx2.fillStyle = "#000";
 					ctx2.fillRect(260, (25 + 10), 1000, 18);
 					ctx2.fillStyle = "#0f0";
 					ctx2.fillRect(260, (25 + 10), (player.currentTime / player.duration) * 1000, 18);
-					
 					ctx2.fillStyle = "#bbb";
 					ctx2.textAlign = "left";
 					ctx2.font = "12px Arial";
-					ctx2.fillText(f_ggg + " time: " + player.currentTime + " duration: " + player.duration, 
-						262,
-						(25 + 24)
-					);
-
+					ctx2.fillText(f_ggg + " time: " + player.currentTime + " duration: " + player.duration, 262, (25 + 24));
 					if (resultR[0]) {
 						ctx2.textAlign = "left";
 						ctx2.font = "16px Arial";
@@ -452,29 +405,18 @@
 						ctx2.fillStyle = "#000";
 						ctx2.fillRect(mousePoint[0], mousePoint[1] - 14, rrr, 16);
 						ctx2.fillStyle = "#bbb";
-						ctx2.fillText(rr8,
-							mousePoint[0],
-							mousePoint[1]
-						);
+						ctx2.fillText(rr8, mousePoint[0], mousePoint[1]);
 					}
-
 					if (resultT[0]) {
 						ctx2.fillStyle = "#bbb";
 						ctx2.textAlign = "left";
 						ctx2.font = "16px Arial";
 						if (resultT[3] === null) {
-							ctx2.fillText("Value: " + resultT[2] + " Channel: " + resultT[1],
-								mousePoint[0],
-								mousePoint[1]
-							);
+							ctx2.fillText("Value: " + resultT[2] + " Channel: " + resultT[1], mousePoint[0], mousePoint[1]);
 						} else {
-							ctx2.fillText("Value: " + resultT[2] + " Control: " + resultT[3] + " Channel: " + resultT[1],
-								mousePoint[0],
-								mousePoint[1]
-							);
+							ctx2.fillText("Value: " + resultT[2] + " Control: " + resultT[3] + " Channel: " + resultT[1], mousePoint[0], mousePoint[1]);
 						}
 					}
-
 					var hhh = 0;
 					for (var i = 0; i < 16; i++) {
 						ctx2.fillStyle = channelColor[i];
@@ -483,9 +425,7 @@
 					}
 					for (let index = 0; index < fghfhfbnvnv.length; index++) {
 						fghfhfbnvnv[index] -= 0.06;
-						if (fghfhfbnvnv[index] < 0) {
-							fghfhfbnvnv[index] = 0;
-						}
+						if (fghfhfbnvnv[index] < 0) fghfhfbnvnv[index] = 0;
 					}
 				}
 				fgdgdfg2.addEventListener('input', function() {

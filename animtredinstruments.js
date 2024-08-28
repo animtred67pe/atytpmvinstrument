@@ -1,18 +1,18 @@
-"use strict";
 /*
-YTPMV Cartoon Instruments v1.2
+ * YTPMV Cartoon Instruments v1.2.1
+ * 
+ * The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
+ * program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3 & Visual Studo Code & Sublime Text 3 & Sublime Text 4
+ * 
+ * soundbank size 10MB
+ * 
+ * Made in Peru
+ * 
+ * (c) 2024 ATFSMedia Productions
+ */
 
-the YTPMV Cartoon Sounds My Little Pony & Peppa Pig
-program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3 & Visual Studo Code & Sublime 3 & Sublime 4
-
-soundbank size 10MB
-
-Made in Peru
-
-(c) 2024, THandPEPeerTDP
-*/
 var AnimTredInstruments = (function() {
-	var DRUM_INFO = {
+	const DRUM_INFO = {
 		"snare drum": {name: "SnareDrum"},
 		"crash cymbal": {name: "Crash"},
 		"low floor tom": {name: "Tom_C1"},
@@ -52,7 +52,7 @@ var AnimTredInstruments = (function() {
 		"cowbell": {name: "Cowbell"},
 		"side stick": {name: "SideStick"},
 	}
-	var INSTRUMENT_INFO = {
+	const INSTRUMENT_INFO = {
 		"piano": [
 			{top: 60, name: "Piano_C3", releaseTime: 0.1},
 			{top: 84, name: "Piano_C5", releaseTime: 0.1},
@@ -124,24 +124,24 @@ var AnimTredInstruments = (function() {
 		"trumpet": [{top: 60, name: "Trumpet", loop: true, loopStart: 1.60053, loopEnd: 1.63500}],
 		"trumbone": [{top: 60, name: "Trumbone", loop: true, loopStart: 0.236, loopEnd: 0.278}],
 	}
-	var SOUNDBANK_FILES = {
+	const SOUNDBANK_FILES = {
 		// My little pony friendship is magic season 1 episode 18 _The Show Stoppers
 		// https://youtube.com/watch?v=qVTGbB7i8iw
 		// 11:27
 		"Piano_C3": "instruments/mlp-s1-89-C3.wav",
 		"Piano_C5": "instruments/mlp-s1-89-C5.wav",
-
+	
 		// My Little Pony _ Friendship is Magic Season 1 Episode 17
 		// https://youtube.com/watch?v=YppmFQboQ-s
 		// 13:02
 		"Marimba_C3": "instruments/mlp-s1-fim-30_C3.wav",
 		"Marimba_C5": "instruments/mlp-s1-fim-30_C5.wav",
-
+	
 		// My Little Pony Friendship Is Magic Season 7 Episode 9
 		// https://youtube.com/watch?v=ttQuB6IJcek
 		"OverdrivenGuitar": "instruments/mlp-24-1.wav",
 		"ElectricGuitar": "instruments/mlp-s7e9-e-guitar.wav",
-
+	
 		// Daddy Pig Plays The Drums!  | @Peppa Pig - Official Channel
 		// https://youtu.be/aHEhixFSt-0
 		"TaikoDrum": "instruments/peppa-pig-drums-53.wav",
@@ -151,7 +151,7 @@ var AnimTredInstruments = (function() {
 		"Bongo_low": "drums/peppa-pig-drums-30-0.wav",
 		"Bongo_hi": "drums/peppa-pig-drums-30-1.wav",
 		"Tambourine": "drums/peppa-pig-drums-51.wav",
-
+	
 		// My Little Pony Season 5 Episode 9
 		// https://youtube.com/watch?v=lzpUO8-Xowk
 		"Warm_C3": "instruments/mlp-fim-s5e9-750-1-C3.wav",
@@ -166,61 +166,61 @@ var AnimTredInstruments = (function() {
 		"Tom_C4": "drums/mlp-fim-s5e9-471-4.wav",
 		"Tom_C5": "drums/mlp-fim-s5e9-471-5.wav",
 		"Tom_C6": "drums/mlp-fim-s5e9-471-6.wav",
-
+	
 		// Pinkie the Babysitter (Baby Cakes) | MLP: FiM [HD]
 		// https://youtu.be/TJ6w9LRH7ts
 		"SnareDrum": "drums/pinkie-pie-60.wav",
 		"Crash": "drums/pinkie-pie-61.wav",
-
+	
 		// Friendship is Randomly Musical 8
 		// https://youtu.be/JQtbvAmwYVI
 		"Cuica": "drums/derpy-67-0.wav",
 		"Cuica_low": "drums/derpy-67-1.wav",
-
+	
 		// When I'm Sweeping
 		// https://youtu.be/u9l9F2H1yn0
 		"HandClap": "drums/rainbowdash-applejack-handclap.wav",
-
+	
 		// Friendship is Musical Season 2 First Half
 		// https://youtu.be/yqYQoVwFn4E?t=143
 		"Bass_C2": "instruments/daisy-143-C1.wav",
 		"Bass_C3": "instruments/daisy-143-C2.wav",
-
+	
 		// Bright Mac and Pear Butter's Love Story (The Perfect Pear) | MLP: FiM [HD]
 		// https://youtu.be/Flv6_BrwPVU?t=193
 		"Guitar": "instruments/mlp-pearbutter-193.wav",
-
+	
 		// My Little Pony: Friendship is Magic - Season 4 Episode 3
 		// https://youtu.be/oqaH8rTKu8M?t=820
 		"ElectricPiano": "instruments/mlp-s4e3-820-1.wav",
 		"ChurchOrgan": "instruments/mlp-s4e3-820-2.wav",
-
+	
 		// Friendship is Randomly Musical 5
 		// https://youtu.be/uoHPvvPGcAw?t=77
 		"Bassoon_C1": "instruments/pinkie-pie-77-C1.wav",
 		"Bassoon_C2": "instruments/pinkie-pie-77-C2.wav",
 		"Bassoon_C3": "instruments/pinkie-pie-77-C3.wav",
-
+	
 		// My Little Pony : Friendship is Magic Season 1 Episode 22
 		// https://youtu.be/csuoJQH6Axs?t=176
 		"Organ": "instruments/mlp-s1e22-176.wav",
-
+	
 		// My little pony-season 8 episode 10:The Break Up Breakdown
 		// https://youtu.be/S3sIFvA2b-U
 		"OpenHat": "drums/mlp-fim-s8e10-grass-398-1.wav",
 		"ClosedHat": "drums/mlp-fim-s8e10-grass-398-2.wav",
 		"Claves": "drums/mlp-fim-s8e10-22-1.wav",
 		"Vibraslap": "drums/mlp-fim-s8e10-22-2.wav",
-
+	
 		// My Little Pony Friendship is Magic Season 5 Episode 6 Appleloosa's Most Wanted
 		// 3:55
 		// https://youtube.com/watch?v=T-rHg4xmKAo
 		"Harmonica": "instruments/mlp-s5e6-235.wav",
-
+	
 		// My Little Pony Friendship Is Magic Season 4 Episode 21 Testing, 1, 2, 3 HD
 		// https://youtu.be/RGIFQn8rlXw?t=282
 		"Clarinet": "instruments/mlp-fim-s4e21-282.wav",
-
+	
 		// Peppa Pig - Musical Instruments (full episode)
 		// https://youtu.be/n4gsHAH_q6s
 		"Violin": "instruments/peppa-pig-mi-69-violin.wav",
@@ -231,70 +231,70 @@ var AnimTredInstruments = (function() {
 		"Metallic": "instruments/peppa-pig-mi-69-metallic.wav",
 		"Timpani": "instruments/peppa-pig-mi-114.wav",
 		"Accordion": "instruments/peppa-pig-mi-131.wav",
-
+	
 		// Friendship is Musical | Season 1 Episode 13-14
 		// https://youtu.be/QHOjFbbbrXQ?t=40
 		"SynthPad": "instruments/mlp-s1e13-fim-40.wav",
-
+	
 		// Whistling Competition Between Peppa Pig and Suzy Sheep
 		// https://youtu.be/9ptrXeS7CaE?t=4
 		"Whistle": "instruments/peppa-pig-w-4.wav",
-
+	
 		// MLP FIM: Season 8 Episode 26
 		// https://youtu.be/u5Cbd92uQ80?t=850
 		"ReverseCymbal": "instruments/mlp-fim-s8e26-850.wav",
-
+	
 		// My Little Pony Friendship is Magic season 2 episode 22 "Hurricane Fluttershy"
 		// https://youtu.be/YK7vf0OkmRQ?t=953
 		"Saxophone": "instruments/mlp-fim-s2e22-953.wav",
-
+	
 		// Friendship is Musical | Season 5 (First Half)
 		// https://youtu.be/5pcCX7904d4?t=117
 		"Flute": "instruments/mlp-s5-117.wav",
-
+	
 		// Friendship is Musical | Season 3
 		// https://youtu.be/7WFZEuvZG0s
 		"Pizzicato": "instruments/mlp-s3-applebloom-168.wav",
 		"SteelDrum": "instruments/mlp-s3-fim-5.wav",
 		"AcousticBassDrum": "drums/pinkie-pie-83.wav",
-
+	
 		// Peppa Pig Makes Music Instrument with Marbles | Peppa Pig Official Family Kids Cartoon
 		// https://youtu.be/eGb3Edtrm1s
 		"WoodenFlute": "instruments/peppa-pig-mmiwm-144.wav",
 		"OpenConga": "drums/peppa-pig-mmiwm-64-0.wav",
 		"MuteConga": "drums/peppa-pig-mmiwm-64-1.wav",
 		"Conga": "drums/peppa-pig-mmiwm-64-2.wav",
-
+	
 		// Friendship is Randomly Musical 1
 		// https://youtube.com/watch?v=nX1WTsUjCLM&t=67s
 		"HiWoodBlock": "drums/twilight-wood-67-0.wav",
 		"LowWoodBlock": "drums/twilight-wood-67-1.wav",
-
+	
 		// [Tridashie] Friendship is Randomly Musical 2 [REUPLOAD]
 		// https://youtu.be/y7ho58raWac?t=30
 		"Triangle": "drums/applejack-30-0.wav",
 		"MuteTriangle": "drums/applejack-30-1.wav",
-
+	
 		// MLP-FiM S1E22 - A Bird in the Hoof
 		// https://youtube.com/watch?v=YN34_LDX45M
 		"SideStick": "drums/mlp-s1e22-30s.wav",
-
+	
 		// My Little Pony_ Friendship is Magic _ The Return of Harmony Part 1 & 2 _ FULL EPISODE _ MLP
 		// https://youtube.com/watch?v=-tnXN5cnbas
 		"Timbale_High": "drums/mlp-return-harmony-27-50-1.wav",
 		"Timbale_Low": "drums/mlp-return-harmony-27-50-2.wav",
-
+	
 		// My Little Pony friendship is magic season 2 episode 7 "May the Best Pet Win!"
 		// https://youtu.be/GpSNka9ft-w?t=425
 		"LongWhistle": "drums/mlp-fim-s2e7-425-0.wav",
 		"ShortWhistle": "drums/mlp-fim-s2e7-425-1.wav",
-
+	
 		// My Little Pony: FIM Season 9 Episode 15 (2,4,6 Greaaat)
 		// https://youtu.be/MluslXu-Pnk?t=937
 		"Agogo": "instruments/mlp-fim-s9e15-937-agogo.wav",
 		"HighAgogo": "drums/mlp-fim-s9e15-937-0.wav",
 		"LowAgogo": "drums/mlp-fim-s9e15-937-1.wav",
-
+	
 		// Friendship is Musical | Season 1 Episode 21-22
 		// https://youtu.be/UZRoOAzI3wo
 		"Choir": "instruments/mlp-fim-s1-fluttershy-1.wav",
@@ -302,41 +302,41 @@ var AnimTredInstruments = (function() {
 		"SynthLead_C3": "instruments/mlp-s1e21-fim-3-C3.wav",
 		"SynthLead_C4": "instruments/mlp-s1e21-fim-3-C4.wav",
 		"SynthLead_C5": "instruments/mlp-s1e21-fim-3-C5.wav",
-
+	
 		// My Little Pony Friendship is Magic season 2 episode 19 "Putting Your Hoof Down"
 		// https://youtu.be/qjhL0p3dHwM?t=38
 		"Cowbell": "drums/mlp-s2e19-38.wav", // [Fixed]
-
+	
 		// My little pony season 8 episode 4(Fake it 'Til you make it)
 		// https://youtu.be/HGK7o5TVVF4?t=1300
 		"Cabasa": "drums/mlp-s8e4-1300.wav",
-
+	
 		// My Little Pony friendship is magic season 2 episode 10 "Secret of My Excess"
 		// https://youtu.be/m9xyYfih99Q?t=49
 		"Vibraphone": "instruments/mlp-fim-s2e10-49.wav",
-
+	
 		// Friendship is Randomly Musical 3 [REUPLOAD]
 		// https://youtu.be/rG5ukrHNqE4?t=14
 		"MusicBox": "instruments/pinkie-pie-14.wav",
-
+	
 		// Friendship is Musical | Season 1 Episode 5-6
 		// https://youtu.be/EXrDap-pIdk?t=109
 		"OrchestraHit": "instruments/mlp-s1-fim-109.wav",
-
+	
 		// [1080p] My little Pony Friendship is Magic Season 6 Episode 14 The Cart Before the Ponies
 		// https://youtu.be/8pKhEvZRW34?t=915
 		"Trumpet": "instruments/mlp-s6e14-915_01.wav",
-
+	
 		// My Little Pony: friendship is magic | Swarm of the Century | FULL EPISODE | MLP
 		// https://youtu.be/ZEzgWjBMfzM?t=1290
 		"Trumbone": "instruments/mlp-swarm-od-the-century-1290.wav",
-
+	
 		// My Little Pony _ Friendship is Magic Season 1 Episode 14
 		// at 4:14
 		// https://youtube.com/watch?v=kEc4xjNGoag
 		"Sitar": "instruments/mlp-s1e14-414.wav"
 	}
-	var MIDI_INSTRUMENT = [
+	const MIDI_INSTRUMENT = [
 		"piano", "piano", "piano", "piano",
 		"electric piano", "electric piano", "piano", "piano",
 		"marimba", "vibraphone", "music box", "vibraphone",
@@ -370,12 +370,12 @@ var AnimTredInstruments = (function() {
 		"electric guitar", "wooden flute", "steel drum", "wooden flute",
 		"vibraphone", "steel drum", "choir", "steel drum"
 	];
-	var DRUMS_MIDI = [
+	const DRUMS_MIDI = [
 		null, null, null, null, null, null, null,
 		null, null, null, null, null, null, null,
 		null, null, null, null, null, null, null,
 		null, null, null, null, null, null, 
-
+	
 		"acoustic bass drum",
 		"open hi hat",
 		null,
@@ -439,24 +439,9 @@ var AnimTredInstruments = (function() {
 		null,
 		null
 	];
-	var soundbank_assets = {};
-
-	(function() {
-		var instrumentSounds = [{"name": "daisy-143-C1","assetId": "0d1b93e80d5e129c0d194b6e27cc4096","dataFormat": "wav","rate": 48000,"sampleCount": 240000,"md5ext": "0d1b93e80d5e129c0d194b6e27cc4096.wav"},{"name": "mlp-24-1","assetId": "c16aced44399d59a26ca50834e4f1f1d","dataFormat": "wav","rate": 48000,"sampleCount": 46081,"md5ext": "c16aced44399d59a26ca50834e4f1f1d.wav"},{"name": "daisy-143-C2","assetId": "b6b7eb496d8becd38d3b5e0ff91508af","dataFormat": "wav","rate": 48000,"sampleCount": 144000,"md5ext": "b6b7eb496d8becd38d3b5e0ff91508af.wav"},{"name": "mlp-applebloom-89-C4","assetId": "62dc5adcfb1f7790daaf98470fe30d9c","dataFormat": "wav","rate": 48000,"sampleCount": 73200,"md5ext": "62dc5adcfb1f7790daaf98470fe30d9c.wav"},{"name": "mlp-applebloom-89-C5","assetId": "4aaf5f10eda78f397b06868e90ed8371","dataFormat": "wav","rate": 48000,"sampleCount": 36582,"md5ext": "4aaf5f10eda78f397b06868e90ed8371.wav"},{"name": "mlp-fim-s1-fluttershy-1","assetId": "d99c741cbd79a2d5766f052b6d78cc38","dataFormat": "wav","rate": 48000,"sampleCount": 31619,"md5ext": "d99c741cbd79a2d5766f052b6d78cc38.wav"},{"name": "mlp-fim-s2e10-49","assetId": "cb1100d9a0ca1ce4e222def208856377","dataFormat": "wav","rate": 48000,"sampleCount": 212833,"md5ext": "cb1100d9a0ca1ce4e222def208856377.wav"},{"name": "mlp-fim-s2e22-953","assetId": "34048216db9312a45be97077da12d3e4","dataFormat": "wav","rate": 48000,"sampleCount": 96000,"md5ext": "34048216db9312a45be97077da12d3e4.wav"},{"name": "mlp-fim-s4e21-282","assetId": "b71946ab50faca683beda4595123df38","dataFormat": "wav","rate": 48000,"sampleCount": 37702,"md5ext": "b71946ab50faca683beda4595123df38.wav"},{"name": "mlp-fim-s5e9-750-1","assetId": "6b680ba852bc116f78601bd6a42ad87f","dataFormat": "wav","rate": 48000,"sampleCount": 242203,"md5ext": "6b680ba852bc116f78601bd6a42ad87f.wav"},{"name": "mlp-fim-s5e9-750-1-C3","assetId": "6b680ba852bc116f78601bd6a42ad87f","dataFormat": "wav","rate": 48000,"sampleCount": 242203,"md5ext": "6b680ba852bc116f78601bd6a42ad87f.wav"},{"name": "mlp-fim-s5e9-750-1-C4","assetId": "ad7cba109a0fad279154450d94800b21","dataFormat": "wav","rate": 48000,"sampleCount": 121099,"md5ext": "ad7cba109a0fad279154450d94800b21.wav"},{"name": "mlp-fim-s5e9-750-2","assetId": "841e263e3a41459cf47c900d5ea0fed1","dataFormat": "wav","rate": 48000,"sampleCount": 242203,"md5ext": "841e263e3a41459cf47c900d5ea0fed1.wav"},{"name": "mlp-fim-s5e9-750-2-C3","assetId": "53a055b2a0bc2bf0255cdc5bcabd0c52","dataFormat": "wav","rate": 48000,"sampleCount": 242203,"md5ext": "53a055b2a0bc2bf0255cdc5bcabd0c52.wav"},{"name": "mlp-fim-s5e9-750-2-C4","assetId": "9cdc2cd5a17a3614ca6fbb39c255d6b4","dataFormat": "wav","rate": 48000,"sampleCount": 121100,"md5ext": "9cdc2cd5a17a3614ca6fbb39c255d6b4.wav"},{"name": "mlp-fim-s8e26-850","assetId": "f1900ebd94fbc8fb401b8e5f197750da","dataFormat": "wav","rate": 48000,"sampleCount": 119667,"md5ext": "f1900ebd94fbc8fb401b8e5f197750da.wav"},{"name": "mlp-fim-s9e15-937-agogo","assetId": "c72af7a397817080468a6dda808b2f97","dataFormat": "wav","rate": 48000,"sampleCount": 15120,"md5ext": "c72af7a397817080468a6dda808b2f97.wav"},{"name": "mlp-pearbutter-193","assetId": "170e1b56fa481ffb3947887e30676ab6","dataFormat": "wav","rate": 48000,"sampleCount": 72053,"md5ext": "170e1b56fa481ffb3947887e30676ab6.wav"},{"name": "mlp-s1-89-C3","assetId": "5e5e523a3894f113db87096d41b1ab04","dataFormat": "wav","rate": 48000,"sampleCount": 101176,"md5ext": "5e5e523a3894f113db87096d41b1ab04.wav"},{"name": "mlp-s1-89-C5","assetId": "d08cf60867cd78b296bbe7b6b8b07832","dataFormat": "wav","rate": 48000,"sampleCount": 25293,"md5ext": "d08cf60867cd78b296bbe7b6b8b07832.wav"},{"name": "mlp-s1e13-fim-40","assetId": "ae2f518b2593e9966ba1dd750cf410bd","dataFormat": "wav","rate": 48000,"sampleCount": 96000,"md5ext": "ae2f518b2593e9966ba1dd750cf410bd.wav"},{"name": "mlp-s1e14-414","assetId": "cff6167b38adea61fb95cc083508f366","dataFormat": "wav","rate": 48000,"sampleCount": 112112,"md5ext": "cff6167b38adea61fb95cc083508f366.wav"},{"name": "mlp-s1e21-fim-3-C2","assetId": "fcc03249801c1593e408491cac639a8d","dataFormat": "wav","rate": 48000,"sampleCount": 74282,"md5ext": "fcc03249801c1593e408491cac639a8d.wav"},{"name": "mlp-s1e21-fim-3-C3","assetId": "898dac455a77645d7f74a9e2c4082200","dataFormat": "wav","rate": 48000,"sampleCount": 74282,"md5ext": "898dac455a77645d7f74a9e2c4082200.wav"},{"name": "mlp-s1e21-fim-3-C4","assetId": "0c6d094b2b59dbd57829cfc4cf7d26ba","dataFormat": "wav","rate": 48000,"sampleCount": 74282,"md5ext": "0c6d094b2b59dbd57829cfc4cf7d26ba.wav"},{"name": "mlp-s1e21-fim-3-C5","assetId": "3770d9935ab961c6eaf8b25a58581a52","dataFormat": "wav","rate": 48000,"sampleCount": 74282,"md5ext": "3770d9935ab961c6eaf8b25a58581a52.wav"},{"name": "mlp-s1e22-176","assetId": "07e339211ac04ee9da89038f0e42414b","dataFormat": "wav","rate": 48000,"sampleCount": 152497,"md5ext": "07e339211ac04ee9da89038f0e42414b.wav"},{"name": "mlp-s1-fim-30","assetId": "c609455a42c25793b5fa54c172fa9980","dataFormat": "wav","rate": 48000,"sampleCount": 65859,"md5ext": "c609455a42c25793b5fa54c172fa9980.wav"},{"name": "mlp-s1-fim-30_C5","assetId": "e1975fd06239ea68435c6ec1e12a0b26","dataFormat": "wav","rate": 48000,"sampleCount": 16463,"md5ext": "e1975fd06239ea68435c6ec1e12a0b26.wav"},{"name": "mlp-s1-fim-30_C3","assetId": "c609455a42c25793b5fa54c172fa9980","dataFormat": "wav","rate": 48000,"sampleCount": 65859,"md5ext": "c609455a42c25793b5fa54c172fa9980.wav"},{"name": "mlp-s1-fim-109","assetId": "1f702ded8069828bded6aa97f5e4bd93","dataFormat": "wav","rate": 48000,"sampleCount": 41667,"md5ext": "1f702ded8069828bded6aa97f5e4bd93.wav"},{"name": "mlp-s3-applebloom-168","assetId": "9cac8790bbc6222b85306507d716e15b","dataFormat": "wav","rate": 48000,"sampleCount": 53860,"md5ext": "9cac8790bbc6222b85306507d716e15b.wav"},{"name": "mlp-s3-fim-5","assetId": "e063e23ca9e693a176e95ec75655699b","dataFormat": "wav","rate": 48000,"sampleCount": 92353,"md5ext": "e063e23ca9e693a176e95ec75655699b.wav"},{"name": "mlp-s4e3-820-1","assetId": "f8df20f605e0a4fca65eff7d384a41b8","dataFormat": "wav","rate": 48000,"sampleCount": 149713,"md5ext": "f8df20f605e0a4fca65eff7d384a41b8.wav"},{"name": "mlp-s4e3-820-2","assetId": "78236d8d071aedc9ed1017cf63f47b21","dataFormat": "wav","rate": 48000,"sampleCount": 36519,"md5ext": "78236d8d071aedc9ed1017cf63f47b21.wav"},{"name": "mlp-s5-117","assetId": "dbd1924f19f2ac438e16d974081be19b","dataFormat": "wav","rate": 48000,"sampleCount": 199980,"md5ext": "dbd1924f19f2ac438e16d974081be19b.wav"},{"name": "mlp-s5e6-235","assetId": "e403fbd202dc8eec84e3bc1a3ac8a2fc","dataFormat": "wav","rate": 48000,"sampleCount": 14154,"md5ext": "e403fbd202dc8eec84e3bc1a3ac8a2fc.wav"},{"name": "mlp-s5e9-471-1","assetId": "483a72cc422c92a0100b057a5e7a632e","dataFormat": "wav","rate": 48000,"sampleCount": 9426,"md5ext": "483a72cc422c92a0100b057a5e7a632e.wav"},{"name": "mlp-s5e9-471-2","assetId": "97f1317984ea2370a66075677191285e","dataFormat": "wav","rate": 48000,"sampleCount": 16996,"md5ext": "97f1317984ea2370a66075677191285e.wav"},{"name": "mlp-s6e14-915","assetId": "9bf158fa8ad89b9d9214f16ec7f0fefa","dataFormat": "wav","rate": 48000,"sampleCount": 128931,"md5ext": "9bf158fa8ad89b9d9214f16ec7f0fefa.wav"},{"name": "mlp-s6e14-915_01","assetId": "5b27bf730c485bc01a91f0f96d8a0dfe","dataFormat": "wav","rate": 48000,"sampleCount": 81252,"md5ext": "5b27bf730c485bc01a91f0f96d8a0dfe.wav"},{"name": "mlp-swarm-od-the-century-1290","assetId": "1962bb72779d5f3688f362dc287fafa4","dataFormat": "wav","rate": 48000,"sampleCount": 13766,"md5ext": "1962bb72779d5f3688f362dc287fafa4.wav"},{"name": "mlp-s7e9-e-guitar","assetId": "aaf38041260526a9344ca85b2abbbdb0","dataFormat": "wav","rate": 48000,"sampleCount": 80400,"md5ext": "aaf38041260526a9344ca85b2abbbdb0.wav"},{"name": "peppa-pig-drums-53","assetId": "aaf24557edb702afd970528eecf98cd8","dataFormat": "wav","rate": 48000,"sampleCount": 17714,"md5ext": "aaf24557edb702afd970528eecf98cd8.wav"},{"name": "peppa-pig-mi-69-cello_C3","assetId": "8acf2e9bccb6f789f54b54242cf73246","dataFormat": "wav","rate": 48000,"sampleCount": 98935,"md5ext": "8acf2e9bccb6f789f54b54242cf73246.wav"},{"name": "peppa-pig-mi-69-cello_C4","assetId": "3895a69e2412a9786cea28d5e1a2cbe2","dataFormat": "wav","rate": 48000,"sampleCount": 98487,"md5ext": "3895a69e2412a9786cea28d5e1a2cbe2.wav"},{"name": "peppa-pig-mi-69-metallic","assetId": "cb61f66ea52b5cbe65ed98d3ec471cc3","dataFormat": "wav","rate": 48000,"sampleCount": 243840,"md5ext": "cb61f66ea52b5cbe65ed98d3ec471cc3.wav"},{"name": "peppa-pig-mi-69-tm1","assetId": "371b8f39f49f24345e72461c05c84985","dataFormat": "wav","rate": 48000,"sampleCount": 98306,"md5ext": "371b8f39f49f24345e72461c05c84985.wav"},{"name": "peppa-pig-mi-69-tm2","assetId": "89b858396b73db37240c2ae6a9981523","dataFormat": "wav","rate": 48000,"sampleCount": 95760,"md5ext": "89b858396b73db37240c2ae6a9981523.wav"},{"name": "peppa-pig-mi-69-violin","assetId": "b1f45f4a0b869894e243d1472cb95256","dataFormat": "wav","rate": 48000,"sampleCount": 97347,"md5ext": "b1f45f4a0b869894e243d1472cb95256.wav"},{"name": "peppa-pig-mi-114","assetId": "beeb4904c9d4bc097ac5c29f2f2d5c79","dataFormat": "wav","rate": 48000,"sampleCount": 5929,"md5ext": "beeb4904c9d4bc097ac5c29f2f2d5c79.wav"},{"name": "peppa-pig-mi-131","assetId": "c8a7bffe7ccdd01f10f6552720fae584","dataFormat": "wav","rate": 48000,"sampleCount": 13074,"md5ext": "c8a7bffe7ccdd01f10f6552720fae584.wav"},{"name": "peppa-pig-mmiwm-144","assetId": "4bc790e28d214be8d59ad3f835cbac55","dataFormat": "wav","rate": 48000,"sampleCount": 58321,"md5ext": "4bc790e28d214be8d59ad3f835cbac55.wav"},{"name": "peppa-pig-w-4","assetId": "01ce02bd6fb2750b89105e7a19db0f26","dataFormat": "wav","rate": 48000,"sampleCount": 70887,"md5ext": "01ce02bd6fb2750b89105e7a19db0f26.wav"},{"name": "pinkie-pie-14","assetId": "821b78a4929ffece67e7939fc095804d","dataFormat": "wav","rate": 48000,"sampleCount": 40320,"md5ext": "821b78a4929ffece67e7939fc095804d.wav"},{"name": "pinkie-pie-77-C1","assetId": "eb853a2b8d3c3a2a1c27067595d914e5","dataFormat": "wav","rate": 48000,"sampleCount": 16495,"md5ext": "eb853a2b8d3c3a2a1c27067595d914e5.wav"},{"name": "pinkie-pie-77-C2","assetId": "f5a61bb5d391542647d28bf453dcb653","dataFormat": "wav","rate": 48000,"sampleCount": 16495,"md5ext": "f5a61bb5d391542647d28bf453dcb653.wav"},{"name": "pinkie-pie-77-C3","assetId": "7e381bb8bd3c0a893db063c1049f214c","dataFormat": "wav","rate": 48000,"sampleCount": 16495,"md5ext": "7e381bb8bd3c0a893db063c1049f214c.wav"}];
-		var soundDrums = [{"name": "applejack-30-0","assetId": "9f7c6c5874d49acf0e7c91121b34a1c6","dataFormat": "wav","rate": 48000,"sampleCount": 31301,"md5ext": "9f7c6c5874d49acf0e7c91121b34a1c6.wav"},{"name": "applejack-30-1","assetId": "30e99f8c835da33d643aeec206e75930","dataFormat": "wav","rate": 48000,"sampleCount": 5973,"md5ext": "30e99f8c835da33d643aeec206e75930.wav"},{"name": "derpy-67-0","assetId": "99d9d2e9a812c705a4e95f4d8ddb6d18","dataFormat": "wav","rate": 48000,"sampleCount": 11918,"md5ext": "99d9d2e9a812c705a4e95f4d8ddb6d18.wav"},{"name": "derpy-67-1","assetId": "cd13884edc3089d8260076aa05d23012","dataFormat": "wav","rate": 48000,"sampleCount": 8508,"md5ext": "cd13884edc3089d8260076aa05d23012.wav"},{"name": "mlp-fim-s2e7-425-0","assetId": "f7852c1c375e26d10b0b363ffb1979cc","dataFormat": "wav","rate": 48000,"sampleCount": 13109,"md5ext": "f7852c1c375e26d10b0b363ffb1979cc.wav"},{"name": "mlp-fim-s2e7-425-1","assetId": "9aa1eafd5f2c94ed0499cbd7e809ef3d","dataFormat": "wav","rate": 48000,"sampleCount": 4560,"md5ext": "9aa1eafd5f2c94ed0499cbd7e809ef3d.wav"},{"name": "mlp-fim-s5e9-471-1","assetId": "3399eb36378337faf44d314a5a651408","dataFormat": "wav","rate": 48000,"sampleCount": 12871,"md5ext": "3399eb36378337faf44d314a5a651408.wav"},{"name": "mlp-fim-s5e9-471-2","assetId": "f70c072f11e62ae5bd35970859c87c5c","dataFormat": "wav","rate": 48000,"sampleCount": 11679,"md5ext": "f70c072f11e62ae5bd35970859c87c5c.wav"},{"name": "mlp-fim-s5e9-471-3","assetId": "3fb828bd185c7421ed744498f75fa202","dataFormat": "wav","rate": 48000,"sampleCount": 10080,"md5ext": "3fb828bd185c7421ed744498f75fa202.wav"},{"name": "mlp-fim-s5e9-471-4","assetId": "c870a6759cee410a140fe4fab6104307","dataFormat": "wav","rate": 48000,"sampleCount": 6167,"md5ext": "c870a6759cee410a140fe4fab6104307.wav"},{"name": "mlp-fim-s5e9-471-5","assetId": "2be8b42451c252edd02fbfe606eb98b1","dataFormat": "wav","rate": 48000,"sampleCount": 5959,"md5ext": "2be8b42451c252edd02fbfe606eb98b1.wav"},{"name": "mlp-fim-s5e9-471-6","assetId": "2250ba9a0fb985b915256d4cb5835b96","dataFormat": "wav","rate": 48000,"sampleCount": 5006,"md5ext": "2250ba9a0fb985b915256d4cb5835b96.wav"},{"name": "mlp-fim-s8e10-22-1","assetId": "7ccd83d420bdd72483ffd5f1abfef04b","dataFormat": "wav","rate": 48000,"sampleCount": 2503,"md5ext": "7ccd83d420bdd72483ffd5f1abfef04b.wav"},{"name": "mlp-fim-s8e10-22-2","assetId": "8fcc94298787f1372cd142e187740ab0","dataFormat": "wav","rate": 48000,"sampleCount": 31104,"md5ext": "8fcc94298787f1372cd142e187740ab0.wav"},{"name": "mlp-fim-s8e10-grass-398-1","assetId": "c1f9eef2ee8ecedea708c522e0f4d1a6","dataFormat": "wav","rate": 48000,"sampleCount": 14705,"md5ext": "c1f9eef2ee8ecedea708c522e0f4d1a6.wav"},{"name": "mlp-fim-s8e10-grass-398-2","assetId": "9f85b321b9205333a9ec2f8128a5b6f4","dataFormat": "wav","rate": 48000,"sampleCount": 4148,"md5ext": "9f85b321b9205333a9ec2f8128a5b6f4.wav"},{"name": "mlp-fim-s9e15-937-0","assetId": "31ab82c3bf8858ee34c511339229f19e","dataFormat": "wav","rate": 48000,"sampleCount": 5692,"md5ext": "31ab82c3bf8858ee34c511339229f19e.wav"},{"name": "mlp-fim-s9e15-937-1","assetId": "fa445e68b9af5e588078f14834f6a38b","dataFormat": "wav","rate": 48000,"sampleCount": 7680,"md5ext": "fa445e68b9af5e588078f14834f6a38b.wav"},{"name": "mlp-return-harmony-27-50-1","assetId": "2205c1eaf7f96e490fbdafef73c03561","dataFormat": "wav","rate": 48000,"sampleCount": 10017,"md5ext": "2205c1eaf7f96e490fbdafef73c03561.wav"},{"name": "mlp-return-harmony-27-50-2","assetId": "349d2ef36b389a9c48da8a68a689b546","dataFormat": "wav","rate": 48000,"sampleCount": 16622,"md5ext": "349d2ef36b389a9c48da8a68a689b546.wav"},{"name": "mlp-s1e22-30s","assetId": "cff73474842dbe09a95e5110c60fbcda","dataFormat": "wav","rate": 48000,"sampleCount": 1634,"md5ext": "cff73474842dbe09a95e5110c60fbcda.wav"},{"name": "mlp-s2e19-38","assetId": "eefb720113242147defcb054a4829886","dataFormat": "wav","rate": 48000,"sampleCount": 10410,"md5ext": "eefb720113242147defcb054a4829886.wav"},{"name": "mlp-s8e4-1300","assetId": "c89506c8330f14a1d9e16a5ac693db4f","dataFormat": "wav","rate": 48000,"sampleCount": 7799,"md5ext": "c89506c8330f14a1d9e16a5ac693db4f.wav"},{"name": "peppa-pig-drums-30-0","assetId": "f18374afe00393160b4235ad3cdbb649","dataFormat": "wav","rate": 48000,"sampleCount": 20461,"md5ext": "f18374afe00393160b4235ad3cdbb649.wav"},{"name": "peppa-pig-drums-30-1","assetId": "7334f34398c5e092ee6b52aef1b6c890","dataFormat": "wav","rate": 48000,"sampleCount": 17236,"md5ext": "7334f34398c5e092ee6b52aef1b6c890.wav"},{"name": "peppa-pig-drums-51","assetId": "9137c7a96e11188a413f34fc025b0694","dataFormat": "wav","rate": 48000,"sampleCount": 17714,"md5ext": "9137c7a96e11188a413f34fc025b0694.wav"},{"name": "peppa-pig-drums-63-0","assetId": "ce178258dec095389867cb4a5db790f5","dataFormat": "wav","rate": 48000,"sampleCount": 11440,"md5ext": "ce178258dec095389867cb4a5db790f5.wav"},{"name": "peppa-pig-drums-63-1","assetId": "edf4bdc71ae1dbe24d96c8237b9ee426","dataFormat": "wav","rate": 48000,"sampleCount": 2535,"md5ext": "edf4bdc71ae1dbe24d96c8237b9ee426.wav"},{"name": "peppa-pig-drums-107","assetId": "9a681348c98056490d188d51b6e2e610","dataFormat": "wav","rate": 48000,"sampleCount": 2535,"md5ext": "9a681348c98056490d188d51b6e2e610.wav"},{"name": "peppa-pig-mmiwm-64-0","assetId": "edcd0b732a06b7b7b3ad7795cf02a124","dataFormat": "wav","rate": 48000,"sampleCount": 2783,"md5ext": "edcd0b732a06b7b7b3ad7795cf02a124.wav"},{"name": "peppa-pig-mmiwm-64-1","assetId": "3e95586bf69523e68d2d03299cd86ce2","dataFormat": "wav","rate": 48000,"sampleCount": 1490,"md5ext": "3e95586bf69523e68d2d03299cd86ce2.wav"},{"name": "peppa-pig-mmiwm-64-2","assetId": "11ec7ad0bcc6a0ef79000ebca16cf26d","dataFormat": "wav","rate": 48000,"sampleCount": 3506,"md5ext": "11ec7ad0bcc6a0ef79000ebca16cf26d.wav"},{"name": "pinkie-pie-60","assetId": "d14e6a191de6410ba1dca66f81644110","dataFormat": "wav","rate": 48000,"sampleCount": 10306,"md5ext": "d14e6a191de6410ba1dca66f81644110.wav"},{"name": "pinkie-pie-61","assetId": "19f0c0cc55cc638eafae54883603f710","dataFormat": "wav","rate": 48000,"sampleCount": 102630,"md5ext": "19f0c0cc55cc638eafae54883603f710.wav"},{"name": "pinkie-pie-83","assetId": "7c2479bc3b5715801c11e7aad2db3eb4","dataFormat": "wav","rate": 48000,"sampleCount": 4530,"md5ext": "7c2479bc3b5715801c11e7aad2db3eb4.wav"},{"name": "rainbowdash-applejack-handclap","assetId": "dca71845caccb50335f139871b184ed2","dataFormat": "wav","rate": 48000,"sampleCount": 5959,"md5ext": "dca71845caccb50335f139871b184ed2.wav"},{"name": "twilight-wood-67-0","assetId": "aaf142d98d679d36a9ee679ea2dbc5c4","dataFormat": "wav","rate": 48000,"sampleCount": 5721,"md5ext": "aaf142d98d679d36a9ee679ea2dbc5c4.wav"},{"name": "twilight-wood-67-1","assetId": "0228d446ea67cc75c318d42cb2c28222","dataFormat": "wav","rate": 48000,"sampleCount": 6879,"md5ext": "0228d446ea67cc75c318d42cb2c28222.wav"}];
-		for (let i = 0; i < instrumentSounds.length; i++) {
-			const inst = instrumentSounds[i];
-			soundbank_assets["instruments/" + inst.name + "." + inst.dataFormat] = (inst.assetId + "." + inst.dataFormat);
-		}
-		for (let i2 = 0; i2 < soundDrums.length; i2++) {
-			const drum = soundDrums[i2];
-			soundbank_assets["drums/" + drum.name + "." + drum.dataFormat] = (drum.assetId + "." + drum.dataFormat);
-		}
-	}());
-
+	const soundbank_assets = {"instruments/mlp-24-1.wav":"c16aced44399d59a26ca50834e4f1f1d.wav","instruments/daisy-143-C1.wav":"0d1b93e80d5e129c0d194b6e27cc4096.wav","instruments/daisy-143-C2.wav":"b6b7eb496d8becd38d3b5e0ff91508af.wav","instruments/mlp-applebloom-89-C4.wav":"62dc5adcfb1f7790daaf98470fe30d9c.wav","instruments/mlp-applebloom-89-C5.wav":"4aaf5f10eda78f397b06868e90ed8371.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"d99c741cbd79a2d5766f052b6d78cc38.wav","instruments/mlp-fim-s2e10-49.wav":"cb1100d9a0ca1ce4e222def208856377.wav","instruments/mlp-fim-s4e21-282.wav":"b71946ab50faca683beda4595123df38.wav","instruments/mlp-fim-s2e22-953.wav":"34048216db9312a45be97077da12d3e4.wav","instruments/mlp-fim-s5e9-750-1.wav":"6b680ba852bc116f78601bd6a42ad87f.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"6b680ba852bc116f78601bd6a42ad87f.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"ad7cba109a0fad279154450d94800b21.wav","instruments/mlp-fim-s5e9-750-2.wav":"841e263e3a41459cf47c900d5ea0fed1.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"53a055b2a0bc2bf0255cdc5bcabd0c52.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"9cdc2cd5a17a3614ca6fbb39c255d6b4.wav","instruments/mlp-fim-s8e26-850.wav":"f1900ebd94fbc8fb401b8e5f197750da.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"c72af7a397817080468a6dda808b2f97.wav","instruments/mlp-pearbutter-193.wav":"170e1b56fa481ffb3947887e30676ab6.wav","instruments/mlp-s1-89-C3.wav":"5e5e523a3894f113db87096d41b1ab04.wav","instruments/mlp-s1-89-C5.wav":"d08cf60867cd78b296bbe7b6b8b07832.wav","instruments/mlp-s1e13-fim-40.wav":"ae2f518b2593e9966ba1dd750cf410bd.wav","instruments/mlp-s1e14-414.wav":"cff6167b38adea61fb95cc083508f366.wav","instruments/mlp-s1e21-fim-3-C2.wav":"fcc03249801c1593e408491cac639a8d.wav","instruments/mlp-s1e21-fim-3-C3.wav":"898dac455a77645d7f74a9e2c4082200.wav","instruments/mlp-s1e21-fim-3-C4.wav":"0c6d094b2b59dbd57829cfc4cf7d26ba.wav","instruments/mlp-s1e21-fim-3-C5.wav":"3770d9935ab961c6eaf8b25a58581a52.wav","instruments/mlp-s1e22-176.wav":"07e339211ac04ee9da89038f0e42414b.wav","instruments/mlp-s1-fim-30.wav":"c609455a42c25793b5fa54c172fa9980.wav","instruments/mlp-s1-fim-30_C3.wav":"c609455a42c25793b5fa54c172fa9980.wav","instruments/mlp-s1-fim-30_C5.wav":"e1975fd06239ea68435c6ec1e12a0b26.wav","instruments/mlp-s1-fim-109.wav":"1f702ded8069828bded6aa97f5e4bd93.wav","instruments/mlp-s3-applebloom-168.wav":"9cac8790bbc6222b85306507d716e15b.wav","instruments/mlp-s3-fim-5.wav":"e063e23ca9e693a176e95ec75655699b.wav","instruments/mlp-s4e3-820-1.wav":"f8df20f605e0a4fca65eff7d384a41b8.wav","instruments/mlp-s4e3-820-2.wav":"78236d8d071aedc9ed1017cf63f47b21.wav","instruments/mlp-s5-117.wav":"dbd1924f19f2ac438e16d974081be19b.wav","instruments/mlp-s5e6-235.wav":"e403fbd202dc8eec84e3bc1a3ac8a2fc.wav","instruments/mlp-s5e9-471-1.wav":"483a72cc422c92a0100b057a5e7a632e.wav","instruments/mlp-s5e9-471-2.wav":"97f1317984ea2370a66075677191285e.wav","instruments/mlp-s6e14-915.wav":"9bf158fa8ad89b9d9214f16ec7f0fefa.wav","instruments/mlp-s6e14-915_01.wav":"5b27bf730c485bc01a91f0f96d8a0dfe.wav","instruments/mlp-s7e9-e-guitar.wav":"aaf38041260526a9344ca85b2abbbdb0.wav","instruments/mlp-swarm-od-the-century-1290.wav":"1962bb72779d5f3688f362dc287fafa4.wav","instruments/peppa-pig-drums-53.wav":"aaf24557edb702afd970528eecf98cd8.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"8acf2e9bccb6f789f54b54242cf73246.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"3895a69e2412a9786cea28d5e1a2cbe2.wav","instruments/peppa-pig-mi-69-metallic.wav":"cb61f66ea52b5cbe65ed98d3ec471cc3.wav","instruments/peppa-pig-mi-69-tm1.wav":"371b8f39f49f24345e72461c05c84985.wav","instruments/peppa-pig-mi-69-tm2.wav":"89b858396b73db37240c2ae6a9981523.wav","instruments/peppa-pig-mi-69-violin.wav":"b1f45f4a0b869894e243d1472cb95256.wav","instruments/peppa-pig-mi-114.wav":"beeb4904c9d4bc097ac5c29f2f2d5c79.wav","instruments/peppa-pig-mi-131.wav":"c8a7bffe7ccdd01f10f6552720fae584.wav","instruments/peppa-pig-mmiwm-144.wav":"4bc790e28d214be8d59ad3f835cbac55.wav","instruments/peppa-pig-w-4.wav":"01ce02bd6fb2750b89105e7a19db0f26.wav","instruments/pinkie-pie-14.wav":"821b78a4929ffece67e7939fc095804d.wav","instruments/pinkie-pie-77-C1.wav":"eb853a2b8d3c3a2a1c27067595d914e5.wav","instruments/pinkie-pie-77-C2.wav":"f5a61bb5d391542647d28bf453dcb653.wav","instruments/pinkie-pie-77-C3.wav":"7e381bb8bd3c0a893db063c1049f214c.wav","drums/applejack-30-0.wav":"9f7c6c5874d49acf0e7c91121b34a1c6.wav","drums/applejack-30-1.wav":"30e99f8c835da33d643aeec206e75930.wav","drums/derpy-67-0.wav":"99d9d2e9a812c705a4e95f4d8ddb6d18.wav","drums/derpy-67-1.wav":"cd13884edc3089d8260076aa05d23012.wav","drums/mlp-fim-s2e7-425-0.wav":"f7852c1c375e26d10b0b363ffb1979cc.wav","drums/mlp-fim-s2e7-425-1.wav":"9aa1eafd5f2c94ed0499cbd7e809ef3d.wav","drums/mlp-fim-s5e9-471-1.wav":"3399eb36378337faf44d314a5a651408.wav","drums/mlp-fim-s5e9-471-2.wav":"f70c072f11e62ae5bd35970859c87c5c.wav","drums/mlp-fim-s5e9-471-3.wav":"3fb828bd185c7421ed744498f75fa202.wav","drums/mlp-fim-s5e9-471-4.wav":"c870a6759cee410a140fe4fab6104307.wav","drums/mlp-fim-s5e9-471-5.wav":"2be8b42451c252edd02fbfe606eb98b1.wav","drums/mlp-fim-s5e9-471-6.wav":"2250ba9a0fb985b915256d4cb5835b96.wav","drums/mlp-fim-s8e10-22-1.wav":"7ccd83d420bdd72483ffd5f1abfef04b.wav","drums/mlp-fim-s8e10-22-2.wav":"8fcc94298787f1372cd142e187740ab0.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"c1f9eef2ee8ecedea708c522e0f4d1a6.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"9f85b321b9205333a9ec2f8128a5b6f4.wav","drums/mlp-fim-s9e15-937-0.wav":"31ab82c3bf8858ee34c511339229f19e.wav","drums/mlp-fim-s9e15-937-1.wav":"fa445e68b9af5e588078f14834f6a38b.wav","drums/mlp-return-harmony-27-50-1.wav":"2205c1eaf7f96e490fbdafef73c03561.wav","drums/mlp-return-harmony-27-50-2.wav":"349d2ef36b389a9c48da8a68a689b546.wav","drums/mlp-s1e22-30s.wav":"cff73474842dbe09a95e5110c60fbcda.wav","drums/mlp-s2e19-38.wav":"eefb720113242147defcb054a4829886.wav","drums/mlp-s8e4-1300.wav":"c89506c8330f14a1d9e16a5ac693db4f.wav","drums/peppa-pig-drums-30-0.wav":"f18374afe00393160b4235ad3cdbb649.wav","drums/peppa-pig-drums-30-1.wav":"7334f34398c5e092ee6b52aef1b6c890.wav","drums/peppa-pig-drums-51.wav":"9137c7a96e11188a413f34fc025b0694.wav","drums/peppa-pig-drums-63-0.wav":"ce178258dec095389867cb4a5db790f5.wav","drums/peppa-pig-drums-63-1.wav":"edf4bdc71ae1dbe24d96c8237b9ee426.wav","drums/peppa-pig-drums-107.wav":"9a681348c98056490d188d51b6e2e610.wav","drums/peppa-pig-mmiwm-64-0.wav":"edcd0b732a06b7b7b3ad7795cf02a124.wav","drums/peppa-pig-mmiwm-64-1.wav":"3e95586bf69523e68d2d03299cd86ce2.wav","drums/peppa-pig-mmiwm-64-2.wav":"11ec7ad0bcc6a0ef79000ebca16cf26d.wav","drums/pinkie-pie-60.wav":"d14e6a191de6410ba1dca66f81644110.wav","drums/pinkie-pie-61.wav":"19f0c0cc55cc638eafae54883603f710.wav","drums/pinkie-pie-83.wav":"7c2479bc3b5715801c11e7aad2db3eb4.wav","drums/rainbowdash-applejack-handclap.wav":"dca71845caccb50335f139871b184ed2.wav","drums/twilight-wood-67-0.wav":"aaf142d98d679d36a9ee679ea2dbc5c4.wav","drums/twilight-wood-67-1.wav":"0228d446ea67cc75c318d42cb2c28222.wav"};
 	const ASSET_URL = 'https://assets.scratch.mit.edu/internalapi/asset/$md5ext/get/';
-
-	var parseMidiData = function(midiInfo) {
+	const parseMidiData = function(midiInfo) {
 		var _data = new Uint8Array(midiInfo.data);
 		var dataLengthOriginal = _data.length;
 		var _dataLength = _data.length;
@@ -477,9 +462,7 @@ var AnimTredInstruments = (function() {
 		var _readUTFBytes = function(byteCount) {
 			var value = "";
 			var count = byteCount;
-			while (count--) {
-				value += String.fromCharCode(_data[index++]);
-			}
+			while (count--) value += String.fromCharCode(_data[index++]);
 			return value;
 		}
 		var _readBytes = function(byteCount) {
@@ -503,9 +486,7 @@ var AnimTredInstruments = (function() {
 			while ((dataLengthOriginal - index) > 8) {
 				var chunkType = _readUTFBytes(4);
 				var chunkSize = _readBytes(4);
-				if (chunkType == desiredType) {
-					return [index, chunkSize];
-				}
+				if (chunkType == desiredType) return [index, chunkSize];
 				index += chunkSize;
 			}
 		}
@@ -515,12 +496,8 @@ var AnimTredInstruments = (function() {
 			case "RIFF":
 				// Support RIFF
 				const lengthInHeader = _readInt();
-				if (dataLengthOriginal != (lengthInHeader + 8)) {
-					console.log("bad RIFF size; ignoring");
-				}
-				if (_readUTFBytes(4) !== "RMID") {
-					throw new Error("Invalid RMI file");
-				}
+				if (dataLengthOriginal != (lengthInHeader + 8)) console.log("bad RIFF size; ignoring");
+				if (_readUTFBytes(4) !== "RMID") throw new Error("Invalid RMI file");
 				var cdata = _extractChunk('data');
 				if (cdata) {
 					originalIndex = cdata[0];
@@ -536,12 +513,8 @@ var AnimTredInstruments = (function() {
 		}
 		index = originalIndex;
 		midID = _readUTFBytes(4);
-		if (midID !== "MThd") {
-			throw new Error("Invalid MIDI file:" + midID);
-		}
-		if (_readBytes(4) !== 6) {
-			throw new Error("Invalid MIDI file");
-		}
+		if (midID !== "MThd") throw new Error("Invalid MIDI file:" + midID);
+		if (_readBytes(4) !== 6) throw new Error("Invalid MIDI file");
 		var formatType = _readBytes(2);
 		var trackLength = _readBytes(2);
 		var timeDivision = _readBytes(2);
@@ -550,9 +523,7 @@ var AnimTredInstruments = (function() {
 		while (trackID < trackLength) {
 			var _dataLength = dataLengthOriginal;
 			var chuckId = _readUTFBytes(4);
-			if (!(chuckId == "MTrk")) {
-				throw new Error("MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file");
-			}
+			if (!(chuckId == "MTrk")) throw new Error("MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file");
 			var tempos = {};
 			var texts = {};
 			var keyPressure = {};
@@ -653,9 +624,7 @@ var AnimTredInstruments = (function() {
 					if (event > 239) {
 						var ii = _readVariableLength();
 						var dat = [];
-						for (var i = 0; i < ii; i++) {
-							dat.push(_data[index++]);
-						}
+						for (var i = 0; i < ii; i++) dat.push(_data[index++]);
 						systemExclusive.tick.push(pulseCounter);
 						systemExclusive.data.push(dat);
 						systemExclusive.fx.push(event - 240);
@@ -667,9 +636,7 @@ var AnimTredInstruments = (function() {
 							index--;
 						}
 						parameter1 = _data[index++];
-						if (!(eventTypeValue == 192 || eventTypeValue == 208)) {
-							parameter2 = _data[index++];
-						}
+						if (!(eventTypeValue == 192 || eventTypeValue == 208)) parameter2 = _data[index++];
 						switch (eventTypeValue) {
 							case 128:
 								var i = notesOn.length;
@@ -732,9 +699,7 @@ var AnimTredInstruments = (function() {
 					}
 				}
 			}
-			if (index !==  _dataLength) {
-				throw new Error("Track number " + (trackID + 1) + " has overrun - invalid MIDI file");
-			}
+			if (index !==  _dataLength) throw new Error("Track number " + (trackID + 1) + " has overrun - invalid MIDI file");
 			tracks.push({
 				notes: {
 					channel: noteChannel,
@@ -759,7 +724,7 @@ var AnimTredInstruments = (function() {
 		}
 		if (midiInfo.onload) midiInfo.onload({tracks, timeDivision, formatType});
 	}
-	var Track = function(mse, trackID, data) {
+	const Track = function(mse, trackID, data) {
 		this.mse = mse;
 		this.currentPulse = 0;
 		this.trackNumber = trackID;
@@ -780,9 +745,7 @@ var AnimTredInstruments = (function() {
 	Track.prototype._initLast = function() {
 		if (!("last" in this.programQueue)) {
 			var lasts = new Array(16);
-			for (let index = 0; index < 16; index++) {
-				lasts[index] = null;
-			}
+			for (let index = 0; index < 16; index++) lasts[index] = null;
 			this.programQueue.last = [];
 			for (let index = 0; index < this.programQueue.tick.length; index++) {
 				const _g = this.programQueue.channel[index];
@@ -792,9 +755,7 @@ var AnimTredInstruments = (function() {
 		}
 		if (!("last" in this.controllerQueue)) {
 			var lasts = new Array(2048);
-			for (let index = 0; index < 2048; index++) {
-				lasts[index] = null;
-			}
+			for (let index = 0; index < 2048; index++) lasts[index] = null;
 			this.controllerQueue.last = [];
 			for (let index = 0; index < this.controllerQueue.tick.length; index++) {
 				const _g = this.controllerQueue.control[index] + (128 * this.controllerQueue.channel[index]);
@@ -804,9 +765,7 @@ var AnimTredInstruments = (function() {
 		}
 		if (!("last" in this.pitchBendQueue)) {
 			var lasts = new Array(16);
-			for (let index = 0; index < 16; index++) {
-				lasts[index] = null;
-			}
+			for (let index = 0; index < 16; index++) lasts[index] = null;
 			this.pitchBendQueue.last = [];
 			for (let index = 0; index < this.pitchBendQueue.tick.length; index++) {
 				const _g = this.pitchBendQueue.channel[index];
@@ -816,9 +775,7 @@ var AnimTredInstruments = (function() {
 		}
 		if (!("last" in this.keyPressureQueue)) {
 			var lasts = new Array(16);
-			for (let index = 0; index < 16; index++) {
-				lasts[index] = null;
-			}
+			for (let index = 0; index < 16; index++) lasts[index] = null;
 			this.keyPressureQueue.last = [];
 			for (let index = 0; index < this.keyPressureQueue.tick.length; index++) {
 				const _g = this.keyPressureQueue.channel[index];
@@ -828,9 +785,7 @@ var AnimTredInstruments = (function() {
 		}
 		if (!("last" in this.channelPressureQueue)) {
 			var lasts = new Array(16);
-			for (let index = 0; index < 16; index++) {
-				lasts[index] = null;
-			}
+			for (let index = 0; index < 16; index++) lasts[index] = null;
 			this.channelPressureQueue.last = [];
 			for (let index = 0; index < this.channelPressureQueue.tick.length; index++) {
 				const _g = this.channelPressureQueue.channel[index];
@@ -853,7 +808,7 @@ var AnimTredInstruments = (function() {
 			keySignature: this.keySignatureQueue,
 			systemExclusive: this.systemExclusiveQueue,
 			pulseCounterLength: this.pulseCounterLength
-		}
+		};
 	}
 	Track.prototype.reset = function() {
 		this.tempo = 500000 / this.mse.timeDivision;
@@ -990,16 +945,12 @@ var AnimTredInstruments = (function() {
 				break;
 			case 64:
 				mse.controller.sustainPedalChannel[channel] = value > 0;
-				if (isEnd) {
-					mse.controller.sustainPedalChannel[channel] = false;
-				}
+				if (isEnd) mse.controller.sustainPedalChannel[channel] = false;
 				if (mse.isEffect) {
 					var _notesPlaying = mse.notesPlayingChannel[channel];
 					for (let i = 0; i < _notesPlaying.length; i++) {
 						const note = _notesPlaying[i];
-						if (!note) {
-							continue;
-						}
+						if (!note) continue;
 						if (channel == note.channel) {
 							if (mse.controller.sustainPedalChannel[channel]) {
 								note.setDurationInf = true;
@@ -1064,9 +1015,7 @@ var AnimTredInstruments = (function() {
 					for (let i = 0; i < _notesPlaying.length; i++) {
 						const note = _notesPlaying[i];
 						if (!note) continue;
-						if (channel == note.channel) {
-							note.ended = true;
-						}
+						if (channel == note.channel) note.ended = true;
 					}
 				}
 				break;
@@ -1076,9 +1025,7 @@ var AnimTredInstruments = (function() {
 					for (let i = 0; i < _notesPlaying.length; i++) {
 						const note = _notesPlaying[i];
 						if (!note) continue;
-						if (channel == note.channel && note.setDurationInf) {
-							note.ended = true;
-						}
+						if (channel == note.channel && note.setDurationInf) note.ended = true;
 					}
 				}
 				break;
@@ -1113,7 +1060,7 @@ var AnimTredInstruments = (function() {
 		}
 		return ids;
 	}
-	var allCallbackLoader = function(prs, fun1, funend) {
+	const allCallbackLoader = function(prs, fun1, funend) {
 		var count = prs.length;
 		if (count == 0) {
 			funend();
@@ -1130,7 +1077,7 @@ var AnimTredInstruments = (function() {
 			}	
 		}
 	}
-	var Player = function() {
+	const Player = function() {
 		this._debug = false;
 		this.audioContext = new AudioContext();
 		this.node = this.audioContext.createGain();
@@ -1152,9 +1099,7 @@ var AnimTredInstruments = (function() {
 		this.notesPlayingChannel = new Array(16);
 		for (var i = 0; i < 16; i++) {
 			var gg = new Array(128);
-			for (let i2 = 0; i2 < gg.length; i2++) {
-				gg[i2] = null;
-			}
+			for (let i2 = 0; i2 < gg.length; i2++) gg[i2] = null;
 			this.notesPlayingChannel[i] = gg;
 		}
 		this.trackQueue = [];
@@ -1253,27 +1198,27 @@ var AnimTredInstruments = (function() {
 	}
 	Player.prototype._decodeAudio = function(k, callback) {
 		var _this = this;
-		_this.audioContext.decodeAudioData(k, function(buffer) {
+		_this.audioContext.decodeAudioData(k, function (buffer) {
 			callback(buffer);
-		}, function(err2) {
+		}, function (err2) {
 			console.log("Could not decode audio: " + err2);
-		})
+		});
 	}
 	Player.prototype._loadSoundFile = function(f, callback) {
 		var vs1 = ASSET_URL.replace('$md5ext', soundbank_assets[f]);
 		var xhr = new XMLHttpRequest();
-		xhr.onload = function() {
+		xhr.onload = function () {
 			callback(xhr.response);
-		}
+		};
 		xhr.responseType = "arraybuffer";
 		xhr.open("GET", vs1);
 		xhr.send();
 	}
 	Player.prototype._loadSoundbankBuffer = function(s, f) {
 		var _this = this;
-		return function(callback) {
-			_this._loadSoundFile(f, function(buffer) {
-				_this._decodeAudio(buffer.slice(0), function(audioBuffer) {
+		return function (callback) {
+			_this._loadSoundFile(f, function (buffer) {
+				_this._decodeAudio(buffer.slice(0), function (audioBuffer) {
 					_this._soundbank[s] = {
 						data: new Uint8Array(buffer),
 						buffer: audioBuffer
@@ -1295,12 +1240,12 @@ var AnimTredInstruments = (function() {
 			}
 		}
 		_this.onprogress && _this.onprogress("loaded instruments " + _this._soundbankLoaded);
-		allCallbackLoader(promises, function() {
+		allCallbackLoader(promises, function () {
 			if (_this.onprogress) {
 				_this.onprogress("loaded instruments " + _this._soundbankLoaded);
 			}
 			_this._soundbankLoaded -= 1;
-		}, function() {
+		}, function () {
 			if (_this.onprogress) {
 				_this.onprogress("");
 			}
@@ -1332,9 +1277,7 @@ var AnimTredInstruments = (function() {
 		for (let c = 0; c < 16; c++) {
 			const _notesPlaying = this.notesPlayingChannel[c];
 			for (var i = 0; i < _notesPlaying.length; i++) {
-				if (_notesPlaying[i]) {
-					_notesPlaying[i].ended = true;
-				}
+				if (_notesPlaying[i]) _notesPlaying[i].ended = true;
 			}
 		}
 	}
@@ -1354,46 +1297,34 @@ var AnimTredInstruments = (function() {
 	}
 	Player.prototype.getNoteLength = function() {
 		var t = 0;
-		for (var i = 0; i < this.trackQueue.length; i++) {
-			t += this.trackQueue[i].noteQueue.tickOn.length;
-		}
+		for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].noteQueue.tickOn.length;
 		return t;
 	}
 	Player.prototype.getNoteTracker = function() {
 		var t = 0;
-		for (var i = 0; i < this.trackQueue.length; i++) {
-			t += this.trackQueue[i].noteIndex;
-		}
+		for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].noteIndex;
 		return t;
 	}
 	Player.prototype.getTempoLength = function() {
 		var t = 0;
-		for (var i = 0; i < this.trackQueue.length; i++) {
-			t += this.trackQueue[i].tempoQueue.tick.length;
-		}
+		for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].tempoQueue.tick.length;
 		return t;
 	}
 	Player.prototype.getTempoTracker = function() {
 		var t = 0;
-		for (var i = 0; i < this.trackQueue.length; i++) {
-			t += this.trackQueue[i].tempoTracker;
-		}
+		for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].tempoTracker;
 		return t;
 	}
 	Player.prototype.getSoundBankSize = function() {
 		var t = 0;
-		for (var name in this._soundbank) {
-			t += this._soundbank[name].data.length;
-		}
+		for (var name in this._soundbank) t += this._soundbank[name].data.length;
 		return t;
 	}
 	Player.prototype.getPulseCounterLength = function() {
 		var _pulseCounterLength = 0;
 		for (var i = 0; i < this.trackQueue.length; i++) {
 			var len = this.trackQueue[i].pulseCounterLength;
-			if (len > _pulseCounterLength) {
-				_pulseCounterLength = len;
-			}
+			if (len > _pulseCounterLength) _pulseCounterLength = len;
 		}
 		return _pulseCounterLength;
 	}
@@ -1407,7 +1338,7 @@ var AnimTredInstruments = (function() {
 		leftGain.connect(channelMerger, 0, 0);
 		rightGain.connect(channelMerger, 0, 1);
 		channelMerger.connect(input);
-		return {inputNode, leftGain, rightGain};
+		return { inputNode, leftGain, rightGain };
 	}
 	Player.prototype.playNote = function(n) {
 		if (n.type == 1) {
@@ -1417,9 +1348,7 @@ var AnimTredInstruments = (function() {
 			var span = spans[0];
 			for (let i = 1; i < spans.length; i++) {
 				const s = spans[i];
-				if (n.pitch >= s.top) {
-					span = s;
-				}
+				if (n.pitch >= s.top) span = s;
 			}
 			if (!span) return;
 			const buffer = this._soundbank[span.name];
@@ -1438,9 +1367,7 @@ var AnimTredInstruments = (function() {
 			gain.value = volume;
 			const releaseGain = this.audioContext.createGain();
 			var releaseDuration = span.releaseTime;
-			if (typeof releaseDuration === "undefined") {
-				releaseDuration = 0.01;
-			}
+			if (typeof releaseDuration === "undefined") releaseDuration = 0.01;
 			const releaseStart = this.audioContext.currentTime + n.duration;
 			const releaseEnd = releaseStart + releaseDuration;
 			releaseGain.gain.setValueAtTime(1, releaseStart);
@@ -1449,7 +1376,7 @@ var AnimTredInstruments = (function() {
 			releaseGain.connect(this.node);
 			source.start();
 			source.stop(releaseEnd);
-			return {source, node};
+			return { source, node };
 		} else if (n.type == 0) {
 			var drum = DRUMS_MIDI[n.drum];
 			if (!drum) return;
@@ -1466,7 +1393,7 @@ var AnimTredInstruments = (function() {
 			var volume = n.volume;
 			gain.value = volume;
 			source.start();
-			return {source, node};
+			return { source, node };
 		}
 	}
 	Player.prototype._playNotes = function(n) {
@@ -1503,17 +1430,15 @@ var AnimTredInstruments = (function() {
 				track: n[4],
 				channel: n[3]
 			};
-			te.endedFunction = function() {
+			te.endedFunction = function () {
 				te.ended = true;
-			}
+			};
 			source.addEventListener("ended", te.endedFunction);
 			this._startNote(te);
 			this._updateEffectNote(te);
 			source.start();
 			this._addChannelPlaying(n[3], n[1], te);
-			if (this._debug) {
-				console.log(span.name, isStart);
-			}
+			if (this._debug) console.log(span.name, isStart);
 		} else {
 			const inst = MIDI_INSTRUMENT[n[0]];
 			if (!inst) return;
@@ -1522,9 +1447,7 @@ var AnimTredInstruments = (function() {
 			var span = spans[0];
 			for (let i = 1; i < spans.length; i++) {
 				const s = spans[i];
-				if (n[1] >= s.top) {
-					span = s;
-				}
+				if (n[1] >= s.top) span = s;
 			}
 			if (!span) return;
 			const buffer = this._soundbank[span.name];
@@ -1545,9 +1468,7 @@ var AnimTredInstruments = (function() {
 			gain.value = 0;
 			node.connect(this._outputGainChannel[n[3]]);
 			var releaseDuration = span.releaseTime;
-			if (typeof releaseDuration === "undefined" || !isStart) {
-				releaseDuration = 0.01;
-			}
+			if (typeof releaseDuration === "undefined" || !isStart) releaseDuration = 0.01;
 			var te = {
 				_pitch: n[1],
 				_volume: n[2],
@@ -1569,18 +1490,16 @@ var AnimTredInstruments = (function() {
 				nodeOn: n[6],
 				track: n[4],
 				channel: n[3]
-			}
-			te.endedFunction = function() {
+			};
+			te.endedFunction = function () {
 				te.ended = true;
-			}
+			};
 			source.addEventListener("ended", te.endedFunction);
 			this._startNote(te);
 			this._updateEffectNote(te);
 			source.start();
 			this._addChannelPlaying(n[3], n[1], te);
-			if (this._debug) {
-				console.log(span.name, isStart);
-			}
+			if (this._debug) console.log(span.name, isStart);
 		}
 	}
 	Player.prototype._addChannelPlaying = function(c, n, note) {
@@ -1596,18 +1515,12 @@ var AnimTredInstruments = (function() {
 		return this.controller.volumeChannel[channel] * this.controller.expressionChannel[channel];
 	}
 	Player.prototype._getPitch = function(channel) {
-		if (channel == 9) {
-			return 0;
-		}
+		if (channel == 9) return 0;
 		var pitch = this.pitchBendChannel[channel] * this.controller.dataEntryMSB[channel];
 		return pitch;
 	}
 	Player.prototype._startNote = function(n) {
-		if (this.isEffect && n.track) {
-			if (this._getSustainPedalChannel(n.channel)) {
-				n.setDurationInf = true;
-			}
-		}
+		if (this.isEffect && n.track) if (this._getSustainPedalChannel(n.channel)) n.setDurationInf = true;
 	}
 	Player.prototype._updateEffectNote = function(note) {
 		if (note.start) {
@@ -1642,16 +1555,12 @@ var AnimTredInstruments = (function() {
 			this.isPaused = true;
 		}
 		this._currentTimeLast = this.currentTime;
-		if (!this.isPaused && !this.muteMusicr) {
-			this.currentTime = Math.round((this.date - this._startTime) * this.speed) / 1000;
-		}
+		if (!this.isPaused && !this.muteMusicr) this.currentTime = Math.round((this.date - this._startTime) * this.speed) / 1000;
 		this._stepUpdateTrack();
 		this._stepUpdateEffect();
 		this._stepNotesPlaying();
 		this._stepPlayingNote();
-		if (this.muteMusicr) {
-			this.muteMusicr = false;
-		}
+		if (this.muteMusicr) this.muteMusicr = false;
 		this.date = Date.now();
 		this._frameStart = Date.now();
 	}
@@ -1733,7 +1642,7 @@ var AnimTredInstruments = (function() {
 								this._tempoTime = 0;
 								this._tempoTick = 0;
 							}
-							_currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo))
+							_currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo));
 						}
 						track.tempoTracker++;
 					}
@@ -1824,9 +1733,7 @@ var AnimTredInstruments = (function() {
 						if (!note.setDurationInf && (this.currentPulse >= note.nodeOff)) {
 							_release.ended = true;
 						} else {
-							if (this.currentPulse < note.nodeOn) {
-								note.ended = true;
-							}
+							if (this.currentPulse < note.nodeOn) note.ended = true;
 						}
 						if (_release.ended) {
 							if (!("startTime" in _release)) {
@@ -1857,7 +1764,7 @@ var AnimTredInstruments = (function() {
 		var _this = this;
 		parseMidiData({
 			data: data,
-			onload: function(result) {
+			onload: function (result) {
 				_this.loadedTime = Date.now() - loadedTime;
 				_this._init(result);
 				if (_this.onload) {
@@ -1876,7 +1783,7 @@ var AnimTredInstruments = (function() {
 			timeDivision: this.timeDivision,
 			formatType: this.formatType,
 			duration: this.duration
-		}
+		};
 	}
 	Player.prototype.getDuration = function() {
 		var duration = 0;
@@ -1889,7 +1796,7 @@ var AnimTredInstruments = (function() {
 			}
 			_tracks.push({
 				tempoIdx: 0
-			})
+			});
 		}
 		var tempoTick = 0;
 		var tempo = 500000 / this.timeDivision;
@@ -1931,9 +1838,7 @@ var AnimTredInstruments = (function() {
 	Player.prototype.loadMidiFromData = function(data) {
 		this.cleanup();
 		this._init(data);
-		if (this.onload) {
-			this.onload();
-		}
+		if (this.onload) this.onload();
 	}
 	return {
 		Player,
@@ -1943,6 +1848,6 @@ var AnimTredInstruments = (function() {
 		INSTRUMENT_INFO,
 		SOUNDBANK_FILES,
 		formats: ["mid", "rmi", "midi"],
-		version: "v1.2"
+		version: "v1.2.1"
 	}
 }());

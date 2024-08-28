@@ -7,11 +7,11 @@
 		<style>
 			body{
 				font-family: monospace;
-				background-color: rgb(0, 0, 0);
-				color: white;
+				background-color: #111;
+				color: #ddd;
 			}
 			a {
-				color: white;
+				color: #ddd;
 			}
 		</style>
 	</head>
@@ -33,10 +33,9 @@
 			<input id="demo6" type="number" name="" value="27" min="27" max="87">
 			<button id="demo7">test</button>
 		</div>
-		<script type="text/javascript" src="animtredinstruments.js"></script>
-		<script type="text/javascript">
+		<script src="animtredinstruments.js"></script>
+		<script>
 			(function() {
-				"use strict";
 				var player = new AnimTredInstruments.Player();
 
 				window.player = player;
@@ -156,7 +155,7 @@
 				player.loadSoundbank(function(e) {
 					document.getElementById('demo2').style.display = "";
 					document.getElementById('demo').remove();
-				});	
+				});				
 			}());
 		</script>
 	</body>
