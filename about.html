@@ -37,8 +37,9 @@
 	<body>
 		<a href="./" style="position: absolute; left: 5px; top: 5px;">back</a>
 		<div class="app">
-			<h1>YTPMV Cartoon Instruments</h1>
-			<p>The YTPMV Cartoon Sounds My Little Pony & Peppa Pig, record Bandican and OBS Studio a Editor program: Adobe Premiere & Adobe Audition & Audio Editor this a finish to <a href="./">YTPMV Cartoon Instruments (Back)</a></p>
+			<h1>YTPMV Cartoon Instruments v1.2.2</h1>
+			<p>The YTPMV Cartoon Sounds, Midi Player in javascript(ES5)</p>
+			<p>My Little Pony & Peppa Pig, record Bandican and OBS Studio a Editor program: Adobe Premiere & Adobe Audition & Audio Editor this a finish to <a href="./">YTPMV Cartoon Instruments (Back)</a></p>
 			<div class="hfgfhh2">
 				<input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 475px;" disabled>
 				<br>
@@ -50,7 +51,7 @@
 				</div>	
 			</div>
 			<p>sounds source used: <a href="animtredinstruments.js">view soundbank sources</a></p>
-			<p>program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3 & Visual Studo Code & Sublime Text 3 & Sublime Text 4</p>
+			<p>program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3</p>
 			<p>website source code available on <a href="https://github.com/animtred67pe/atytpmvinstrument">GitHub.</a></p>
 			<p style="color: #999999;">created by <a style="color: #999999;" href="https://scratch.mit.edu/users/atfsmedia25/" target="_blank">atfsmedia25</a></p>
 		</div>
@@ -120,10 +121,18 @@
 			}
 			function URLsearchParams(name, isD) {
 				var _u = new URL(window.location.href);
-				if (isD) {
-					return _u.searchParams.has(name);
+				if (_u.searchParams) {
+					if (isD) {
+						return _u.searchParams.has(name);
+					} else {
+						return _u.searchParams.get(name);
+					}
 				} else {
-					return _u.searchParams.get(name);
+					if (isD) {
+						return false;
+					} else {
+						return null;
+					}
 				}
 			}
 			if (URLsearchParams('offeffect', true)) {
@@ -160,12 +169,13 @@
 			function dropHandler(ev) {
 				ev.preventDefault();
 				if (ev.dataTransfer.items) {
-					[...ev.dataTransfer.items].forEach((item, i) => {
-					if (item.kind === 'file') {
-						const file = item.getAsFile();
-						loadMidiFile(file);
+					var item = ev.dataTransfer.items[0];
+					if (item) {
+						if (item.kind === 'file') {
+							var file = item.getAsFile();
+							loadMidiFile(file);
+						}
 					}
-					});
 				}
 			}
 			function dragOverHandler(ev) {

@@ -52,6 +52,7 @@
 				</div>
 			</div>
 		</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007 Fan</div>
 		<canvas width="1000" height="622" id="hfggf3" style="display: none;"></canvas>
 		<script src="animtredinstruments.js"></script>
 		<script>
@@ -103,10 +104,18 @@
 				};
 				function URLsearchParams(name,isD) {
 					var _u = new URL(window.location.href);
-					if (isD) {
-						return _u.searchParams.has(name);
+					if (_u.searchParams) {
+						if (isD) {
+							return _u.searchParams.has(name);
+						} else {
+							return _u.searchParams.get(name);
+						}
 					} else {
-						return _u.searchParams.get(name);
+						if (isD) {
+							return false;
+						} else {
+							return null;
+						}
 					}
 				}
 				if (URLsearchParams('offeffect', true)) {
@@ -312,7 +321,7 @@
 							tracksRender.indexRe--;
 							while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe--;
 							tracksRender.indexRe++;
-							for (let id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
+							for (var id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
 								var TINEd = noteQueue.tickOn[id] - player.currentPulse;
 								var durH = (noteQueue.tickOff[id] - noteQueue.tickOn[id]);
 								if (TINEd < 0 && TINEd > (0 - durH)) {
@@ -336,7 +345,7 @@
 								if (80 + (TINEd * _displaySpeed) > 1000) break;
 							}
 						}
-						for (let idxd = 0; idxd < 11; idxd++) {
+						for (var idxd = 0; idxd < 11; idxd++) {
 							var tempoQueue = tracksRender.ref[idxd];
 							if (!tempoQueue) continue;
 							if (tempoQueue.tick.length > 0) {
@@ -344,7 +353,7 @@
 								tracksRender.tes[idxd]--;
 								while (tracksRender.tes[idxd] >= 0 && player.currentPulse <= tempoQueue.tick[tracksRender.tes[idxd]]) tracksRender.tes[idxd]--;
 								tracksRender.tes[idxd]++;
-								for (let id = tracksRender.tes[idxd]; id < tempoQueue.tick.length; id++) {
+								for (var id = tracksRender.tes[idxd]; id < tempoQueue.tick.length; id++) {
 									var TINEd = tempoQueue.tick[id] - player.currentPulse;
 									ctx3.fillStyle = "#00f";
 									var fx = 80 + (TINEd * _displaySpeed);
@@ -423,9 +432,8 @@
 						dddhgkjh(ctx2, 0, i * 45, i, fghfhfbnvnv[i]);
 						hhh++;
 					}
-					for (let index = 0; index < fghfhfbnvnv.length; index++) {
-						fghfhfbnvnv[index] -= 0.06;
-						if (fghfhfbnvnv[index] < 0) fghfhfbnvnv[index] = 0;
+					for (var index = 0; index < fghfhfbnvnv.length; index++) {
+						fghfhfbnvnv[index] = 0;
 					}
 				}
 				fgdgdfg2.addEventListener('input', function() {
@@ -468,19 +476,20 @@
 				function dropHandler(ev) {
 					ev.preventDefault();
 					if (ev.dataTransfer.items) {
-						[...ev.dataTransfer.items].forEach((item, i) => {
-						if (item.kind === 'file') {
-							const file = item.getAsFile();
-							loadMidiFile(file);
-						}
-						});
+						var item = ev.dataTransfer.items[0];
+						if (item) {
+							if (item.kind === 'file') {
+								var file = item.getAsFile();
+								loadMidiFile(file);
+							}
+						};
 					}
 				}
 				function dragOverHandler(ev) {
 					ev.preventDefault();
 				}
-				document.body.addEventListener("drop", dropHandler);
-				document.body.addEventListener("dragover", dragOverHandler);
+				window.addEventListener("drop", dropHandler);
+				window.addEventListener("dragover", dragOverHandler);
 				playstop.onclick = function () {
 					if (player.isPaused) {
 						playstop.innerHTML = 'Pause';

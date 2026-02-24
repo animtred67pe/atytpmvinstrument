@@ -41,6 +41,9 @@
 	</head>
 	<body>
 		<div class="hfgfhh">
+			<div style="position: absolute; top: 0%; left: 0%; padding: 8px; color: #fff;">
+				<a href="./">Back</a>
+			</div>
 			<div id="playermidi">
 				<a href="#" id="loadmidifile">Open Mid</a>
 				<a href="#" id="playstop">Play/Pause</a>
@@ -49,10 +52,8 @@
 				<label>Volume: </label>
 				<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 265px;">
 			</div>
-			<div style="position: absolute; bottom: 0%; left: 50%; transform: translate(-50%, 0%); padding: 8px; color: #fff;">
-				<a href="./">Back</a>
-			</div>
 		</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007 Fan</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
@@ -100,10 +101,18 @@
 				}
 				function URLsearchParams(name, isD) {
 					var _u = new URL(window.location.href);
-					if (isD) {
-						return _u.searchParams.has(name);
+					if (_u.searchParams) {
+						if (isD) {
+							return _u.searchParams.has(name);
+						} else {
+							return _u.searchParams.get(name);
+						}
 					} else {
-						return _u.searchParams.get(name);
+						if (isD) {
+							return false;
+						} else {
+							return null;
+						}
 					}
 				}
 				if (URLsearchParams('offeffect', true)) {
@@ -439,19 +448,20 @@
 				function dropHandler(ev) {
 					ev.preventDefault();
 					if (ev.dataTransfer.items) {
-						[...ev.dataTransfer.items].forEach((item, i) => {
-						if (item.kind === 'file') {
-							const file = item.getAsFile();
-							loadMidiFile(file);
-						}
-						});
+						var item = ev.dataTransfer.items[0];
+						if (item) {
+							if (item.kind === 'file') {
+								var file = item.getAsFile();
+								loadMidiFile(file);
+							}
+						};
 					}
 				}
 				function dragOverHandler(ev) {
 					ev.preventDefault();
 				}
-				document.body.addEventListener("drop", dropHandler);
-				document.body.addEventListener("dragover", dragOverHandler);
+				window.addEventListener("drop", dropHandler);
+				window.addEventListener("dragover", dragOverHandler);
 				loadmidifile.onclick = function () {
 					var sa = document.createElement('input');
 					sa.type = 'file';

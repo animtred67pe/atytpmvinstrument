@@ -91,6 +91,7 @@
 				<a href="about.html">About</a>
 			</div>
 		</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007 Fan</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
@@ -111,12 +112,12 @@
 				var effect55 = document.getElementById('effect55');
 				var z_dir2 = null;
 				var z_dir3_3 = false;
+				var mid_name = "";
 
 				function mod(x, y) {
 					var r = x % y;
-					if (r / y < 0) {
+					if (r / y < 0) 
 						r += y;
-					}
 					return r; 
 				};
 				function getDuraction(num) {
@@ -213,12 +214,11 @@
 						cuer.innerHTML = f_ggg;
 					}
 					var gfdgfdg = "Type: " + player.formatType + " Tracks: " + player.trackQueue.length + " PPQN: " + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM Tick: " + Math.round(player.currentPulse) + "/" + player.getPulseCounterLength();
-					if ((gfdgfdg !== cuer44.innerHTML)) {
+					if ((gfdgfdg !== cuer44.innerHTML))
 						cuer44.innerHTML = gfdgfdg;
-					}
 					pianoCTX.clearRect(0, 0, 748, 80);
-					for (let i = 0; i < notesG.length; i++) {
-						const note = notesG[i];
+					for (var i = 0; i < notesG.length; i++) {
+						var note = notesG[i];
 						if (fgdlll[note[5]]) {
 							pianoCTX.fillStyle = fgdlll[note[5]];
 						} else {
@@ -252,7 +252,7 @@
 						playstop2.removeAttribute("disabled");
 						fgdgdfg.removeAttribute("disabled");
 						playstop.innerHTML = 'Pause';
-						cuer46.innerHTML = '';
+						cuer46.innerHTML = mid_name;
 						z_dir3_3 = true;
 						player.play();
 					});
@@ -262,7 +262,8 @@
 					playstop2.setAttribute("disabled", true);
 					fgdgdfg.setAttribute("disabled", true);
 					viewe555.title = "Midi not loaded";
-					cuer46.innerHTML = 'Opening Midi: ' + file.name;
+					cuer46.innerHTML = 'Opening Midi';
+					mid_name = file.name || "";
 					var a = new FileReader();
 					a.onload = (function() {
 						z_dir3_3 = false;
@@ -281,25 +282,34 @@
 				function dropHandler(ev) {
 					ev.preventDefault();
 					if (ev.dataTransfer.items) {
-						[...ev.dataTransfer.items].forEach((item, i) => {
-						if (item.kind === 'file') {
-							const file = item.getAsFile();
-							loadMidiFile(file);
-						}
-						});
+						var item = ev.dataTransfer.items[0];
+						if (item) {
+							if (item.kind === 'file') {
+								var file = item.getAsFile();
+								loadMidiFile(file);
+							}
+						};
 					}
 				}
 				function dragOverHandler(ev) {
 					ev.preventDefault();
 				}
-				document.body.addEventListener("drop", dropHandler);
-				document.body.addEventListener("dragover", dragOverHandler);
+				window.addEventListener("drop", dropHandler);
+				window.addEventListener("dragover", dragOverHandler);
 				function URLsearchParams(name,isD) {
 					var _u = new URL(window.location.href);
-					if (isD) {
-						return _u.searchParams.has(name);
+					if (_u.searchParams) {
+						if (isD) {
+							return _u.searchParams.has(name);
+						} else {
+							return _u.searchParams.get(name);
+						}
 					} else {
-						return _u.searchParams.get(name);
+						if (isD) {
+							return false;
+						} else {
+							return null;
+						}
 					}
 				}
 				loadmidifile.onclick = function () {
@@ -345,7 +355,6 @@
 				playstop2.setAttribute("disabled", true);
 				fgdgdfg.setAttribute("disabled", true);
 			}());
-			
 		</script>
 	</body>
 </html>

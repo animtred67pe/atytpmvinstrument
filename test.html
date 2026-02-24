@@ -33,6 +33,7 @@
 			<input id="demo6" type="number" name="" value="27" min="27" max="87">
 			<button id="demo7">test</button>
 		</div>
+		<div style="color: #777;">(c) 2026 EAAQ2007 Fan</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
@@ -94,8 +95,8 @@
 					pianoCTX.clearRect(0, 0, 748, 80);
 					var rid = -1;
 					if (mouseDown) {
-						for (let i = notesG.length - 1; i >= 0; i--) {
-							const note = notesG[i];
+						for (var i = notesG.length - 1; i >= 0; i--) {
+							var note = notesG[i];
 							if ((mousePoint[0] > note[1]) && (mousePoint[0] < (note[1] + (note[3] + 2)))) {
 								if ((mousePoint[1] > note[2]) && (mousePoint[1] < (note[2] + note[4]))) {
 									rid = i;
@@ -122,8 +123,8 @@
 
 						}
 					}
-					for (let i = 0; i < notesG.length; i++) {
-						const note = notesG[i];
+					for (var i = 0; i < notesG.length; i++) {
+						var note = notesG[i];
 						pianoCTX.fillStyle = note[0];
 						if (rid == i) {
 							pianoCTX.fillStyle = "#ccc";
@@ -153,6 +154,7 @@
 					setInterval(testtdt, 100);
 				};
 				player.loadSoundbank(function(e) {
+
 					document.getElementById('demo2').style.display = "";
 					document.getElementById('demo').remove();
 				});				
