@@ -122,6 +122,15 @@
 					player.setCurrentTime(0);
 					playstop.innerHTML = 'Play';
 				}
+				player.onload = function() {
+					fgdgdfg.removeAttribute("disabled");
+					z_dir2 = setInterval(z_dir, 100);
+					player.loadSoundbank(function(e) {
+						playstop.removeAttribute("disabled");
+						playstop.innerHTML = 'Pause';
+						player.play();
+					});
+				}
 				function URLsearchParams(name, isD) {
 					var _u = new URL(window.location.href);
 					if (_u.searchParams) {
@@ -154,13 +163,6 @@
 						fgdgdfg.setAttribute("disabled", true);
 						setTimeout(function () {
 							player.loadMid(a.result);
-							fgdgdfg.removeAttribute("disabled");
-							z_dir2 = setInterval(z_dir, 100);
-							player.loadSoundbank(function(e) {
-								playstop.removeAttribute("disabled");
-								playstop.innerHTML = 'Pause';
-								player.play();
-							});
 						}, 2);
 					}).bind(this);
 					a.readAsArrayBuffer(file);

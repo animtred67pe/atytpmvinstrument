@@ -1,5 +1,5 @@
 /*
- * YTPMV Cartoon Instruments v1.2.2
+ * YTPMV Cartoon Instruments v1.2.3
  * 
  * The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
  * audio program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3
@@ -73,7 +73,7 @@ var AnimTredInstruments = (function() {
       {top: 48, name: "Bass_C3", releaseTime: 0.1}
     ],
     "electric piano": [{top: 60, name: "ElectricPiano", releaseTime: 0.1}],
-    "church organ": [{top: 60, name: "ChurchOrgan", loop: true, loopStart: 0.1, loopEnd: 0.59300, releaseTime: 0.1}],
+    "church organ": [{top: 60, name: "ChurchOrgan", loop: true, loopStart: 0.14413, loopEnd: 0.15951, releaseTime: 0.1}],
     "bassoon": [
       {top: 36, name: "Bassoon_C1", loop: true, loopStart: 0.084, loopEnd: 0.160},
       {top: 48, name: "Bassoon_C2", loop: true, loopStart: 0.080, loopEnd: 0.325},
@@ -422,16 +422,16 @@ var AnimTredInstruments = (function() {
     "mute triangle",
     "triangle",
     "cabasa",
-    "cabasa",
+    "tambourine",
     null,
     "claves_1",
     null,
     null
   ];
-  var soundbank_assets = {"instruments/daisy-143-C1.wav":"0d1b93e80d5e129c0d194b6e27cc4096.wav","instruments/mlp-24-1.wav":"2c50c5d2aed3fec33d1f5ba1d748248d.wav","instruments/daisy-143-C2.wav":"b6b7eb496d8becd38d3b5e0ff91508af.wav","instruments/mlp-24-1-sitar.wav":"2efc7e72625ab0e0d435a84c21d61c44.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"d99c741cbd79a2d5766f052b6d78cc38.wav","instruments/mlp-fim-s2e10-49.wav":"cb1100d9a0ca1ce4e222def208856377.wav","instruments/mlp-fim-s2e22-953.wav":"34048216db9312a45be97077da12d3e4.wav","instruments/mlp-fim-s4e21-282.wav":"44d59a97f4ce7ba0765a13551555f839.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"841c25741d7663a84c316bed9e4d2dcd.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"3aed397a333f59e57e69b4ec1f7087e8.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"cd640ee8a25ab5cc13477073c05d9c81.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"e67b19a1fecb02566e74d402f0b21f5b.wav","instruments/mlp-fim-s8e26-850.wav":"f1900ebd94fbc8fb401b8e5f197750da.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"c72af7a397817080468a6dda808b2f97.wav","instruments/mlp-pearbutter-193.wav":"170e1b56fa481ffb3947887e30676ab6.wav","instruments/mlp-s1-89-C3.wav":"5e5e523a3894f113db87096d41b1ab04.wav","instruments/mlp-s1-89-C5.wav":"d08cf60867cd78b296bbe7b6b8b07832.wav","instruments/mlp-s1e13-fim-40.wav":"ae2f518b2593e9966ba1dd750cf410bd.wav","instruments/mlp-s1e21-fim-3-C2.wav":"fcc03249801c1593e408491cac639a8d.wav","instruments/mlp-s1e21-fim-3-C3.wav":"898dac455a77645d7f74a9e2c4082200.wav","instruments/mlp-s1e21-fim-3-C4.wav":"0c6d094b2b59dbd57829cfc4cf7d26ba.wav","instruments/mlp-s1e21-fim-3-C5.wav":"3770d9935ab961c6eaf8b25a58581a52.wav","instruments/mlp-s1e22-176.wav":"12ad007a52e14d52a9b58ee3dc77e5ad.wav","instruments/mlp-s1-fim-30_C3.wav":"c609455a42c25793b5fa54c172fa9980.wav","instruments/mlp-s1-fim-30_C5.wav":"e1975fd06239ea68435c6ec1e12a0b26.wav","instruments/mlp-s1-fim-109.wav":"1f702ded8069828bded6aa97f5e4bd93.wav","instruments/mlp-s3-applebloom-168.wav":"9cac8790bbc6222b85306507d716e15b.wav","instruments/mlp-s3-fim-5.wav":"e063e23ca9e693a176e95ec75655699b.wav","instruments/mlp-s4e3-820-1.wav":"f8df20f605e0a4fca65eff7d384a41b8.wav","instruments/mlp-s4e3-820-2.wav":"78236d8d071aedc9ed1017cf63f47b21.wav","instruments/mlp-s5-117.wav":"706c542f866fd0296a20edb08608a7ae.wav","instruments/mlp-s5e6-235.wav":"e403fbd202dc8eec84e3bc1a3ac8a2fc.wav","instruments/mlp-s5e9-471-1.wav":"483a72cc422c92a0100b057a5e7a632e.wav","instruments/mlp-s5e9-471-2.wav":"97f1317984ea2370a66075677191285e.wav","instruments/mlp-s6e14-915.wav":"5b27bf730c485bc01a91f0f96d8a0dfe.wav","instruments/mlp-s7e9-e-guitar.wav":"aaf38041260526a9344ca85b2abbbdb0.wav","instruments/mlp-swarm-od-the-century-1290.wav":"1962bb72779d5f3688f362dc287fafa4.wav","instruments/peppa-pig-drums-53.wav":"aaf24557edb702afd970528eecf98cd8.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"b6ff060fcb251790f86f03bed90d6dbf.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"86887f951d90fa2801151152a0c7e031.wav","instruments/peppa-pig-mi-69-tm1.wav":"00a896446218c804af9ef36bf589335e.wav","instruments/peppa-pig-mi-69-metallic.wav":"62d675a1ce5d5a3fe9e4e994a421fedd.wav","instruments/peppa-pig-mi-69-tm2.wav":"b7df84e255cf54559e182fe47a11d291.wav","instruments/peppa-pig-mi-69-violin.wav":"daef93b84ddf36bd7d8a1c3cdc1e3266.wav","instruments/peppa-pig-mi-114.wav":"beeb4904c9d4bc097ac5c29f2f2d5c79.wav","instruments/peppa-pig-mi-131-1.wav":"c8a7bffe7ccdd01f10f6552720fae584.wav","instruments/peppa-pig-mi-131-2.wav":"ae8670d720dde36c928b39d0017fa63c.wav","instruments/peppa-pig-mmiwm-144.wav":"40b96bf45859be757efc18196f3f0b1d.wav","instruments/peppa-pig-w-4.wav":"74af1b0fa3e2011dff21eb851ff6b7d4.wav","instruments/pinkie-pie-14.wav":"821b78a4929ffece67e7939fc095804d.wav","instruments/pinkie-pie-77-C1.wav":"eb853a2b8d3c3a2a1c27067595d914e5.wav","instruments/pinkie-pie-77-C2.wav":"f5a61bb5d391542647d28bf453dcb653.wav","instruments/pinkie-pie-77-C3.wav":"7e381bb8bd3c0a893db063c1049f214c.wav","drums/applejack-30-0.wav":"9f7c6c5874d49acf0e7c91121b34a1c6.wav","drums/applejack-30-1.wav":"30e99f8c835da33d643aeec206e75930.wav","drums/derpy-67-0.wav":"99d9d2e9a812c705a4e95f4d8ddb6d18.wav","drums/derpy-67-1.wav":"cd13884edc3089d8260076aa05d23012.wav","drums/mlp-fim-s2e7-425-0.wav":"f7852c1c375e26d10b0b363ffb1979cc.wav","drums/mlp-fim-s2e7-425-1.wav":"9aa1eafd5f2c94ed0499cbd7e809ef3d.wav","drums/mlp-fim-s5e9-471-1.wav":"3399eb36378337faf44d314a5a651408.wav","drums/mlp-fim-s5e9-471-2.wav":"f70c072f11e62ae5bd35970859c87c5c.wav","drums/mlp-fim-s5e9-471-3.wav":"3fb828bd185c7421ed744498f75fa202.wav","drums/mlp-fim-s5e9-471-4.wav":"c870a6759cee410a140fe4fab6104307.wav","drums/mlp-fim-s5e9-471-5.wav":"2be8b42451c252edd02fbfe606eb98b1.wav","drums/mlp-fim-s5e9-471-6.wav":"2250ba9a0fb985b915256d4cb5835b96.wav","drums/mlp-fim-s8e10-22-1.wav":"7ccd83d420bdd72483ffd5f1abfef04b.wav","drums/mlp-fim-s8e10-22-2.wav":"8fcc94298787f1372cd142e187740ab0.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"c1f9eef2ee8ecedea708c522e0f4d1a6.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"9f85b321b9205333a9ec2f8128a5b6f4.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"a03dadb5472b6de49d03114760ea10c4.wav","drums/mlp-fim-s9e15-937-0.wav":"31ab82c3bf8858ee34c511339229f19e.wav","drums/mlp-fim-s9e15-937-1.wav":"fa445e68b9af5e588078f14834f6a38b.wav","drums/mlp-return-harmony-27-50-1.wav":"2205c1eaf7f96e490fbdafef73c03561.wav","drums/mlp-return-harmony-27-50-2.wav":"4f00dd20f48d06c1ed81f905adc9a5b6.wav","drums/mlp-s1e22-30s.wav":"cff73474842dbe09a95e5110c60fbcda.wav","drums/mlp-s2e19-38.wav":"eefb720113242147defcb054a4829886.wav","drums/peppa-pig-drums-30-0.wav":"f18374afe00393160b4235ad3cdbb649.wav","drums/peppa-pig-drums-30-1.wav":"7334f34398c5e092ee6b52aef1b6c890.wav","drums/peppa-pig-drums-51.wav":"9137c7a96e11188a413f34fc025b0694.wav","drums/peppa-pig-drums-63-0.wav":"ce178258dec095389867cb4a5db790f5.wav","drums/peppa-pig-drums-63-1.wav":"edf4bdc71ae1dbe24d96c8237b9ee426.wav","drums/peppa-pig-drums-107.wav":"9a681348c98056490d188d51b6e2e610.wav","drums/peppa-pig-mmiwm-64-0.wav":"edcd0b732a06b7b7b3ad7795cf02a124.wav","drums/peppa-pig-mmiwm-64-1.wav":"3e95586bf69523e68d2d03299cd86ce2.wav","drums/peppa-pig-mmiwm-64-2.wav":"11ec7ad0bcc6a0ef79000ebca16cf26d.wav","drums/pinkie-pie-60.wav":"d14e6a191de6410ba1dca66f81644110.wav","drums/pinkie-pie-61.wav":"19f0c0cc55cc638eafae54883603f710.wav","drums/pinkie-pie-83.wav":"7c2479bc3b5715801c11e7aad2db3eb4.wav","drums/rainbowdash-applejack-handclap.wav":"dca71845caccb50335f139871b184ed2.wav","drums/twilight-wood-67-0.wav":"aaf142d98d679d36a9ee679ea2dbc5c4.wav","drums/twilight-wood-67-1.wav":"0228d446ea67cc75c318d42cb2c28222.wav"};
+  var soundbank_assets = {"instruments/daisy-143-C1.wav":"0d1b93e80d5e129c0d194b6e27cc4096.wav","instruments/mlp-24-1.wav":"2c50c5d2aed3fec33d1f5ba1d748248d.wav","instruments/daisy-143-C2.wav":"b6b7eb496d8becd38d3b5e0ff91508af.wav","instruments/mlp-24-1-sitar.wav":"2efc7e72625ab0e0d435a84c21d61c44.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"d99c741cbd79a2d5766f052b6d78cc38.wav","instruments/mlp-fim-s2e10-49.wav":"cb1100d9a0ca1ce4e222def208856377.wav","instruments/mlp-fim-s2e22-953.wav":"34048216db9312a45be97077da12d3e4.wav","instruments/mlp-fim-s4e21-282.wav":"44d59a97f4ce7ba0765a13551555f839.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"841c25741d7663a84c316bed9e4d2dcd.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"3aed397a333f59e57e69b4ec1f7087e8.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"cd640ee8a25ab5cc13477073c05d9c81.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"e67b19a1fecb02566e74d402f0b21f5b.wav","instruments/mlp-fim-s8e26-850.wav":"f1900ebd94fbc8fb401b8e5f197750da.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"c72af7a397817080468a6dda808b2f97.wav","instruments/mlp-pearbutter-193.wav":"170e1b56fa481ffb3947887e30676ab6.wav","instruments/mlp-s1-89-C3.wav":"5e5e523a3894f113db87096d41b1ab04.wav","instruments/mlp-s1-89-C5.wav":"d08cf60867cd78b296bbe7b6b8b07832.wav","instruments/mlp-s1e13-fim-40.wav":"ae2f518b2593e9966ba1dd750cf410bd.wav","instruments/mlp-s1e21-fim-3-C2.wav":"fcc03249801c1593e408491cac639a8d.wav","instruments/mlp-s1e21-fim-3-C3.wav":"898dac455a77645d7f74a9e2c4082200.wav","instruments/mlp-s1e21-fim-3-C4.wav":"0c6d094b2b59dbd57829cfc4cf7d26ba.wav","instruments/mlp-s1e21-fim-3-C5.wav":"3770d9935ab961c6eaf8b25a58581a52.wav","instruments/mlp-s1e22-176.wav":"12ad007a52e14d52a9b58ee3dc77e5ad.wav","instruments/mlp-s1-fim-30_C3.wav":"c609455a42c25793b5fa54c172fa9980.wav","instruments/mlp-s1-fim-30_C5.wav":"e1975fd06239ea68435c6ec1e12a0b26.wav","instruments/mlp-s1-fim-109.wav":"1f702ded8069828bded6aa97f5e4bd93.wav","instruments/mlp-s3-applebloom-168.wav":"9cac8790bbc6222b85306507d716e15b.wav","instruments/mlp-s3-fim-5.wav":"e063e23ca9e693a176e95ec75655699b.wav","instruments/mlp-s4e3-820-1.wav":"f8df20f605e0a4fca65eff7d384a41b8.wav","instruments/mlp-s4e3-820-2.wav":"78236d8d071aedc9ed1017cf63f47b21.wav","instruments/mlp-s5-117.wav":"706c542f866fd0296a20edb08608a7ae.wav","instruments/mlp-s5e6-235.wav":"e403fbd202dc8eec84e3bc1a3ac8a2fc.wav","instruments/mlp-s5e9-471-1.wav":"483a72cc422c92a0100b057a5e7a632e.wav","instruments/mlp-s5e9-471-2.wav":"97f1317984ea2370a66075677191285e.wav","instruments/mlp-s6e14-915.wav":"5b27bf730c485bc01a91f0f96d8a0dfe.wav","instruments/mlp-s7e9-e-guitar.wav":"aaf38041260526a9344ca85b2abbbdb0.wav","instruments/mlp-swarm-od-the-century-1290.wav":"bec335706250e3b32f57c501a9bf12e2.wav","instruments/peppa-pig-drums-53.wav":"aaf24557edb702afd970528eecf98cd8.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"b6ff060fcb251790f86f03bed90d6dbf.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"86887f951d90fa2801151152a0c7e031.wav","instruments/peppa-pig-mi-69-tm1.wav":"00a896446218c804af9ef36bf589335e.wav","instruments/peppa-pig-mi-69-metallic.wav":"62d675a1ce5d5a3fe9e4e994a421fedd.wav","instruments/peppa-pig-mi-69-tm2.wav":"b7df84e255cf54559e182fe47a11d291.wav","instruments/peppa-pig-mi-69-violin.wav":"daef93b84ddf36bd7d8a1c3cdc1e3266.wav","instruments/peppa-pig-mi-114.wav":"beeb4904c9d4bc097ac5c29f2f2d5c79.wav","instruments/peppa-pig-mi-131-1.wav":"c8a7bffe7ccdd01f10f6552720fae584.wav","instruments/peppa-pig-mi-131-2.wav":"ae8670d720dde36c928b39d0017fa63c.wav","instruments/peppa-pig-mmiwm-144.wav":"40b96bf45859be757efc18196f3f0b1d.wav","instruments/peppa-pig-w-4.wav":"74af1b0fa3e2011dff21eb851ff6b7d4.wav","instruments/pinkie-pie-14.wav":"821b78a4929ffece67e7939fc095804d.wav","instruments/pinkie-pie-77-C1.wav":"eb853a2b8d3c3a2a1c27067595d914e5.wav","instruments/pinkie-pie-77-C2.wav":"f5a61bb5d391542647d28bf453dcb653.wav","instruments/pinkie-pie-77-C3.wav":"7e381bb8bd3c0a893db063c1049f214c.wav","drums/applejack-30-0.wav":"a8e5902b236538fccb95767294215a03.wav","drums/applejack-30-1.wav":"806c540d17db55671a82c1040a642f30.wav","drums/derpy-67-0.wav":"99d9d2e9a812c705a4e95f4d8ddb6d18.wav","drums/derpy-67-1.wav":"cd13884edc3089d8260076aa05d23012.wav","drums/mlp-fim-s2e7-425-0.wav":"f7852c1c375e26d10b0b363ffb1979cc.wav","drums/mlp-fim-s2e7-425-1.wav":"9aa1eafd5f2c94ed0499cbd7e809ef3d.wav","drums/mlp-fim-s5e9-471-1.wav":"3399eb36378337faf44d314a5a651408.wav","drums/mlp-fim-s5e9-471-2.wav":"f70c072f11e62ae5bd35970859c87c5c.wav","drums/mlp-fim-s5e9-471-3.wav":"3fb828bd185c7421ed744498f75fa202.wav","drums/mlp-fim-s5e9-471-4.wav":"c870a6759cee410a140fe4fab6104307.wav","drums/mlp-fim-s5e9-471-5.wav":"2be8b42451c252edd02fbfe606eb98b1.wav","drums/mlp-fim-s5e9-471-6.wav":"2250ba9a0fb985b915256d4cb5835b96.wav","drums/mlp-fim-s8e10-22-1.wav":"7ccd83d420bdd72483ffd5f1abfef04b.wav","drums/mlp-fim-s8e10-22-2.wav":"8fcc94298787f1372cd142e187740ab0.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"c1f9eef2ee8ecedea708c522e0f4d1a6.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"9f85b321b9205333a9ec2f8128a5b6f4.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"45b4f2a0deee0e6f7958511d9e130dda.wav","drums/mlp-fim-s9e15-937-0.wav":"31ab82c3bf8858ee34c511339229f19e.wav","drums/mlp-fim-s9e15-937-1.wav":"fa445e68b9af5e588078f14834f6a38b.wav","drums/mlp-return-harmony-27-50-1.wav":"2205c1eaf7f96e490fbdafef73c03561.wav","drums/mlp-return-harmony-27-50-2.wav":"4f00dd20f48d06c1ed81f905adc9a5b6.wav","drums/mlp-s1e22-30s.wav":"cff73474842dbe09a95e5110c60fbcda.wav","drums/mlp-s2e19-38.wav":"eefb720113242147defcb054a4829886.wav","drums/peppa-pig-drums-30-0.wav":"f18374afe00393160b4235ad3cdbb649.wav","drums/peppa-pig-drums-30-1.wav":"7334f34398c5e092ee6b52aef1b6c890.wav","drums/peppa-pig-drums-51.wav":"9137c7a96e11188a413f34fc025b0694.wav","drums/peppa-pig-drums-63-0.wav":"ce178258dec095389867cb4a5db790f5.wav","drums/peppa-pig-drums-63-1.wav":"edf4bdc71ae1dbe24d96c8237b9ee426.wav","drums/peppa-pig-drums-107.wav":"9a681348c98056490d188d51b6e2e610.wav","drums/peppa-pig-mmiwm-64-0.wav":"edcd0b732a06b7b7b3ad7795cf02a124.wav","drums/peppa-pig-mmiwm-64-1.wav":"3e95586bf69523e68d2d03299cd86ce2.wav","drums/peppa-pig-mmiwm-64-2.wav":"11ec7ad0bcc6a0ef79000ebca16cf26d.wav","drums/pinkie-pie-60.wav":"d14e6a191de6410ba1dca66f81644110.wav","drums/pinkie-pie-61.wav":"19f0c0cc55cc638eafae54883603f710.wav","drums/pinkie-pie-83.wav":"7c2479bc3b5715801c11e7aad2db3eb4.wav","drums/rainbowdash-applejack-handclap.wav":"dca71845caccb50335f139871b184ed2.wav","drums/twilight-wood-67-0.wav":"aaf142d98d679d36a9ee679ea2dbc5c4.wav","drums/twilight-wood-67-1.wav":"0228d446ea67cc75c318d42cb2c28222.wav"};
   var ASSET_URL = 'https://assets.scratch.mit.edu/internalapi/asset/$md5ext/get/';
-  function parseMidiData(midiInfo) {
-    var _data = new Uint8Array(midiInfo.data);
+  function loaderMidiData(midiData) {
+    var _data = new Uint8Array(midiData);
     var dataLengthOriginal = _data.length;
     var _dataLength = _data.length;
     var index = 0;
@@ -451,7 +451,8 @@ var AnimTredInstruments = (function() {
     var _readUTFBytes = function(byteCount) {
       var value = "";
       var count = byteCount;
-      while (count--) value += String.fromCharCode(_data[index++]);
+      while (count--)
+        value += String.fromCharCode(_data[index++]);
       return value;
     }
     var _readBytes = function(byteCount) {
@@ -480,37 +481,43 @@ var AnimTredInstruments = (function() {
       }
     }
     var originalIndex = index;
-    var midID = _readUTFBytes(4);
-    switch(midID) {
-      case "RIFF":
-        // Support RIFF
-        var lengthInHeader = _readInt();
-        if (dataLengthOriginal != (lengthInHeader + 8)) console.log("bad RIFF size; ignoring");
-        if (_readUTFBytes(4) !== "RMID") throw new Error("Invalid RMI file");
-        var cdata = _extractChunk('data');
-        if (cdata) {
-          originalIndex = cdata[0];
-          dataLengthOriginal = cdata[1];
-        } else {
-          throw new Error("Invalid RMI file");
-        }
-        break;
-      case "MThd":
-        break;
-    }
-    index = originalIndex;
-    midID = _readUTFBytes(4);
-    if (midID !== "MThd") throw new Error("Invalid MIDI file:" + midID);
-    if (_readBytes(4) !== 6) throw new Error("Invalid MIDI file");
-    var formatType = _readBytes(2);
-    var trackLength = _readBytes(2);
-    var timeDivision = _readBytes(2);
     var tracks = [];
     var trackID = 0;
-    while (trackID < trackLength) {
+    var trackIndex = 0;
+    var trackSize = 0;
+    var startTime = Date.now();
+    var formatType = 0;
+    var trackLength = 0;
+    var timeDivision = 0;
+    var read = function() {
+      var midID = _readUTFBytes(4);
+      switch(midID) {
+        case "RIFF":
+          // Support RIFF
+          var lengthInHeader = _readInt();
+          if (dataLengthOriginal != (lengthInHeader + 8)) console.log("bad RIFF size; ignoring");
+          if (_readUTFBytes(4) !== "RMID") throw "Invalid RMI file";
+          var cdata = _extractChunk('data');
+          if (cdata) {
+            originalIndex = cdata[0];
+            dataLengthOriginal = cdata[1];
+          } else {
+            throw "RMI Missing Data";
+          }
+          break;
+      }
+      index = originalIndex;
+      midID = _readUTFBytes(4);
+      if (midID !== "MThd") throw "Invalid MIDI file: " + midID;
+      if (_readBytes(4) !== 6) throw "Invalid MIDI file";
+      formatType = _readBytes(2);
+      trackLength = _readBytes(2);
+      timeDivision = _readBytes(2);
+    }
+    var readTrack = function() {
       _dataLength = dataLengthOriginal;
       var chuckId = _readUTFBytes(4);
-      if (!(chuckId == "MTrk")) throw new Error("MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file");
+      if (!(chuckId == "MTrk")) throw "MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file";
       var tempos = {};
       var texts = {};
       var keyPressure = {};
@@ -563,87 +570,72 @@ var AnimTredInstruments = (function() {
       var noteTickOff = [];
       var noteTickOn = [];
       var noteVelocity = [];
-      _dataLength = _readBytes(4) + index;
-      while (index < _dataLength) {
-        pulseCounter += _readVariableLength() || 0;
-        event = _data[index++];
-        if (event == 255) {
-          switch (_data[index++]) {
-            case 47:
-              index = _dataLength;
-              break;
-            case 81:
-              tempos.tick.push(pulseCounter);
-              tempos.setting.push(_readBytes(_readVariableLength()));
-              break;
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-              texts.tick.push(pulseCounter);
-              texts.type.push(_data[index - 1]);
-              texts.text.push(_readUTFBytes( _readVariableLength()));
-              break;
-            case 88:
-              timeSignature.tick.push(pulseCounter);
-              timeSignature.numerator.push(_data[index++]);
-              timeSignature.denominator.push(_data[index++]);
-              index -= 2;
-              var ii = _readVariableLength();
-              index += ii;
-              break;
-            case 89:
-              keySignature.tick.push(pulseCounter);
-              keySignature.value.push(_data[index++]);
-              keySignature.type.push(_data[index++]);
-              index -= 2;
-              var ii = _readVariableLength();
-              index += ii;
-              break;
-            default:
-              var ii = _readVariableLength();
-              index += ii;
-          }
-        } else {
-          if (event > 239) {
-            var ii = _readVariableLength();
-            var dat = [];
-            for (var i = 0; i < ii; i++) dat.push(_data[index++]);
-            systemExclusive.tick.push(pulseCounter);
-            systemExclusive.data.push(dat);
-            systemExclusive.fx.push(event - 240);
-          } else {
-            if (event > 127) {
-              midiChannel = event % 16;
-              eventTypeValue = (event - midiChannel);
-            } else {
-              index--;
-            }
-            parameter1 = _data[index++];
-            if (!(eventTypeValue == 192 || eventTypeValue == 208)) parameter2 = _data[index++];
-            switch (eventTypeValue) {
-              case 128:
-                var i = notesOn.length;
-                while (i--) {
-                  if (parameter1 == notePitch[i] && midiChannel == noteChannel[i] && notesOn[i] == true) {
-                    noteTickOff[i] = pulseCounter;
-                    notesOn[i] = false;
-                    break;
-                  }
-                }
+      trackIndex = index;
+      trackSize = _readBytes(4);
+      _dataLength = trackSize + index;
+      var step = function() {
+        while ((index < _dataLength) && ((Date.now() - startTime) < 100)) {
+          pulseCounter += _readVariableLength() || 0;
+          event = _data[index++];
+          if (event == 255) {
+            switch (_data[index++]) {
+              case 47:
+                index = _dataLength;
                 break;
-              case 144:
-                if (parameter2 > 0) {
-                  noteTickOn.push(pulseCounter);
-                  noteTickOff.push(pulseCounter);
-                  noteChannel.push(midiChannel);
-                  notePitch.push(parameter1);
-                  noteVelocity.push(parameter2);
-                  notesOn.push(true);
-                } else {
+              case 81:
+                tempos.tick.push(pulseCounter);
+                tempos.setting.push(_readBytes(_readVariableLength()));
+                break;
+              case 1:
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 6:
+              case 7:
+                texts.tick.push(pulseCounter);
+                texts.type.push(_data[index - 1]);
+                texts.text.push(_readUTFBytes( _readVariableLength()));
+                break;
+              case 88:
+                timeSignature.tick.push(pulseCounter);
+                timeSignature.numerator.push(_data[index++]);
+                timeSignature.denominator.push(_data[index++]);
+                index -= 2;
+                var ii = _readVariableLength();
+                index += ii;
+                break;
+              case 89:
+                keySignature.tick.push(pulseCounter);
+                keySignature.value.push(_data[index++]);
+                keySignature.type.push(_data[index++]);
+                index -= 2;
+                var ii = _readVariableLength();
+                index += ii;
+                break;
+              default:
+                var ii = _readVariableLength();
+                index += ii;
+            }
+          } else {
+            if (event > 239) {
+              var ii = _readVariableLength();
+              var dat = [];
+              for (var i = 0; i < ii; i++) dat.push(_data[index++]);
+              systemExclusive.tick.push(pulseCounter);
+              systemExclusive.data.push(dat);
+              systemExclusive.fx.push(event - 240);
+            } else {
+              if (event > 127) {
+                midiChannel = event % 16;
+                eventTypeValue = (event - midiChannel);
+              } else {
+                index--;
+              }
+              parameter1 = _data[index++];
+              if (!(eventTypeValue == 192 || eventTypeValue == 208)) parameter2 = _data[index++];
+              switch (eventTypeValue) {
+                case 128:
                   var i = notesOn.length;
                   while (i--) {
                     if (parameter1 == notePitch[i] && midiChannel == noteChannel[i] && notesOn[i] == true) {
@@ -652,64 +644,150 @@ var AnimTredInstruments = (function() {
                       break;
                     }
                   }
-                }
-                break;
-              case 160:
-                keyPressure.tick.push(pulseCounter);
-                keyPressure.channel.push(midiChannel);
-                keyPressure.key.push(parameter1);
-                break;
-              case 176:
-                controllers.tick.push(pulseCounter);
-                controllers.channel.push(midiChannel);
-                controllers.control.push(parameter1);
-                controllers.value.push(parameter2);
-                break;
-              case 192:
-                programs.tick.push(pulseCounter);
-                programs.channel.push(midiChannel);
-                programs.program.push(parameter1);
-                break;
-              case 208:
-                channelPressure.tick.push(pulseCounter);
-                channelPressure.channel.push(midiChannel);
-                channelPressure.value.push(parameter1);
-                break;
-              case 224:
-                pitchBends.tick.push(pulseCounter);
-                pitchBends.channel.push(midiChannel);
-                pitchBends.pitch.push(parameter2 * 128 + parameter1);
-                break;
-              default:
-                throw new Error("Unknown event" + ((event > 127) ? "" : " (running)") + ":" + event);
+                  break;
+                case 144:
+                  if (parameter2 > 0) {
+                    noteTickOn.push(pulseCounter);
+                    noteTickOff.push(pulseCounter);
+                    noteChannel.push(midiChannel);
+                    notePitch.push(parameter1);
+                    noteVelocity.push(parameter2);
+                    notesOn.push(true);
+                  } else {
+                    var i = notesOn.length;
+                    while (i--) {
+                      if (parameter1 == notePitch[i] && midiChannel == noteChannel[i] && notesOn[i] == true) {
+                        noteTickOff[i] = pulseCounter;
+                        notesOn[i] = false;
+                        break;
+                      }
+                    }
+                  }
+                  break;
+                case 160:
+                  keyPressure.tick.push(pulseCounter);
+                  keyPressure.channel.push(midiChannel);
+                  keyPressure.key.push(parameter1);
+                  break;
+                case 176:
+                  controllers.tick.push(pulseCounter);
+                  controllers.channel.push(midiChannel);
+                  controllers.control.push(parameter1);
+                  controllers.value.push(parameter2);
+                  break;
+                case 192:
+                  programs.tick.push(pulseCounter);
+                  programs.channel.push(midiChannel);
+                  programs.program.push(parameter1);
+                  break;
+                case 208:
+                  channelPressure.tick.push(pulseCounter);
+                  channelPressure.channel.push(midiChannel);
+                  channelPressure.value.push(parameter1);
+                  break;
+                case 224:
+                  pitchBends.tick.push(pulseCounter);
+                  pitchBends.channel.push(midiChannel);
+                  pitchBends.pitch.push(parameter2 * 128 + parameter1);
+                  break;
+                default:
+                  throw "Unknown event" + ((event > 127) ? "" : " (running)") + ":" + event;
+              }
             }
           }
         }
+        var trackEnd = index < _dataLength;
+        if (trackEnd) {
+          return false;
+        } else {
+          if (index !==  _dataLength) throw "Track number " + (trackID + 1) + " has overrun - invalid MIDI file"; 
+          return true;
+        }
       }
-      if (index !==  _dataLength) throw new Error("Track number " + (trackID + 1) + " has overrun - invalid MIDI file");
-      tracks.push({
-        notes: {
-          channel: noteChannel,
-          pitch: notePitch,
-          tickOff: noteTickOff,
-          tickOn: noteTickOn,
-          velocity: noteVelocity,
-        },
-        tempos: tempos,
-        pitchBends: pitchBends,
-        controllers: controllers,
-        texts: texts,
-        keyPressure: keyPressure,
-        channelPressure: channelPressure,
-        programs: programs,
-        timeSignature: timeSignature,
-        keySignature: keySignature,
-        systemExclusive: systemExclusive,
-        pulseCounterLength: pulseCounter
-      });
-      trackID++;
+      return function() {
+        var mEnd = step();
+        if (mEnd) {
+          tracks.push({
+            notes: {
+              channel: noteChannel,
+              pitch: notePitch,
+              tickOff: noteTickOff,
+              tickOn: noteTickOn,
+              velocity: noteVelocity,
+            },
+            tempos: tempos,
+            pitchBends: pitchBends,
+            controllers: controllers,
+            texts: texts,
+            keyPressure: keyPressure,
+            channelPressure: channelPressure,
+            programs: programs,
+            timeSignature: timeSignature,
+            keySignature: keySignature,
+            systemExclusive: systemExclusive,
+            pulseCounterLength: pulseCounter
+          });    
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
-    if (midiInfo.onload) midiInfo.onload({tracks: tracks, timeDivision: timeDivision, formatType: formatType});
+    var mp = null;
+    var mInterval = null;
+    var minfo = {};
+    var isRunning = false;
+    var state = 0;
+    var fstep = function() {
+      startTime = Date.now();
+      if (!isRunning) return;
+      try {
+        if (state == 0) {
+          read();
+          state = 1;
+        }
+        var gfd = true;
+        while(gfd) {
+          if (mp) {
+            var a = mp();
+            if (a) {
+              mp = null;
+              trackID++;
+            } else gfd = false;
+          } else {
+            if (trackID < trackLength) mp = readTrack();
+            else gfd = false;
+          }
+        }
+      } catch(e) {
+        if (isRunning) {
+          isRunning = false;
+          clearInterval(mInterval);  
+        }
+        if (minfo.onerror) minfo.onerror(e);
+        return;
+      }
+      if (trackID < trackLength) {
+        if (minfo.onprogress && isRunning) minfo.onprogress((index - trackIndex) / trackSize, trackID, trackLength);
+      } else {
+        isRunning = false;
+        clearInterval(mInterval);
+        if (minfo.onload) minfo.onload({tracks: tracks, timeDivision: timeDivision, formatType: formatType});
+      }
+    };
+    minfo.start = function() {
+      if (!isRunning) {
+        isRunning = true;
+        mInterval = setInterval(fstep, 20);
+      }
+    }
+    minfo.stop = function() {
+      if (isRunning) {
+        isRunning = false;
+        clearInterval(mInterval);
+      }
+    }
+    return minfo;
   }
   var Track = function(mse, trackID, data) {
     this.mse = mse;
@@ -732,7 +810,8 @@ var AnimTredInstruments = (function() {
   Track.prototype._initLast = function() {
     if (!("last" in this.programQueue)) {
       var lasts = new Array(16);
-      for (var index = 0; index < 16; index++) lasts[index] = null;
+      for (var index = 0; index < 16; index++)
+        lasts[index] = null;
       this.programQueue.last = [];
       for (var index = 0; index < this.programQueue.tick.length; index++) {
         var _g = this.programQueue.channel[index];
@@ -742,7 +821,8 @@ var AnimTredInstruments = (function() {
     }
     if (!("last" in this.controllerQueue)) {
       var lasts = new Array(2048);
-      for (var index = 0; index < 2048; index++) lasts[index] = null;
+      for (var index = 0; index < 2048; index++)
+        lasts[index] = null;
       this.controllerQueue.last = [];
       for (var index = 0; index < this.controllerQueue.tick.length; index++) {
         var _g = this.controllerQueue.control[index] + (128 * this.controllerQueue.channel[index]);
@@ -752,7 +832,8 @@ var AnimTredInstruments = (function() {
     }
     if (!("last" in this.pitchBendQueue)) {
       var lasts = new Array(16);
-      for (var index = 0; index < 16; index++) lasts[index] = null;
+      for (var index = 0; index < 16; index++)
+        lasts[index] = null;
       this.pitchBendQueue.last = [];
       for (var index = 0; index < this.pitchBendQueue.tick.length; index++) {
         var _g = this.pitchBendQueue.channel[index];
@@ -762,7 +843,8 @@ var AnimTredInstruments = (function() {
     }
     if (!("last" in this.keyPressureQueue)) {
       var lasts = new Array(16);
-      for (var index = 0; index < 16; index++) lasts[index] = null;
+      for (var index = 0; index < 16; index++)
+        lasts[index] = null;
       this.keyPressureQueue.last = [];
       for (var index = 0; index < this.keyPressureQueue.tick.length; index++) {
         var _g = this.keyPressureQueue.channel[index];
@@ -772,7 +854,8 @@ var AnimTredInstruments = (function() {
     }
     if (!("last" in this.channelPressureQueue)) {
       var lasts = new Array(16);
-      for (var index = 0; index < 16; index++) lasts[index] = null;
+      for (var index = 0; index < 16; index++)
+        lasts[index] = null;
       this.channelPressureQueue.last = [];
       for (var index = 0; index < this.channelPressureQueue.tick.length; index++) {
         var _g = this.channelPressureQueue.channel[index];
@@ -816,11 +899,10 @@ var AnimTredInstruments = (function() {
       this.pitchBendIndex--;
       while (this.pitchBendIndex >= 0 && _t < this.pitchBendQueue.tick[this.pitchBendIndex]) {
         var last = this.pitchBendQueue.last[this.pitchBendIndex];
-        if (last == null) {
+        if (last == null) 
           pitchBendChannel[this.pitchBendQueue.channel[this.pitchBendIndex]] = 0;
-        } else {
+        else 
           pitchBendChannel[this.pitchBendQueue.channel[last]] = (this.pitchBendQueue.pitch[last] / 8192) - 1;
-        }
         this.pitchBendIndex--;
       }
       this.pitchBendIndex++;
@@ -833,11 +915,11 @@ var AnimTredInstruments = (function() {
       this.programIndex--;
       while (this.programIndex >= 0 && _t < this.programQueue.tick[this.programIndex]) {
         var last = this.programQueue.last[this.programIndex];
-        if (last == null) {
+        if (last == null) 
           programChannel[this.programQueue.channel[this.programIndex]] = 0;
-        } else {
+        else 
           programChannel[this.programQueue.channel[last]] = this.programQueue.program[last];
-        }
+        
         this.programIndex--;
       }
       this.programIndex++;
@@ -847,7 +929,7 @@ var AnimTredInstruments = (function() {
         var channel = this.controllerQueue.channel[this.controllerIndex];
         var control = this.controllerQueue.control[this.controllerIndex];
         var value = this.controllerQueue.value[this.controllerIndex];
-        this.setController(channel, control, value, false);
+        this.mse._setController(channel, control, value, false);
         this.controllerIndex++;
       }
       this.controllerIndex--;
@@ -857,172 +939,16 @@ var AnimTredInstruments = (function() {
           var channel = this.controllerQueue.channel[this.controllerIndex];
           var control = this.controllerQueue.control[this.controllerIndex];
           var value = this.controllerQueue.value[this.controllerIndex];
-          this.setController(channel, control, value, true);
+          this.mse._setController(channel, control, value, true);
         } else {
           var channel = this.controllerQueue.channel[last];
           var control = this.controllerQueue.control[last];
           var value = this.controllerQueue.value[last];
-          this.setController(channel, control, value, false);
+          this.mse._setController(channel, control, value, false);
         }
         this.controllerIndex--;
       }
       this.controllerIndex++;
-    }
-  }
-  Track.prototype.setController = function(channel, control, value, isEnd) {
-    var mse = this.mse;
-    switch (control) {
-      case 1: // Modulation wheel (MSB)
-        mse.controller.modulationChannel[channel] = value / 200;
-        if (isEnd) {
-          mse.controller.modulationChannel[channel] = 0;
-        }
-        break;
-      case 6: // Data Entry (MSB)
-        mse.controller.dataEntryMSB[channel] = value;
-        break;
-      case 7: // Channel Volume (formerly Main Volume)
-        mse.controller.volumeChannel[channel] = value / 100;
-        if (isEnd) {
-          mse.controller.volumeChannel[channel] = 1;
-        }
-        break;
-      case 10: // Pan
-        mse.controller.panChannel[channel] = (value - 64) / 100;
-        if (isEnd) {
-          mse.controller.panChannel[channel] = 0;
-        }
-        break;
-      case 11: // Expression Controller
-        mse.controller.expressionChannel[channel] = value / 127;
-        if (isEnd) {
-          mse.controller.expressionChannel[channel] = 1;
-        }
-        break;
-      case 0: // Bank Select (MSB)
-      case 2: // Breath control (MSB)
-      case 4: // Foot controller (MSB)
-      case 5: // Portamento time (MSB)
-      case 8: // Balance (MSB)
-      case 12: // Effect control 1 (MSB)
-      case 13: // Effect control 2 (MSB)
-      case 16: // General Purpose Controller #1 (MSB)
-      case 17: // General Purpose Controller #2 (MSB)
-      case 18: // General Purpose Controller #3 (MSB)
-      case 19: // General Purpose Controller #4 (MSB)
-        break;
-      case 38: // Data entry (LSB)
-        mse.controller.dataEntryLSB[channel] = value;
-        break;
-      case 32: // Bank Select (LSB)
-      case 33: // Modulation wheel (LSB)
-      case 34: // Breath control (LSB)
-      case 36: // Foot controller (LSB)
-      case 37: // Portamento time (LSB)
-      case 39: // Channel Volume (formerly Main Volume) (LSB)
-      case 40: // Balance (LSB)
-      case 42: // Pan (LSB)
-      case 43: // Expression Controller (LSB)
-      case 44: // Effect control 1 (LSB)
-      case 45: // Effect control 2 (LSB)
-      case 48: // General Purpose Controller #1 (LSB)
-      case 49: // General Purpose Controller #2 (LSB)
-      case 50: // General Purpose Controller #3 (LSB)
-      case 51: // General Purpose Controller #4 (LSB)
-        break;
-      case 64:
-        mse.controller.sustainPedalChannel[channel] = value > 0;
-        if (isEnd) mse.controller.sustainPedalChannel[channel] = false;
-        if (mse.isEffect) {
-          var _notesPlaying = mse.notesPlayingChannel[channel];
-          for (var i = 0; i < _notesPlaying.length; i++) {
-            var note = _notesPlaying[i];
-            if (!note) continue;
-            if (channel == note.channel) {
-              if (mse.controller.sustainPedalChannel[channel]) {
-                note.setDurationInf = true;
-              } else {
-                note.setDurationInf = false;
-                if (mse.currentPulse >= note.nodeOff) {
-                  if (note.release && !note.release.ended) {
-                    note.release.ended = true;
-                  } else {
-                    note.ended = true;
-                  }
-                }
-              }
-            }
-          }
-        }
-        break;
-      case 65: // Portamento on/off
-      case 66: // Sustenuto on/off
-      case 67: // Soft pedal on/off
-      case 68: // Legato Footswitch
-      case 69: // Hold 2
-        break;
-      case 70: // Sound Controller 1 (Sound Variation) (LSB)
-      case 71: // Sound Controller 2 (Timbre) (LSB)
-      case 72: // Sound Controller 3 (Release Time) (LSB)
-      case 73: // Sound Controller 4 (Attack Time) (LSB)
-      case 74: // Sound Controller 5 (Brightness) (LSB)
-      case 75: // Sound Controller 6 (LSB)
-      case 76: // Sound Controller 7 (LSB)
-      case 77: // Sound Controller 8 (LSB)
-      case 78: // Sound Controller 9 (LSB)
-      case 79: // Sound Controller 10 (LSB)
-      case 80: // General Purpose Controller #5 (LSB)
-      case 81: // General Purpose Controller #6 (LSB)
-      case 82: // General Purpose Controller #7 (LSB)
-      case 83: // General Purpose Controller #8 (LSB)
-      case 84: // Portamento Control
-      case 91: // Effects 1 Depth (LSB)
-      case 92: // Effects 2 Depth (LSB)
-      case 93: // Effects 3 Depth (LSB)
-      case 94: // Effects 4 Depth (LSB)
-      case 95: // Effects 5 Depth (LSB)
-        break;
-      case 96: // Data entry +1
-      case 97: // Data entry -1
-        break;
-      case 98: // Non-Registered Parameter Number (LSB)
-      case 99: // Non-Registered Parameter Number (MSB)
-        break;
-      case 100: // Registered Parameter Number LSB
-        mse.controller.registeredParameterLSBchannel[channel] = value;
-        break;
-      case 101: // Registered Parameter Number MSB
-        mse.controller.registeredParameterMSBchannel[channel] = value;
-        break;
-      case 120: // All Sound Off
-      case 126: // Poly mode on/off (+ all notes off)
-      case 127: // Poly mode on (incl mono=off +all notes off)
-        if (mse.isEffect) {
-          var _notesPlaying = mse.notesPlayingChannel[channel];
-          for (var i = 0; i < _notesPlaying.length; i++) {
-            var note = _notesPlaying[i];
-            if (!note) continue;
-            if (channel == note.channel) note.ended = true;
-          }
-        }
-        break;
-      case 123: // All notes off
-        if (mse.isEffect) {
-          var _notesPlaying = mse.notesPlayingChannel[channel];
-          for (var i = 0; i < _notesPlaying.length; i++) {
-            var note = _notesPlaying[i];
-            if (!note) continue;
-            if (channel == note.channel && note.setDurationInf) note.ended = true;
-          }
-        }
-        break;
-      case 121:
-        //mse.resetController();
-        break;
-      case 122: // Local control on/off
-      case 124: // Omni mode off (+ all notes off)
-      case 125: // Omni mode on (+ all notes off)
-        break;
     }
   }
   Track.prototype.getNote = function(mute, k) {
@@ -1041,9 +967,8 @@ var AnimTredInstruments = (function() {
         this.noteIndex++;
       }
       this.noteIndex--;
-      while (this.noteIndex >= 0 && _currentPulse < tickOn[this.noteIndex]) {
+      while (this.noteIndex >= 0 && _currentPulse < tickOn[this.noteIndex]) 
         this.noteIndex--;
-      }
       this.noteIndex++;
       return [startIndex, endIndex];
     } else {
@@ -1059,9 +984,8 @@ var AnimTredInstruments = (function() {
         prs[i](function() {
           fun1();
           count--;
-          if (count == 0) {
+          if (count == 0) 
             funend();
-          }
         });
   }
   var Player = function() {
@@ -1075,8 +999,9 @@ var AnimTredInstruments = (function() {
     this.DateTime = 0;
     this.onplaynote = null;
     this.onended = null;
-    this.onprogress = null;
     this.onload = null;
+    this.onerror = null;
+    this.onprogress = null;
     this.oncleanup = null;
     this.speed = 1;
     this.isEffect = true;
@@ -1086,7 +1011,8 @@ var AnimTredInstruments = (function() {
     this.notesPlayingChannel = new Array(16);
     for (var i = 0; i < 16; i++) {
       var gg = new Array(128);
-      for (var i2 = 0; i2 < gg.length; i2++) gg[i2] = null;
+      for (var i2 = 0; i2 < gg.length; i2++)
+        gg[i2] = null;
       this.notesPlayingChannel[i] = gg;
     }
     this.trackQueue = [];
@@ -1099,6 +1025,7 @@ var AnimTredInstruments = (function() {
     this._soundbankLoaded = 0;
     this._soundbank = {};
     this._startTime = 0;
+    this.loader = null;
     this.date = this._getTime();
     this._frameStart = Date.now();
     this._interval = setInterval(this._step.bind(this), 5);
@@ -1107,15 +1034,14 @@ var AnimTredInstruments = (function() {
     this._d = Date.now();
     this._d2 = 0;
     for (var i = 0; i < 16; i++) {
-      this._panGainChannel[i] = this._createPan(this.node);
+      this._panGainChannel[i] = this._createPan();
       this._outputGainChannel[i] = this._panGainChannel[i].inputNode;
     }
     this.resetEffect();
   }
   Player.prototype._getTime = function() {
-    if (this.audioContext.state != "running") {
+    if (this.audioContext.state != "running") 
       this._d2 = Date.now() - this._d;
-    }
     return (this.audioContext.currentTime * 1000) + this._d2;
   }
   Player.prototype.resetEffect = function() {
@@ -1147,19 +1073,18 @@ var AnimTredInstruments = (function() {
     this.currentPulse = 0;
     this.currentTime = 0;
     this._currentTimeLast = 0;
-    if (this.oncleanup) {
+    if (this.loader) 
+      this.loader.stop();
+    if (this.oncleanup) 
       this.oncleanup();
-    }
   }
   Player.prototype.resetTrack = function() {
     this.tempo = 500000 / this.timeDivision;
     this._tempoTick = 0;
     this._tempoTime = 0;
     this.currentPulse = 0;
-    for (var i = 0; i < this.trackQueue.length; i++) {
-      var track = this.trackQueue[i];
-      track.reset();
-    }
+    for (var i = 0; i < this.trackQueue.length; i++) 
+      this.trackQueue[i].reset();
   }
   Player.prototype.setCurrentTime = function(s) {
     this.muteMusicr = true;
@@ -1178,9 +1103,7 @@ var AnimTredInstruments = (function() {
       this.setStartTime(this.currentTime);
       this._stepUpdateTrack();
       for (var i = 0; i < this.trackQueue.length; i++) {
-        var track = this.trackQueue[i];
-        if (!track) continue;
-        track.getNote(true);
+        this.trackQueue[i].getNote(true);
       }
     }
   }
@@ -1280,9 +1203,9 @@ var AnimTredInstruments = (function() {
   Player.prototype.stopAllPlaying = function() {
     for (var c = 0; c < 16; c++) {
       var _notesPlaying = this.notesPlayingChannel[c];
-      for (var i = 0; i < _notesPlaying.length; i++) {
-        if (_notesPlaying[i]) _notesPlaying[i].ended = true;
-      }
+      for (var i = 0; i < _notesPlaying.length; i++) 
+        if (_notesPlaying[i])
+          _notesPlaying[i].ended = true;
     }
   }
   Player.prototype.stop = function() {
@@ -1301,38 +1224,44 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype.getNoteLength = function() {
     var t = 0;
-    for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].noteQueue.tickOn.length;
+    for (var i = 0; i < this.trackQueue.length; i++)
+      t += this.trackQueue[i].noteQueue.tickOn.length;
     return t;
   }
   Player.prototype.getNoteTracker = function() {
     var t = 0;
-    for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].noteIndex;
+    for (var i = 0; i < this.trackQueue.length; i++)
+      t += this.trackQueue[i].noteIndex;
     return t;
   }
   Player.prototype.getTempoLength = function() {
     var t = 0;
-    for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].tempoQueue.tick.length;
+    for (var i = 0; i < this.trackQueue.length; i++)
+      t += this.trackQueue[i].tempoQueue.tick.length;
     return t;
   }
   Player.prototype.getTempoTracker = function() {
     var t = 0;
-    for (var i = 0; i < this.trackQueue.length; i++) t += this.trackQueue[i].tempoTracker;
+    for (var i = 0; i < this.trackQueue.length; i++)
+      t += this.trackQueue[i].tempoTracker;
     return t;
   }
   Player.prototype.getSoundBankSize = function() {
     var t = 0;
-    for (var name in this._soundbank) t += this._soundbank[name].data.length;
+    for (var name in this._soundbank)
+      t += this._soundbank[name].data.length;
     return t;
   }
   Player.prototype.getPulseCounterLength = function() {
     var _pulseCounterLength = 0;
     for (var i = 0; i < this.trackQueue.length; i++) {
       var len = this.trackQueue[i].pulseCounterLength;
-      if (len > _pulseCounterLength) _pulseCounterLength = len;
+      if (len > _pulseCounterLength)
+        _pulseCounterLength = len;
     }
     return _pulseCounterLength;
   }
-  Player.prototype._createPan = function(input) {
+  Player.prototype._createPan = function() {
     var inputNode = this.audioContext.createGain();
     var leftGain = this.audioContext.createGain();
     var rightGain = this.audioContext.createGain();
@@ -1341,8 +1270,12 @@ var AnimTredInstruments = (function() {
     inputNode.connect(rightGain);
     leftGain.connect(channelMerger, 0, 0);
     rightGain.connect(channelMerger, 0, 1);
-    channelMerger.connect(input);
-    return { inputNode: inputNode, leftGain: leftGain, rightGain: rightGain };
+    channelMerger.connect(this.node);
+    return {
+      inputNode: inputNode,
+      leftGain: leftGain,
+      rightGain: rightGain
+    }
   }
   Player.prototype.playNote = function(n) {
     if (n.type == 1) {
@@ -1352,7 +1285,8 @@ var AnimTredInstruments = (function() {
       var span = spans[0];
       for (var i = 1; i < spans.length; i++) {
         var s = spans[i];
-        if (n.pitch >= s.top) span = s;
+        if (n.pitch >= s.top)
+          span = s;
       }
       if (!span) return;
       var buffer = this._soundbank[span.name];
@@ -1472,7 +1406,8 @@ var AnimTredInstruments = (function() {
       gain.value = 0;
       node.connect(this._outputGainChannel[channel]);
       var releaseDuration = span.releaseTime;
-      if (typeof releaseDuration === "undefined" || !isStart) releaseDuration = 0.01;
+      if (typeof releaseDuration === "undefined" || !isStart) 
+        releaseDuration = 0.01;
       var te = {
         _pitch: pitch,
         _volume: volume,
@@ -1533,13 +1468,12 @@ var AnimTredInstruments = (function() {
         var _pitch = (note.pitch + this._getPitch(note.channel));
         var rateSpeed = Math.pow(2, (_pitch / 12));
         note.source.playbackRate.value = rateSpeed;
-        var volumeEffect = Math.min((note.volume * this._getVolumeChannel(note.channel)), 1.27);
-        var volumeOld = ((Math.pow(5, volumeEffect) - 1.0) / 4); // Normal
-        note.note.gain.value = (volumeOld * note.releaseGainVolume);
+        var volumeEffect = Math.min(note.volume * this._getVolumeChannel(note.channel), 1.27);
+        var volumeOld = (Math.pow(5, volumeEffect) - 1.0) / 4; // Normal
+        note.note.gain.value = volumeOld * note.releaseGainVolume;
       } else {
-        var rateSpeed = Math.pow(2, (note.pitch / 12));
-        note.source.playbackRate.value = rateSpeed;
-        note.note.gain.value = (note.volume * note.releaseGainVolume);
+        note.source.playbackRate.value = Math.pow(2, note.pitch / 12);
+        note.note.gain.value = note.volume * note.releaseGainVolume;
         note.duration = note.dur;
       }
     }
@@ -1656,9 +1590,161 @@ var AnimTredInstruments = (function() {
     }
     this._trackAllUpdate();
   }
+  Player.prototype._setController = function(channel, control, value, isEnd) {
+    switch (control) {
+      case 1: // Modulation wheel (MSB)
+        this.controller.modulationChannel[channel] = value / 200;
+        if (isEnd) 
+          this.controller.modulationChannel[channel] = 0;
+        break;
+      case 6: // Data Entry (MSB)
+        this.controller.dataEntryMSB[channel] = value;
+        break;
+      case 7: // Channel Volume (formerly Main Volume)
+        this.controller.volumeChannel[channel] = value / 100;
+        if (isEnd) 
+          this.controller.volumeChannel[channel] = 1;
+        break;
+      case 10: // Pan
+        this.controller.panChannel[channel] = (value - 64) / 100;
+        if (isEnd) 
+          this.controller.panChannel[channel] = 0;
+        break;
+      case 11: // Expression Controller
+        this.controller.expressionChannel[channel] = value / 127;
+        if (isEnd) 
+          this.controller.expressionChannel[channel] = 1;
+        break;
+      case 0: // Bank Select (MSB)
+      case 2: // Breath control (MSB)
+      case 4: // Foot controller (MSB)
+      case 5: // Portamento time (MSB)
+      case 8: // Balance (MSB)
+      case 12: // Effect control 1 (MSB)
+      case 13: // Effect control 2 (MSB)
+      case 16: // General Purpose Controller #1 (MSB)
+      case 17: // General Purpose Controller #2 (MSB)
+      case 18: // General Purpose Controller #3 (MSB)
+      case 19: // General Purpose Controller #4 (MSB)
+        break;
+      case 38: // Data entry (LSB)
+        this.controller.dataEntryLSB[channel] = value;
+        break;
+      case 32: // Bank Select (LSB)
+      case 33: // Modulation wheel (LSB)
+      case 34: // Breath control (LSB)
+      case 36: // Foot controller (LSB)
+      case 37: // Portamento time (LSB)
+      case 39: // Channel Volume (formerly Main Volume) (LSB)
+      case 40: // Balance (LSB)
+      case 42: // Pan (LSB)
+      case 43: // Expression Controller (LSB)
+      case 44: // Effect control 1 (LSB)
+      case 45: // Effect control 2 (LSB)
+      case 48: // General Purpose Controller #1 (LSB)
+      case 49: // General Purpose Controller #2 (LSB)
+      case 50: // General Purpose Controller #3 (LSB)
+      case 51: // General Purpose Controller #4 (LSB)
+        break;
+      case 64:
+        this.controller.sustainPedalChannel[channel] = value > 0;
+        if (isEnd)
+          this.controller.sustainPedalChannel[channel] = false;
+        if (this.isEffect) {
+          var _notesPlaying = this.notesPlayingChannel[channel];
+          for (var i = 0; i < _notesPlaying.length; i++) {
+            var note = _notesPlaying[i];
+            if (!note) continue;
+            if (channel == note.channel) {
+              if (this.controller.sustainPedalChannel[channel]) {
+                note.setDurationInf = true;
+              } else {
+                note.setDurationInf = false;
+                if (this.currentPulse >= note.nodeOff) {
+                  if (note.release && !note.release.ended) {
+                    note.release.ended = true;
+                  } else {
+                    note.ended = true;
+                  }
+                }
+              }
+            }
+          }
+        }
+        break;
+      case 65: // Portamento on/off
+      case 66: // Sustenuto on/off
+      case 67: // Soft pedal on/off
+      case 68: // Legato Footswitch
+      case 69: // Hold 2
+        break;
+      case 70: // Sound Controller 1 (Sound Variation) (LSB)
+      case 71: // Sound Controller 2 (Timbre) (LSB)
+      case 72: // Sound Controller 3 (Release Time) (LSB)
+      case 73: // Sound Controller 4 (Attack Time) (LSB)
+      case 74: // Sound Controller 5 (Brightness) (LSB)
+      case 75: // Sound Controller 6 (LSB)
+      case 76: // Sound Controller 7 (LSB)
+      case 77: // Sound Controller 8 (LSB)
+      case 78: // Sound Controller 9 (LSB)
+      case 79: // Sound Controller 10 (LSB)
+      case 80: // General Purpose Controller #5 (LSB)
+      case 81: // General Purpose Controller #6 (LSB)
+      case 82: // General Purpose Controller #7 (LSB)
+      case 83: // General Purpose Controller #8 (LSB)
+      case 84: // Portamento Control
+      case 91: // Effects 1 Depth (LSB)
+      case 92: // Effects 2 Depth (LSB)
+      case 93: // Effects 3 Depth (LSB)
+      case 94: // Effects 4 Depth (LSB)
+      case 95: // Effects 5 Depth (LSB)
+        break;
+      case 96: // Data entry +1
+      case 97: // Data entry -1
+        break;
+      case 98: // Non-Registered Parameter Number (LSB)
+      case 99: // Non-Registered Parameter Number (MSB)
+        break;
+      case 100: // Registered Parameter Number LSB
+        this.controller.registeredParameterLSBchannel[channel] = value;
+        break;
+      case 101: // Registered Parameter Number MSB
+        this.controller.registeredParameterMSBchannel[channel] = value;
+        break;
+      case 120: // All Sound Off
+      case 126: // Poly mode on/off (+ all notes off)
+      case 127: // Poly mode on (incl mono=off +all notes off)
+        if (this.isEffect) {
+          var _notesPlaying = this.notesPlayingChannel[channel];
+          for (var i = 0; i < _notesPlaying.length; i++) {
+            var note = _notesPlaying[i];
+            if (!note) continue;
+            if (channel == note.channel) note.ended = true;
+          }
+        }
+        break;
+      case 123: // All notes off
+        if (this.isEffect) {
+          var _notesPlaying = this.notesPlayingChannel[channel];
+          for (var i = 0; i < _notesPlaying.length; i++) {
+            var note = _notesPlaying[i];
+            if (!note) continue;
+            if (channel == note.channel && note.setDurationInf) note.ended = true;
+          }
+        }
+        break;
+      case 121:
+        //this.resetController();
+        break;
+      case 122: // Local control on/off
+      case 124: // Omni mode off (+ all notes off)
+      case 125: // Omni mode on (+ all notes off)
+        break;
+    }
+  }
   Player.prototype._noteStop = function(note, isEnded) {
     if (note.source) {
-      if ((!note.isStop) && !isEnded) { // FIXME
+      if ((!note.isStop) && !isEnded) {
         note.source.stop(0);
         note.isStop = true;
       }
@@ -1711,16 +1797,15 @@ var AnimTredInstruments = (function() {
             });
           }
         }
-        //if (!this.node.gain.value) continue;
         if (true) {
           var _notesplaying = this.notesPlayingChannel[channel];
-          var _hn = _notesplaying[pitch];
-          if (_hn) {
-            var h = _hn;
+          var h = _notesplaying[pitch];
+          if (h) {
             var _release = h.release;
             if (!h.ended && _release && !_release.ended && !h.setDurationInf) {
               var j = Math.min(h.nodeOff, tickOff);
-              if (h.nodeOff >= undefined && h.nodeOff <= tickOn) tickOff = j;
+              if (h.nodeOff >= tickOff && h.nodeOff <= tickOn) 
+                tickOff = j;
             }
             this._noteStop(h, false);
             _notesplaying[pitch] = null;
@@ -1737,28 +1822,23 @@ var AnimTredInstruments = (function() {
         var note = _notesPlaying[i];
         if (!note) continue;
         if (!note.ended) {
-          note.start = true;
           var _release = note.release;
           if (_release) {
-            if (!note.setDurationInf && (this.currentPulse >= note.nodeOff)) {
-              _release.ended = true;
-            } else {
-              if (this.currentPulse < note.nodeOn) note.ended = true;
-            }
+            if (!note.setDurationInf && (this.currentPulse >= note.nodeOff)) _release.ended = true;
+            else if (this.currentPulse < note.nodeOn) note.ended = true;
             if (_release.ended) {
-              if (!("startTime" in _release)) {
+              if (!("startTime" in _release)) 
                 _release.startTime = this.date;
-              }
               if (_release.duration) {
-                note.releaseGainVolume = Math.max(0, (1 - ((this.date - _release.startTime) / _release.duration)));
-                if ((this.date - _release.startTime) >= _release.duration) {
+                note.releaseGainVolume = Math.max(0, 1 - ((this.date - _release.startTime) / _release.duration));
+                if ((this.date - _release.startTime) >= _release.duration) 
                   note.ended = true;
-                }
               } else {
                 note.ended = true;
               }
             }
           }
+          note.start = true;
           this._updateEffectNote(note);
         }
         if (note.ended) {
@@ -1772,28 +1852,38 @@ var AnimTredInstruments = (function() {
     this.cleanup();
     var loadedTime = Date.now();
     var _this = this;
-    parseMidiData({
-      data: data,
-      onload: function (result) {
-        _this.loadedTime = Date.now() - loadedTime;
-        _this._init(result);
-        if (_this.onload) {
-          _this.onload();
-        }
-      }
-    });
+    if (_this.onprogress) 
+      _this.onprogress("reading midi");
+    var mp = loaderMidiData(data);
+    mp.onload = function (result) {
+      _this.loader = null;
+      _this.loadedTime = Date.now() - loadedTime;
+      _this._init(result);
+      if (_this.onload) 
+        _this.onload();
+    }
+    mp.onerror = function(e) {
+      _this.loader = null;
+      if (_this.onerror) 
+        _this.onerror(e);
+    }
+    mp.onprogress = function(r, a, b) {
+      if (_this.onprogress) 
+        _this.onprogress("processing track " + a + " / " + b + " " + Math.round(r * 100) + "%");
+    }
+    _this.loader = mp;
+    mp.start();
   }
   Player.prototype.toJSON = function() {
     var tracks = [];
-    for (var i = 0; i < this.trackQueue.length; i++) {
+    for (var i = 0; i < this.trackQueue.length; i++) 
       tracks.push(this.trackQueue[i].toJSON());
-    }
     return {
       tracks: tracks,
       timeDivision: this.timeDivision,
       formatType: this.formatType,
       duration: this.duration
-    };
+    }
   }
   Player.prototype.getDuration = function() {
     var duration = 0;
@@ -1801,9 +1891,8 @@ var AnimTredInstruments = (function() {
     var _tracks = [];
     for (var i = 0; i < this.trackQueue.length; i++) {
       var len = this.trackQueue[i].pulseCounterLength;
-      if (len > _pulseCounterLength) {
+      if (len > _pulseCounterLength) 
         _pulseCounterLength = len;
-      }
       _tracks.push({
         tempoIdx: 0
       });
@@ -1822,7 +1911,7 @@ var AnimTredInstruments = (function() {
           duration += (_tempoQueue.tick[_tracks[i].tempoIdx] - tempoTick) * tempo;
           tempoTick = _tempoQueue.tick[_tracks[i].tempoIdx];
           tempo = _tempoQueue.setting[_tracks[i].tempoIdx] / this.timeDivision;
-          _currentPulse = (tempoTick + ((time - duration) / tempo));
+          _currentPulse = tempoTick + ((time - duration) / tempo);
           _tracks[i].tempoIdx++;
           tempoIdx++;
         }
@@ -1838,9 +1927,8 @@ var AnimTredInstruments = (function() {
     this.trackQueue = [];
     this.timeDivision = data.timeDivision;
     this.formatType = data.formatType;
-    for (var i = 0; i < tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) 
       this.trackQueue.push(new Track(this, i + 1, tracks[i]));
-    }
     this.tempo = 500000 / data.timeDivision;
     this.duration = this.getDuration();
     this.resetTrack();
@@ -1858,6 +1946,6 @@ var AnimTredInstruments = (function() {
     INSTRUMENT_INFO: INSTRUMENT_INFO,
     SOUNDBANK_FILES: SOUNDBANK_FILES,
     formats: ["mid", "rmi", "midi"],
-    version: "v1.2.2"
+    version: "v1.2.3"
   }
 }());

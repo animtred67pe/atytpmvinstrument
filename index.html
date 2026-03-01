@@ -85,6 +85,7 @@
 			</div>
 			<div class="dgdggggg">
 				<a href="test.html">Instruments</a>
+				<a href="midi_list.html">Midi Playlist</a>
 				<a href="blackmidi.html">Black midi</a>
 				<a href="visualisation.html">Midi Visualisation</a>
 				<a href="player.html">Midi Player</a>
@@ -199,31 +200,25 @@
 						for (var i = 0; i < rchannel.length; i++) {
 							if (rchannel[i]) {
 								var _release = rchannel[i].release;
-								if (_release) {
-									if (_release.ended) {
+								if (_release) 
+									if (_release.ended) 
 										continue;
-									}
-								}
 								f6fhf++;
 								fgdlll[rchannel[i]._pitch] = channelColor[rchannel[i].channel];
 							}
 						}
 					}
 					var f_ggg =  "Time: " + getDuraction(player.currentTime) + "/" + getDuraction(player.duration) + " Notes: " + player.getNoteTracker() + "/" + player.getNoteLength()  + " Tempos: " +  player.getTempoTracker() + "/" + player.getTempoLength();
-					if (z_dir3_3 && (f_ggg !== cuer.innerHTML)) {
+					if (z_dir3_3 && (f_ggg !== cuer.innerHTML)) 
 						cuer.innerHTML = f_ggg;
-					}
 					var gfdgfdg = "Type: " + player.formatType + " Tracks: " + player.trackQueue.length + " PPQN: " + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM Tick: " + Math.round(player.currentPulse) + "/" + player.getPulseCounterLength();
 					if ((gfdgfdg !== cuer44.innerHTML))
 						cuer44.innerHTML = gfdgfdg;
 					pianoCTX.clearRect(0, 0, 748, 80);
 					for (var i = 0; i < notesG.length; i++) {
 						var note = notesG[i];
-						if (fgdlll[note[5]]) {
-							pianoCTX.fillStyle = fgdlll[note[5]];
-						} else {
-							pianoCTX.fillStyle = note[0];
-						}
+						if (fgdlll[note[5]]) pianoCTX.fillStyle = fgdlll[note[5]];
+						else pianoCTX.fillStyle = note[0];
 						pianoCTX.fillRect(note[1], note[2], note[3], note[4]);
 					}
 				}
@@ -243,10 +238,12 @@
 					player.setCurrentTime(0);
 					playstop.innerHTML = 'Play';
 				}
+				player.onprogress = function (a) {
+					if (a) cuer46.innerHTML = a;
+				}
 				player.onload = function () {
 					viewe555.title = "";
 					z_dir2 = setInterval(z_dir, 5);
-					cuer46.innerHTML = 'Loading Soundbanks';
 					player.loadSoundbank(function(e) {
 						playstop.removeAttribute("disabled");
 						playstop2.removeAttribute("disabled");
@@ -262,7 +259,6 @@
 					playstop2.setAttribute("disabled", true);
 					fgdgdfg.setAttribute("disabled", true);
 					viewe555.title = "Midi not loaded";
-					cuer46.innerHTML = 'Opening Midi';
 					mid_name = file.name || "";
 					var a = new FileReader();
 					a.onload = (function() {

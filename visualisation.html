@@ -428,14 +428,16 @@
 				}
 				var midcontrol = new MidiControls(player, document.getElementById('midiscene'));
 				player.setVolume(0.67);
+				player.onload = function() {
+					player.loadSoundbank(function() {
+						player.play();
+					});
+				}
 				function loadMidiFile(file) {
 					var a = new FileReader();
 					a.onload = (function() {
 						midcontrol.resetVir();
 						player.loadMid(a.result);
-						player.loadSoundbank(function(e) {
-							player.play();
-						});
 					}).bind(this);
 					a.readAsArrayBuffer(file);
 				}
