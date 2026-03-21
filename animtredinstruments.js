@@ -1,335 +1,279 @@
 /*
- * YTPMV Cartoon Instruments v1.2.3
+ * YTPMV Cartoon Instruments v1.3.0
  * 
  * The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
  * audio program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3
  * 
- * soundbank size 7.56 MB
+ * soundbank size 1.93 MB
  */
 
 var AnimTredInstruments = (function() {
   var DRUM_INFO = {
-    "snare drum": {name: "SnareDrum"},
-    "crash cymbal": {name: "Crash"},
-    "low floor tom": {name: "Tom_C1"},
-    "high floor tom": {name: "Tom_C2"},
-    "low tom": {name: "Tom_C3"},
-    "low mid tom": {name: "Tom_C4"},
-    "hi mid tom": {name: "Tom_C5"},
-    "high tom": {name: "Tom_C6"},
-    "claves_1": {name: "Unknown_0"},
-    "bongo": {name: "Bongo_low"},
-    "long guiro": {name: "Guiro_long"},
-    "short guiro": {name: "Guiro_short"},
-    "hi bongo": {name: "Bongo_hi"},
-    "cuica": {name: "Cuica"},
-    "low cuica": {name: "Cuica_low"},
-    "hand": {name: "HandClap"},
-    "tambourine": {name: "Tambourine"},
-    "open hi hat": {name: "OpenHat"},
-    "closed hi hat": {name: "ClosedHat"},
-    "vibraslap": {name: "Vibraslap"},
-    "claves": {name: "Claves"},
-    "acoustic bass drum": {name: "AcousticBassDrum"},
-    "open conga": {name: "OpenConga"},
-    "mute conga": {name: "MuteConga"},
-    "wood": {name: "HiWoodBlock"},
-    "low wood": {name: "LowWoodBlock"},
-    "timbale high": {name: "Timbale_High"},
-    "timbale low": {name: "Timbale_Low"},
-    "triangle": {name: "Triangle"},
-    "mute triangle": {name: "MuteTriangle"},
-    "long whistle": {name: "LongWhistle"},
-    "short whistle": {name: "ShortWhistle"},
-    "high agogo": {name: "HighAgogo"},
-    "low agogo": {name: "LowAgogo"},
-    "conga": {name: "Conga"},
-    "cabasa": {name: "Cabasa"},
-    "cowbell": {name: "Cowbell"},
-    "side stick": {name: "SideStick"},
+    "acoustic bass drum": "AcousticBassDrum",
+    "side stick": "SideStick",
+    "snare drum": "SnareDrum",
+    "hand": "HandClap",
+    "closed hi hat": "ClosedHat",
+    "open hi hat": "OpenHat",
+    "crash cymbal": "Crash",
+    "low floor tom": "TomC1",
+    "high floor tom": "TomC2",
+    "low tom": "TomC3",
+    "low mid tom": "TomC4",
+    "hi mid tom": "TomC5",
+    "high tom": "TomC6",
+    "tambourine": "Tambourine",
+    "cowbell": "Cowbell",
+    "vibraslap": "Vibraslap",
+    "hi bongo": "BongoHi",
+    "bongo": "BongoLow",
+    "mute conga": "MuteConga",
+    "open conga": "OpenConga",
+    "conga": "Conga",
+    "timbale high": "TimbaleHigh",
+    "timbale low": "TimbaleLow",
+    "high agogo": "HighAgogo",
+    "low agogo": "LowAgogo",
+    "cabasa": "Cabasa",
+    "short whistle": "ShortWhistle",
+    "long whistle": "LongWhistle",
+    "short guiro": "GuiroShort",
+    "long guiro": "GuiroLong",
+    "claves": "Claves",
+    "wood": "HiWoodBlock",
+    "low wood": "LowWoodBlock",
+    "cuica": "Cuica",
+    "low cuica": "CuicaLow",
+    "mute triangle": "MuteTriangle",
+    "triangle": "Triangle",
+    "unknown_0": "Unknown0",
+    "unknown_1": "Unknown1",
+    "unknown_2": "Unknown2",
+    "unknown_3": "Unknown3"
   }
   var INSTRUMENT_INFO = {
-    "piano": [
-      {top: 60, name: "Piano_C3", releaseTime: 0.1},
-      {top: 84, name: "Piano_C5", releaseTime: 0.1}
-    ],
-    "electric guitar": [{top: 60, name: "ElectricGuitar", releaseTime: 0.1}],
-    "overdriven guitar": [{top: 60, name: "OverdrivenGuitar", loop: true, loopStart: 0.27618, loopEnd: 0.64141}],
-    "sitar": [{top: 60, name: "Sitar", releaseTime: 0.8}],
-    "melodic tom": [{top: 60, name: "MelodicTom", releaseTime: 0.1}],
-    "synth drum": [{top: 60, name: "SynthDrum", releaseTime: 0.25}],
-    "taiko drum": [{top: 60, name: "TaikoDrum", releaseTime: 0.25}],
-    "warm": [
-      {top: 60, name: "Warm_C3", loop: true, loopStart: 0.63658, loopEnd: 0.84550, releaseTime: 0.25},
-      {top: 72, name: "Warm_C4", loop: true, loopStart: 0.57448, loopEnd: 0.7529, releaseTime: 0.25}
-    ],
-    "bowed": [
-      {top: 60, name: "Bowed_C3", loop: true, loopStart: 0.63658, loopEnd: 0.84550, releaseTime: 0.25},
-      {top: 72, name: "Bowed_C4", loop: true, loopStart: 0.57448, loopEnd: 0.7529, releaseTime: 0.25}
-    ],
-    "guitar": [{top: 60, name: "Guitar", releaseTime: 0.1}],
-    "bass": [
-      {top: 36, name: "Bass_C2", releaseTime: 0.1},
-      {top: 48, name: "Bass_C3", releaseTime: 0.1}
-    ],
-    "electric piano": [{top: 60, name: "ElectricPiano", releaseTime: 0.1}],
-    "church organ": [{top: 60, name: "ChurchOrgan", loop: true, loopStart: 0.14413, loopEnd: 0.15951, releaseTime: 0.1}],
-    "bassoon": [
-      {top: 36, name: "Bassoon_C1", loop: true, loopStart: 0.084, loopEnd: 0.160},
-      {top: 48, name: "Bassoon_C2", loop: true, loopStart: 0.080, loopEnd: 0.325},
-      {top: 60, name: "Bassoon_C3", loop: true, loopStart: 0.067, loopEnd: 0.339}
-    ],
-    "organ": [{top: 60, name: "Organ", loop: true, loopStart: 1.35172, loopEnd: 2.4562, releaseTime: 0.1 }],
-    "harmonica": [{top: 60, name: "Harmonica", start: 0.025, loop: true, loopStart: 0.22208, loopEnd: 0.24501}],
-    "clarinet": [{top: 60, name: "Clarinet", loop: true, loopStart: 0.27574, loopEnd: 0.29464}],
-    "violin": [{top: 60, name: "Violin", releaseTime: 0.2, loop: true, loopStart: 0.09934, loopEnd: 0.64666}],
-    "cello": [
-      {top: 60, name: "Cello_C3", releaseTime: 0.2, loop: true, loopStart: 0.65718, loopEnd: 1.24772},
-      {top: 72, name: "Cello_C4", releaseTime: 0.2, loop: true, loopStart: 0.94187, loopEnd: 1.22214}
-    ],
-    "tremolo-string-1": [{top: 60, name: "TremoloString1", releaseTime: 0.2, loop: true, loopStart: 0.09934, loopEnd: 0.64666}],
-    "tremolo-string-2": [{top: 60, name: "TremoloString2", releaseTime: 0.2, loop: true, loopStart: 0.65001, loopEnd: 1.27384}],
-    "metallic": [{top: 60, name: "Metallic", releaseTime: 0.5}],
-    "timpani": [{top: 60, name: "Timpani", releaseTime: 0.25}],
-    "accordion": [{top: 60, name: "Accordion", loop: true, loopStart: 0.22950, loopEnd: 0.23333}],
-    "tango accordion": [{top: 60, name: "TangoAccordion", loop: true, loopStart: 0.03518, loopEnd: 0.05462}],
-    "synth pad": [{top: 60, name: "SynthPad", loop: true, loopStart: 1.55, loopEnd: 2, releaseTime: 0.1}],
-    "whistle": [{top: 60, name: "Whistle", loop: true, loopStart: 1.13851, loopEnd: 1.35201}],
-    "reverse cymbal": [{top: 60, name: "ReverseCymbal"}],
-    "saxophone": [{top: 60, name: "Saxophone", loop: true, loopStart: 0.44307, loopEnd: 1.92369}],
-    "flute": [{top: 60, name: "Flute", loop: true, loopStart: 1.85452, loopEnd: 4.09411}],
-    "steel drum": [{top: 60, name: "SteelDrum", releaseTime: 0.25}],
-    "pizzicato": [{top: 60, name: "Pizzicato", releaseTime: 0.25}],
-    "wooden flute": [{top: 60, name: "WoodenFlute", loop: true, loopStart: 1.16056, loopEnd: 1.20290}],
-    "agogo": [{top: 60, name: "Agogo"}],
-    "choir": [{top: 60, name: "Choir", loop: true, releaseTime: 0.1, loopStart: 0.386, loopEnd: 0.654}],
-    "synth lead": [
-      {top: 48, name: "SynthLead_C2", loop: true, loopStart: 0.1, loopEnd: 1.5, releaseTime: 0.1},
-      {top: 60, name: "SynthLead_C3", loop: true, loopStart: 0.1, loopEnd: 1.5, releaseTime: 0.1},
-      {top: 72, name: "SynthLead_C4", loop: true, loopStart: 0.1, loopEnd: 1.5, releaseTime: 0.1},
-      {top: 84, name: "SynthLead_C5", loop: true, loopStart: 0.1, loopEnd: 1.5, releaseTime: 0.1}
-    ],
-    "vibraphone": [{top: 60, name: "Vibraphone", releaseTime: 0.1}],
-    "music box": [{top: 60, name: "MusicBox", releaseTime: 0.25}],
-    "marimba": [
-      {top: 60, name: "Marimba_C3", releaseTime: 0.1},
-      {top: 84, name: "Marimba_C5", releaseTime: 0.1}
-    ],
-    "orchestra hit": [{top: 60, name: "OrchestraHit", releaseTime: 0.25}],
-    "trumpet": [{top: 60, name: "Trumpet", start: 0.02, loop: true, loopStart: 1.60053, loopEnd: 1.63500}],
-    "trumbone": [{top: 60, name: "Trumbone", loop: true, loopStart: 0.236, loopEnd: 0.278}]
+    "piano": [[60, "Piano_C3", 0.1, null], [84, "Piano_C5", 0.1, null]],
+    "electric piano": [[60, "ElectricPiano", 0.1, null]],
+    "marimba": [[60, "Marimba_C3", 0.1, null], [84, "Marimba_C5", 0.1, null]],
+    "vibraphone": [[60, "Vibraphone", 0.1, null]],
+    "music box": [[60, "MusicBox", 0.25, null]],
+    "tubular bells": [[60, "TubularBells", 2, null]],
+    "organ": [[60, "Organ", 0.1, [1.35172, 2.4562]]],
+    "church organ": [[60, "ChurchOrgan", 0.1, [0.14413, 0.15951]]],
+    "accordion": [[60, "Accordion", null, [0.2295, 0.23333]]],
+    "tango accordion": [[60, "TangoAccordion", null, [0.03518, 0.05462]]],
+    "harmonica": [[60, "Harmonica", null, [0.22208, 0.24501]]],
+    "guitar": [[60, "Guitar", 0.1, null]],
+    "electric guitar": [[60, "ElectricGuitar", 0.1, null]],
+    "overdriven guitar": [[60, "OverdrivenGuitar", null, [0.27618, 0.64141]]],
+    "bass": [[36, "Bass_C2", 0.1, null], [48, "Bass_C3", 0.1, null]],
+    "violin": [[60, "Violin", 0.2, [0.09934, 0.64666]]],
+    "cello": [[60, "Cello_C3", 0.2, [0.65718, 1.24772]], [72, "Cello_C4", 0.2, [0.94187, 1.22214]]],
+    "tremolo-string-1": [[60, "TremoloString1", 0.2, [0.09934, 0.64666]]],
+    "tremolo-string-2": [[60, "TremoloString2", 0.2, [0.65001, 1.27384]]],
+    "pizzicato": [[60, "Pizzicato", 0.25, null]],
+    "timpani": [[60, "Timpani", 0.25, null]],
+    "choir": [[60, "Choir", 0.1, [0.386, 0.654]]],
+    "orchestra hit": [[60, "OrchestraHit", 0.25, null]],
+    "trumpet": [[60, "Trumpet", null, [0.236, 0.278]]],
+    "trumbone": [[60, "Trumbone", null, [1.60053, 1.635]]],
+    "saxophone": [[60, "Saxophone", null, [0.44307, 1.92369]]],
+    "clarinet": [[60, "Clarinet", null, [0.27574, 0.29464]]],
+    "bassoon": [[36, "Bassoon_C1", null, [0.084, 0.16]], [48, "Bassoon_C2", null, [0.08, 0.325]], [60, "Bassoon_C3", null, [0.067, 0.339]]],
+    "flute": [[60, "Flute", null, [1.85452, 4.09411]]],
+    "wooden flute": [[60, "WoodenFlute", null, [1.16056, 1.2029]]],
+    "whistle": [[60, "Whistle", null, [1.13851, 1.35201]]],
+    "synth lead": [[48, "SynthLead_C2", 0.1, [0.1, 1.5]], [60, "SynthLead_C3", 0.1, [0.1, 1.5]], [72, "SynthLead_C4", 0.1, [0.1, 1.5]], [84, "SynthLead_C5", 0.1, [0.1, 1.5]]],
+    "synth pad": [[60, "SynthPad", 0.1, [1.55, 2]]],
+    "warm": [[60, "Warm_C3", 0.25, [0.63658, 0.8455]], [72, "Warm_C4", 0.25, [0.57448, 0.7529]]],
+    "bowed": [[60, "Bowed_C3", 0.25, [0.63658, 0.8455]], [72, "Bowed_C4", 0.25, [0.57448, 0.7529]]],
+    "metallic": [[60, "Metallic", 0.5, null]],
+    "sitar": [[60, "Sitar", 0.8, null]],
+    "agogo": [[60, "Agogo", null, null]],
+    "steel drum": [[60, "SteelDrum", 0.25, null]],
+    "taiko drum": [[60, "TaikoDrum", 0.25, null]],
+    "melodic tom": [[60, "MelodicTom", 0.1, null]],
+    "synth drum": [[60, "SynthDrum", 0.25, null]],
+    "reverse cymbal": [[60, "ReverseCymbal", null, null]]
   }
-  var SOUNDBANK_FILES = {
-    // My little pony friendship is magic season 1 episode 18 _The Show Stoppers
-    // https://youtube.com/watch?v=qVTGbB7i8iw
-    // 11:27
-    "Piano_C3": "instruments/mlp-s1-89-C3.wav",
-    "Piano_C5": "instruments/mlp-s1-89-C5.wav",
-  
-    // My Little Pony _ Friendship is Magic Season 1 Episode 17
-    // https://youtube.com/watch?v=YppmFQboQ-s
-    // 13:02
-    "Marimba_C3": "instruments/mlp-s1-fim-30_C3.wav",
-    "Marimba_C5": "instruments/mlp-s1-fim-30_C5.wav",
-  
-    // My Little Pony Friendship Is Magic Season 7 Episode 9
-    // https://youtube.com/watch?v=ttQuB6IJcek
-    "OverdrivenGuitar": "instruments/mlp-24-1.wav",
-    "ElectricGuitar": "instruments/mlp-s7e9-e-guitar.wav",
-    "Sitar": "instruments/mlp-24-1-sitar.wav",
-  
-    // Daddy Pig Plays The Drums!  | @Peppa Pig - Official Channel
-    // https://youtu.be/aHEhixFSt-0
-    "TaikoDrum": "instruments/peppa-pig-drums-53.wav",
-    "Guiro_long": "drums/peppa-pig-drums-63-0.wav",
-    "Guiro_short": "drums/peppa-pig-drums-63-1.wav",
-    "Unknown_0": "drums/peppa-pig-drums-107.wav",
-    "Bongo_low": "drums/peppa-pig-drums-30-0.wav",
-    "Bongo_hi": "drums/peppa-pig-drums-30-1.wav",
-    "Tambourine": "drums/peppa-pig-drums-51.wav",
-  
-    // My Little Pony Season 5 Episode 9
-    // https://youtube.com/watch?v=lzpUO8-Xowk
-    "Warm_C3": "instruments/mlp-fim-s5e9-750-1-C3.wav",
-    "Warm_C4": "instruments/mlp-fim-s5e9-750-1-C4.wav",
-    "Bowed_C3": "instruments/mlp-fim-s5e9-750-2-C3.wav",
-    "Bowed_C4": "instruments/mlp-fim-s5e9-750-2-C4.wav",
-    "MelodicTom": "instruments/mlp-s5e9-471-1.wav",
-    "SynthDrum": "instruments/mlp-s5e9-471-2.wav",
-    "Tom_C1": "drums/mlp-fim-s5e9-471-1.wav",
-    "Tom_C2": "drums/mlp-fim-s5e9-471-2.wav",
-    "Tom_C3": "drums/mlp-fim-s5e9-471-3.wav",
-    "Tom_C4": "drums/mlp-fim-s5e9-471-4.wav",
-    "Tom_C5": "drums/mlp-fim-s5e9-471-5.wav",
-    "Tom_C6": "drums/mlp-fim-s5e9-471-6.wav",
-  
-    // Pinkie the Babysitter (Baby Cakes) | MLP: FiM [HD]
-    // https://youtu.be/TJ6w9LRH7ts
-    "SnareDrum": "drums/pinkie-pie-60.wav",
-    "Crash": "drums/pinkie-pie-61.wav",
-  
-    // Friendship is Randomly Musical 8
-    // https://youtu.be/JQtbvAmwYVI
-    "Cuica": "drums/derpy-67-0.wav",
-    "Cuica_low": "drums/derpy-67-1.wav",
-  
-    // When I'm Sweeping
-    // https://youtu.be/u9l9F2H1yn0
-    "HandClap": "drums/rainbowdash-applejack-handclap.wav",
-  
-    // Friendship is Musical Season 2 First Half
-    // https://youtu.be/yqYQoVwFn4E?t=143
-    "Bass_C2": "instruments/daisy-143-C1.wav",
-    "Bass_C3": "instruments/daisy-143-C2.wav",
-  
-    // Bright Mac and Pear Butter's Love Story (The Perfect Pear) | MLP: FiM [HD]
-    // https://youtu.be/Flv6_BrwPVU?t=193
-    "Guitar": "instruments/mlp-pearbutter-193.wav",
-  
-    // My Little Pony: Friendship is Magic - Season 4 Episode 3
-    // https://youtu.be/oqaH8rTKu8M?t=820
-    "ElectricPiano": "instruments/mlp-s4e3-820-1.wav",
-    "ChurchOrgan": "instruments/mlp-s4e3-820-2.wav",
-  
-    // Friendship is Randomly Musical 5
-    // https://youtu.be/uoHPvvPGcAw?t=77
-    "Bassoon_C1": "instruments/pinkie-pie-77-C1.wav",
-    "Bassoon_C2": "instruments/pinkie-pie-77-C2.wav",
-    "Bassoon_C3": "instruments/pinkie-pie-77-C3.wav",
-  
-    // My Little Pony : Friendship is Magic Season 1 Episode 22
-    // https://youtu.be/csuoJQH6Axs?t=176
-    "Organ": "instruments/mlp-s1e22-176.wav",
-  
-    // My little pony-season 8 episode 10:The Break Up Breakdown
-    // https://youtu.be/S3sIFvA2b-U
-    "OpenHat": "drums/mlp-fim-s8e10-grass-398-1.wav",
-    "ClosedHat": "drums/mlp-fim-s8e10-grass-398-2.wav",
-    "Cabasa": "drums/mlp-fim-s8e10-grass-398-3.wav",
-    "Claves": "drums/mlp-fim-s8e10-22-1.wav",
-    "Vibraslap": "drums/mlp-fim-s8e10-22-2.wav",
-  
-    // My Little Pony Friendship is Magic Season 5 Episode 6 Appleloosa's Most Wanted
-    // 3:55
-    // https://youtube.com/watch?v=T-rHg4xmKAo
-    "Harmonica": "instruments/mlp-s5e6-235.wav",
-  
-    // My Little Pony Friendship Is Magic Season 4 Episode 21 Testing, 1, 2, 3 HD
-    // https://youtu.be/RGIFQn8rlXw?t=282
-    "Clarinet": "instruments/mlp-fim-s4e21-282.wav",
-  
-    // Peppa Pig - Musical Instruments (full episode)
-    // https://youtu.be/n4gsHAH_q6s
-    "Violin": "instruments/peppa-pig-mi-69-violin.wav",
-    "Cello_C3": "instruments/peppa-pig-mi-69-cello_C3.wav",
-    "Cello_C4": "instruments/peppa-pig-mi-69-cello_C4.wav",
-    "TremoloString1": "instruments/peppa-pig-mi-69-tm1.wav",
-    "TremoloString2": "instruments/peppa-pig-mi-69-tm2.wav",
-    "Metallic": "instruments/peppa-pig-mi-69-metallic.wav",
-    "Timpani": "instruments/peppa-pig-mi-114.wav",
-    "Accordion": "instruments/peppa-pig-mi-131-1.wav",
-    "TangoAccordion": "instruments/peppa-pig-mi-131-2.wav",
-  
-    // Friendship is Musical | Season 1 Episode 13-14
-    // https://youtu.be/QHOjFbbbrXQ?t=40
-    "SynthPad": "instruments/mlp-s1e13-fim-40.wav",
-  
-    // Whistling Competition Between Peppa Pig and Suzy Sheep
-    // https://youtu.be/9ptrXeS7CaE?t=4
-    "Whistle": "instruments/peppa-pig-w-4.wav",
-  
-    // MLP FIM: Season 8 Episode 26
-    // https://youtu.be/u5Cbd92uQ80?t=850
-    "ReverseCymbal": "instruments/mlp-fim-s8e26-850.wav",
-  
-    // My Little Pony Friendship is Magic season 2 episode 22 "Hurricane Fluttershy"
-    // https://youtu.be/YK7vf0OkmRQ?t=953
-    "Saxophone": "instruments/mlp-fim-s2e22-953.wav",
-  
-    // Friendship is Musical | Season 5 (First Half)
-    // https://youtu.be/5pcCX7904d4?t=117
-    "Flute": "instruments/mlp-s5-117.wav",
-  
-    // Friendship is Musical | Season 3
-    // https://youtu.be/7WFZEuvZG0s
-    "Pizzicato": "instruments/mlp-s3-applebloom-168.wav",
-    "SteelDrum": "instruments/mlp-s3-fim-5.wav",
-    "AcousticBassDrum": "drums/pinkie-pie-83.wav",
-  
-    // Peppa Pig Makes Music Instrument with Marbles | Peppa Pig Official Family Kids Cartoon
-    // https://youtu.be/eGb3Edtrm1s
-    "WoodenFlute": "instruments/peppa-pig-mmiwm-144.wav",
-    "OpenConga": "drums/peppa-pig-mmiwm-64-0.wav",
-    "MuteConga": "drums/peppa-pig-mmiwm-64-1.wav",
-    "Conga": "drums/peppa-pig-mmiwm-64-2.wav",
-  
-    // Friendship is Randomly Musical 1
-    // https://youtube.com/watch?v=nX1WTsUjCLM&t=67s
-    "HiWoodBlock": "drums/twilight-wood-67-0.wav",
-    "LowWoodBlock": "drums/twilight-wood-67-1.wav",
-  
-    // [Tridashie] Friendship is Randomly Musical 2 [REUPLOAD]
-    // https://youtu.be/y7ho58raWac?t=30
-    "Triangle": "drums/applejack-30-0.wav",
-    "MuteTriangle": "drums/applejack-30-1.wav",
-  
-    // MLP-FiM S1E22 - A Bird in the Hoof
-    // https://youtube.com/watch?v=YN34_LDX45M
-    "SideStick": "drums/mlp-s1e22-30s.wav",
-  
-    // My Little Pony_ Friendship is Magic _ The Return of Harmony Part 1 & 2 _ FULL EPISODE _ MLP
-    // https://youtube.com/watch?v=-tnXN5cnbas
-    "Timbale_High": "drums/mlp-return-harmony-27-50-1.wav",
-    "Timbale_Low": "drums/mlp-return-harmony-27-50-2.wav",
-  
-    // My Little Pony friendship is magic season 2 episode 7 "May the Best Pet Win!"
-    // https://youtu.be/GpSNka9ft-w?t=425
-    "LongWhistle": "drums/mlp-fim-s2e7-425-0.wav",
-    "ShortWhistle": "drums/mlp-fim-s2e7-425-1.wav",
-  
-    // My Little Pony: FIM Season 9 Episode 15 (2,4,6 Greaaat)
-    // https://youtu.be/MluslXu-Pnk?t=937
-    "Agogo": "instruments/mlp-fim-s9e15-937-agogo.wav",
-    "HighAgogo": "drums/mlp-fim-s9e15-937-0.wav",
-    "LowAgogo": "drums/mlp-fim-s9e15-937-1.wav",
-  
-    // Friendship is Musical | Season 1 Episode 21-22
-    // https://youtu.be/UZRoOAzI3wo
-    "Choir": "instruments/mlp-fim-s1-fluttershy-1.wav",
-    "SynthLead_C2": "instruments/mlp-s1e21-fim-3-C2.wav",
-    "SynthLead_C3": "instruments/mlp-s1e21-fim-3-C3.wav",
-    "SynthLead_C4": "instruments/mlp-s1e21-fim-3-C4.wav",
-    "SynthLead_C5": "instruments/mlp-s1e21-fim-3-C5.wav",
-  
-    // My Little Pony Friendship is Magic season 2 episode 19 "Putting Your Hoof Down"
-    // https://youtu.be/qjhL0p3dHwM?t=38
-    "Cowbell": "drums/mlp-s2e19-38.wav",
-  
-    // My Little Pony friendship is magic season 2 episode 10 "Secret of My Excess"
-    // https://youtu.be/m9xyYfih99Q?t=49
-    "Vibraphone": "instruments/mlp-fim-s2e10-49.wav",
-  
-    // Friendship is Randomly Musical 3 [REUPLOAD]
-    // https://youtu.be/rG5ukrHNqE4?t=14
-    "MusicBox": "instruments/pinkie-pie-14.wav",
-  
-    // Friendship is Musical | Season 1 Episode 5-6
-    // https://youtu.be/EXrDap-pIdk?t=109
-    "OrchestraHit": "instruments/mlp-s1-fim-109.wav",
-  
-    // [1080p] My little Pony Friendship is Magic Season 6 Episode 14 The Cart Before the Ponies
-    // https://youtu.be/8pKhEvZRW34?t=915
-    "Trumpet": "instruments/mlp-s6e14-915.wav",
-  
-    // My Little Pony: friendship is magic | Swarm of the Century | FULL EPISODE | MLP
-    // https://youtu.be/ZEzgWjBMfzM?t=1290
-    "Trumbone": "instruments/mlp-swarm-od-the-century-1290.wav"
+  var SOUNDBANKS = {
+    "My little pony friendship is magic season 1 episode 18 _The Show Stoppers": {
+      "Piano_C3": "instruments/mlp-s1-89-C3.wav",
+      "Piano_C5": "instruments/mlp-s1-89-C5.wav"
+    },
+    "My Little Pony _ Friendship is Magic Season 1 Episode 17": {
+      "Marimba_C3": "instruments/mlp-s1-fim-30_C3.wav",
+      "Marimba_C5": "instruments/mlp-s1-fim-30_C5.wav"
+    },
+    "My Little Pony Friendship Is Magic Season 7 Episode 9": {
+      "OverdrivenGuitar": "instruments/mlp-24-1.wav",
+      "ElectricGuitar": "instruments/mlp-s7e9-e-guitar.wav",
+      "Sitar": "instruments/mlp-24-1-sitar.wav"
+    },
+    "Daddy Pig Plays The Drums!  | Peppa Pig - Official Channel": {
+      "TaikoDrum": "instruments/peppa-pig-drums-53.wav",
+      "GuiroLong": "drums/peppa-pig-drums-63-0.wav",
+      "GuiroShort": "drums/peppa-pig-drums-63-1.wav",
+      "Unknown0": "drums/peppa-pig-drums-107.wav",
+      "BongoLow": "drums/peppa-pig-drums-30-0.wav",
+      "BongoHi": "drums/peppa-pig-drums-30-1.wav",
+      "Tambourine": "drums/peppa-pig-drums-51.wav"
+    },
+    "My Little Pony Season 5 Episode 9": {
+      "Warm_C3": "instruments/mlp-fim-s5e9-750-1-C3.wav",
+      "Warm_C4": "instruments/mlp-fim-s5e9-750-1-C4.wav",
+      "Bowed_C3": "instruments/mlp-fim-s5e9-750-2-C3.wav",
+      "Bowed_C4": "instruments/mlp-fim-s5e9-750-2-C4.wav",
+      "MelodicTom": "instruments/mlp-s5e9-471-1.wav",
+      "SynthDrum": "instruments/mlp-s5e9-471-2.wav",
+      "TomC1": "drums/mlp-fim-s5e9-471-1.wav",
+      "TomC2": "drums/mlp-fim-s5e9-471-2.wav",
+      "TomC3": "drums/mlp-fim-s5e9-471-3.wav",
+      "TomC4": "drums/mlp-fim-s5e9-471-4.wav",
+      "TomC5": "drums/mlp-fim-s5e9-471-5.wav",
+      "TomC6": "drums/mlp-fim-s5e9-471-6.wav",
+      "Unknown1": "drums/mlp-fim-s5e9-d.wav"
+    },
+    "Pinkie the Babysitter (Baby Cakes) | MLP: FiM [HD]": {
+      "SnareDrum": "drums/pinkie-pie-60.wav",
+      "Crash": "drums/pinkie-pie-61.wav"
+    },
+    "Friendship is Randomly Musical 8": {
+      "Cuica": "drums/derpy-67-0.wav",
+      "CuicaLow": "drums/derpy-67-1.wav"
+    },
+    "When I'm Sweeping": {
+      "HandClap": "drums/rainbowdash-applejack-handclap.wav"
+    },
+    "Friendship is Musical Season 2 First Half": {
+      "Bass_C2": "instruments/daisy-143-C1.wav",
+      "Bass_C3": "instruments/daisy-143-C2.wav"
+    },
+    "Bright Mac and Pear Butter's Love Story (The Perfect Pear) | MLP: FiM [HD]": {
+      "Guitar": "instruments/mlp-pearbutter-193.wav"
+    },
+    "My Little Pony: Friendship is Magic - Season 4 Episode 3": {
+      "ElectricPiano": "instruments/mlp-s4e3-820-1.wav",
+      "ChurchOrgan": "instruments/mlp-s4e3-820-2.wav"
+    },
+    "Friendship is Randomly Musical 5": {
+      "Bassoon_C1": "instruments/pinkie-pie-77-C1.wav",
+      "Bassoon_C2": "instruments/pinkie-pie-77-C2.wav",
+      "Bassoon_C3": "instruments/pinkie-pie-77-C3.wav"
+    },
+    "My Little Pony : Friendship is Magic Season 1 Episode 22": {
+      "Organ": "instruments/mlp-s1e22-176.wav"
+    },
+    "My little pony-season 8 episode 10:The Break Up Breakdown": {
+      "OpenHat": "drums/mlp-fim-s8e10-grass-398-1.wav",
+      "ClosedHat": "drums/mlp-fim-s8e10-grass-398-2.wav",
+      "Cabasa": "drums/mlp-fim-s8e10-grass-398-3.wav",
+      "Unknown2": "drums/mlp-fim-s8e10-22-1.wav",
+      "Vibraslap": "drums/mlp-fim-s8e10-22-2.wav"
+    },
+    "My Little Pony Friendship is Magic Season 5 Episode 6 Appleloosa's Most Wanted": {
+      "Harmonica": "instruments/mlp-s5e6-235.wav"
+    },
+    "My Little Pony Friendship Is Magic Season 4 Episode 21 Testing, 1, 2, 3 HD": {
+      "Clarinet": "instruments/mlp-fim-s4e21-282.wav"
+    },
+    "Peppa Pig - Musical Instruments (full episode)": {
+      "Violin": "instruments/peppa-pig-mi-69-violin.wav",
+      "Cello_C3": "instruments/peppa-pig-mi-69-cello_C3.wav",
+      "Cello_C4": "instruments/peppa-pig-mi-69-cello_C4.wav",
+      "TremoloString1": "instruments/peppa-pig-mi-69-tm1.wav",
+      "TremoloString2": "instruments/peppa-pig-mi-69-tm2.wav",
+      "Metallic": "instruments/peppa-pig-mi-69-metallic.wav",
+      "Timpani": "instruments/peppa-pig-mi-114.wav",
+      "Accordion": "instruments/peppa-pig-mi-131-1.wav",
+      "TangoAccordion": "instruments/peppa-pig-mi-131-2.wav"
+    },
+    "Friendship is Musical | Season 1 Episode 13-14": {
+      "SynthPad": "instruments/mlp-s1e13-fim-40.wav"
+    },
+    "Whistling Competition Between Peppa Pig and Suzy Sheep": {
+      "Whistle": "instruments/peppa-pig-w-4.wav"
+    },
+    "MLP FIM: Season 8 Episode 26": {
+      "ReverseCymbal": "instruments/mlp-fim-s8e26-850.wav"
+    },
+    "My Little Pony Friendship is Magic season 2 episode 22 \"Hurricane Fluttershy\"": {
+      "Saxophone": "instruments/mlp-fim-s2e22-953.wav"
+    },
+    "Friendship is Musical | Season 5 (First Half)": {
+      "Flute": "instruments/mlp-s5-117.wav"
+    },
+    "Friendship is Musical | Season 3": {
+      "Pizzicato": "instruments/mlp-s3-applebloom-168.wav",
+      "SteelDrum": "instruments/mlp-s3-fim-5.wav",
+      "AcousticBassDrum": "drums/pinkie-pie-83.wav"
+    },
+    "Peppa Pig Makes Music Instrument with Marbles | Peppa Pig Official Family Kids Cartoon": {
+      "WoodenFlute": "instruments/peppa-pig-mmiwm-144.wav",
+      "OpenConga": "drums/peppa-pig-mmiwm-64-0.wav",
+      "MuteConga": "drums/peppa-pig-mmiwm-64-1.wav",
+      "Conga": "drums/peppa-pig-mmiwm-64-2.wav"
+    },
+    "Friendship is Randomly Musical 1": {
+      "HiWoodBlock": "drums/twilight-wood-67-0.wav",
+      "LowWoodBlock": "drums/twilight-wood-67-1.wav"
+    },
+    "[Tridashie] Friendship is Randomly Musical 2 [REUPLOAD]": {
+      "Triangle": "drums/applejack-30-0.wav",
+      "MuteTriangle": "drums/applejack-30-1.wav"
+    },
+    "MLP-FiM S1E22 - A Bird in the Hoof": {
+      "Claves": "drums/mlp-s1e22-30s.wav",
+      "TubularBells": "instruments/mlp-s1e22-42.wav"
+    },
+    "My Little Pony_ Friendship is Magic _ The Return of Harmony Part 1 & 2 _ FULL EPISODE _ MLP": {
+      "TimbaleHigh": "drums/mlp-return-harmony-27-50-1.wav",
+      "TimbaleLow": "drums/mlp-return-harmony-27-50-2.wav"
+    },
+    "My Little Pony friendship is magic season 2 episode 7 \"May the Best Pet Win!\"": {
+      "LongWhistle": "drums/mlp-fim-s2e7-425-0.wav",
+      "ShortWhistle": "drums/mlp-fim-s2e7-425-1.wav"
+    },
+    "My Little Pony: FIM Season 9 Episode 15 (2,4,6 Greaaat)": {
+      "Agogo": "instruments/mlp-fim-s9e15-937-agogo.wav",
+      "HighAgogo": "drums/mlp-fim-s9e15-937-0.wav",
+      "LowAgogo": "drums/mlp-fim-s9e15-937-1.wav"
+    },
+    "Friendship is Musical | Season 1 Episode 21-22": {
+      "Choir": "instruments/mlp-fim-s1-fluttershy-1.wav",
+      "SynthLead_C2": "instruments/mlp-s1e21-fim-3-C2.wav",
+      "SynthLead_C3": "instruments/mlp-s1e21-fim-3-C3.wav",
+      "SynthLead_C4": "instruments/mlp-s1e21-fim-3-C4.wav",
+      "SynthLead_C5": "instruments/mlp-s1e21-fim-3-C5.wav"
+    },
+    "My Little Pony Friendship is Magic season 2 episode 19 \"Putting Your Hoof Down\"": {
+      "Cowbell": "drums/mlp-s2e19-38.wav"
+    },
+    "My Little Pony friendship is magic season 2 episode 10 \"Secret of My Excess\"": {
+      "Vibraphone": "instruments/mlp-fim-s2e10-49.wav"
+    },
+    "Friendship is Randomly Musical 3 [REUPLOAD]": {
+      "MusicBox": "instruments/pinkie-pie-14.wav",
+    },
+    "Friendship is Musical | Season 1 Episode 5-6": {
+      "OrchestraHit": "instruments/mlp-s1-fim-109.wav"
+    },
+    "[1080p] My little Pony Friendship is Magic Season 6 Episode 14 The Cart Before the Ponies": {
+      "Trumbone": "instruments/mlp-s6e14-915.wav"
+    },
+    "My Little Pony: friendship is magic | Swarm of the Century | FULL EPISODE | MLP": {
+      "Trumpet": "instruments/mlp-swarm-od-the-century-1290.wav"
+    },
+    "The Mane Six Try to Be Friends Of the Yaks - MLP_ Friendship Is Magic [HD]": {
+      "SideStick": "drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_1.wav",
+      "Unknown3": "drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_2.wav",
+    }
   }
   var MIDI_INSTRUMENT = [
     "piano", "piano", "piano", "piano",
     "electric piano", "electric piano", "piano", "piano",
     "marimba", "vibraphone", "music box", "vibraphone",
-    "marimba", "marimba", "vibraphone", "guitar",
+    "marimba", "marimba", "tubular bells", "guitar",
     "organ", "organ", "organ", "church organ",
     "organ", "accordion", "harmonica", "tango accordion",
     "guitar", "guitar", "electric guitar", "electric guitar",
@@ -340,8 +284,8 @@ var AnimTredInstruments = (function() {
     "tremolo-string-1", "pizzicato", "bass", "timpani",
     "tremolo-string-1", "tremolo-string-2", "tremolo-string-1", "tremolo-string-1",
     "choir", "choir", "choir", "orchestra hit",
-    "trumbone", "trumbone", "trumbone", "trumbone",
-    "trumpet", "trumbone", "trumbone", "trumbone",
+    "trumpet", "trumpet", "trumpet", "trumpet",
+    "trumbone", "trumpet", "trumpet", "trumpet",
     "saxophone", "saxophone", "saxophone", "saxophone",
     "bassoon", "clarinet", "bassoon", "clarinet",
     "flute", "flute", "wooden flute", "wooden flute",
@@ -359,21 +303,19 @@ var AnimTredInstruments = (function() {
     "electric guitar", "wooden flute", "steel drum", "wooden flute",
     "vibraphone", "steel drum", "choir", "steel drum"
   ];
-  var DRUMS_MIDI = [
+  var DRUMS_MIDI = [[
     null, null, null, null, null, null, null,
     null, null, null, null, null, null, null,
     null, null, null, null, null, null, null,
     null, null, null, null, null, null, 
-  
     "acoustic bass drum",
     "open hi hat",
     null,
     null,
     "claves",
     null,
-    "claves",
-    null,
-    
+    "unknown_2",
+    "unknown_1",
     "acoustic bass drum",
     "acoustic bass drum",
     "side stick",
@@ -424,12 +366,202 @@ var AnimTredInstruments = (function() {
     "cabasa",
     "tambourine",
     null,
-    "claves_1",
+    "unknown_0",
     null,
     null
-  ];
-  var soundbank_assets = {"instruments/daisy-143-C1.wav":"0d1b93e80d5e129c0d194b6e27cc4096.wav","instruments/mlp-24-1.wav":"2c50c5d2aed3fec33d1f5ba1d748248d.wav","instruments/daisy-143-C2.wav":"b6b7eb496d8becd38d3b5e0ff91508af.wav","instruments/mlp-24-1-sitar.wav":"2efc7e72625ab0e0d435a84c21d61c44.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"d99c741cbd79a2d5766f052b6d78cc38.wav","instruments/mlp-fim-s2e10-49.wav":"cb1100d9a0ca1ce4e222def208856377.wav","instruments/mlp-fim-s2e22-953.wav":"34048216db9312a45be97077da12d3e4.wav","instruments/mlp-fim-s4e21-282.wav":"44d59a97f4ce7ba0765a13551555f839.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"841c25741d7663a84c316bed9e4d2dcd.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"3aed397a333f59e57e69b4ec1f7087e8.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"cd640ee8a25ab5cc13477073c05d9c81.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"e67b19a1fecb02566e74d402f0b21f5b.wav","instruments/mlp-fim-s8e26-850.wav":"f1900ebd94fbc8fb401b8e5f197750da.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"c72af7a397817080468a6dda808b2f97.wav","instruments/mlp-pearbutter-193.wav":"170e1b56fa481ffb3947887e30676ab6.wav","instruments/mlp-s1-89-C3.wav":"5e5e523a3894f113db87096d41b1ab04.wav","instruments/mlp-s1-89-C5.wav":"d08cf60867cd78b296bbe7b6b8b07832.wav","instruments/mlp-s1e13-fim-40.wav":"ae2f518b2593e9966ba1dd750cf410bd.wav","instruments/mlp-s1e21-fim-3-C2.wav":"fcc03249801c1593e408491cac639a8d.wav","instruments/mlp-s1e21-fim-3-C3.wav":"898dac455a77645d7f74a9e2c4082200.wav","instruments/mlp-s1e21-fim-3-C4.wav":"0c6d094b2b59dbd57829cfc4cf7d26ba.wav","instruments/mlp-s1e21-fim-3-C5.wav":"3770d9935ab961c6eaf8b25a58581a52.wav","instruments/mlp-s1e22-176.wav":"12ad007a52e14d52a9b58ee3dc77e5ad.wav","instruments/mlp-s1-fim-30_C3.wav":"c609455a42c25793b5fa54c172fa9980.wav","instruments/mlp-s1-fim-30_C5.wav":"e1975fd06239ea68435c6ec1e12a0b26.wav","instruments/mlp-s1-fim-109.wav":"1f702ded8069828bded6aa97f5e4bd93.wav","instruments/mlp-s3-applebloom-168.wav":"9cac8790bbc6222b85306507d716e15b.wav","instruments/mlp-s3-fim-5.wav":"e063e23ca9e693a176e95ec75655699b.wav","instruments/mlp-s4e3-820-1.wav":"f8df20f605e0a4fca65eff7d384a41b8.wav","instruments/mlp-s4e3-820-2.wav":"78236d8d071aedc9ed1017cf63f47b21.wav","instruments/mlp-s5-117.wav":"706c542f866fd0296a20edb08608a7ae.wav","instruments/mlp-s5e6-235.wav":"e403fbd202dc8eec84e3bc1a3ac8a2fc.wav","instruments/mlp-s5e9-471-1.wav":"483a72cc422c92a0100b057a5e7a632e.wav","instruments/mlp-s5e9-471-2.wav":"97f1317984ea2370a66075677191285e.wav","instruments/mlp-s6e14-915.wav":"5b27bf730c485bc01a91f0f96d8a0dfe.wav","instruments/mlp-s7e9-e-guitar.wav":"aaf38041260526a9344ca85b2abbbdb0.wav","instruments/mlp-swarm-od-the-century-1290.wav":"bec335706250e3b32f57c501a9bf12e2.wav","instruments/peppa-pig-drums-53.wav":"aaf24557edb702afd970528eecf98cd8.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"b6ff060fcb251790f86f03bed90d6dbf.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"86887f951d90fa2801151152a0c7e031.wav","instruments/peppa-pig-mi-69-tm1.wav":"00a896446218c804af9ef36bf589335e.wav","instruments/peppa-pig-mi-69-metallic.wav":"62d675a1ce5d5a3fe9e4e994a421fedd.wav","instruments/peppa-pig-mi-69-tm2.wav":"b7df84e255cf54559e182fe47a11d291.wav","instruments/peppa-pig-mi-69-violin.wav":"daef93b84ddf36bd7d8a1c3cdc1e3266.wav","instruments/peppa-pig-mi-114.wav":"beeb4904c9d4bc097ac5c29f2f2d5c79.wav","instruments/peppa-pig-mi-131-1.wav":"c8a7bffe7ccdd01f10f6552720fae584.wav","instruments/peppa-pig-mi-131-2.wav":"ae8670d720dde36c928b39d0017fa63c.wav","instruments/peppa-pig-mmiwm-144.wav":"40b96bf45859be757efc18196f3f0b1d.wav","instruments/peppa-pig-w-4.wav":"74af1b0fa3e2011dff21eb851ff6b7d4.wav","instruments/pinkie-pie-14.wav":"821b78a4929ffece67e7939fc095804d.wav","instruments/pinkie-pie-77-C1.wav":"eb853a2b8d3c3a2a1c27067595d914e5.wav","instruments/pinkie-pie-77-C2.wav":"f5a61bb5d391542647d28bf453dcb653.wav","instruments/pinkie-pie-77-C3.wav":"7e381bb8bd3c0a893db063c1049f214c.wav","drums/applejack-30-0.wav":"a8e5902b236538fccb95767294215a03.wav","drums/applejack-30-1.wav":"806c540d17db55671a82c1040a642f30.wav","drums/derpy-67-0.wav":"99d9d2e9a812c705a4e95f4d8ddb6d18.wav","drums/derpy-67-1.wav":"cd13884edc3089d8260076aa05d23012.wav","drums/mlp-fim-s2e7-425-0.wav":"f7852c1c375e26d10b0b363ffb1979cc.wav","drums/mlp-fim-s2e7-425-1.wav":"9aa1eafd5f2c94ed0499cbd7e809ef3d.wav","drums/mlp-fim-s5e9-471-1.wav":"3399eb36378337faf44d314a5a651408.wav","drums/mlp-fim-s5e9-471-2.wav":"f70c072f11e62ae5bd35970859c87c5c.wav","drums/mlp-fim-s5e9-471-3.wav":"3fb828bd185c7421ed744498f75fa202.wav","drums/mlp-fim-s5e9-471-4.wav":"c870a6759cee410a140fe4fab6104307.wav","drums/mlp-fim-s5e9-471-5.wav":"2be8b42451c252edd02fbfe606eb98b1.wav","drums/mlp-fim-s5e9-471-6.wav":"2250ba9a0fb985b915256d4cb5835b96.wav","drums/mlp-fim-s8e10-22-1.wav":"7ccd83d420bdd72483ffd5f1abfef04b.wav","drums/mlp-fim-s8e10-22-2.wav":"8fcc94298787f1372cd142e187740ab0.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"c1f9eef2ee8ecedea708c522e0f4d1a6.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"9f85b321b9205333a9ec2f8128a5b6f4.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"45b4f2a0deee0e6f7958511d9e130dda.wav","drums/mlp-fim-s9e15-937-0.wav":"31ab82c3bf8858ee34c511339229f19e.wav","drums/mlp-fim-s9e15-937-1.wav":"fa445e68b9af5e588078f14834f6a38b.wav","drums/mlp-return-harmony-27-50-1.wav":"2205c1eaf7f96e490fbdafef73c03561.wav","drums/mlp-return-harmony-27-50-2.wav":"4f00dd20f48d06c1ed81f905adc9a5b6.wav","drums/mlp-s1e22-30s.wav":"cff73474842dbe09a95e5110c60fbcda.wav","drums/mlp-s2e19-38.wav":"eefb720113242147defcb054a4829886.wav","drums/peppa-pig-drums-30-0.wav":"f18374afe00393160b4235ad3cdbb649.wav","drums/peppa-pig-drums-30-1.wav":"7334f34398c5e092ee6b52aef1b6c890.wav","drums/peppa-pig-drums-51.wav":"9137c7a96e11188a413f34fc025b0694.wav","drums/peppa-pig-drums-63-0.wav":"ce178258dec095389867cb4a5db790f5.wav","drums/peppa-pig-drums-63-1.wav":"edf4bdc71ae1dbe24d96c8237b9ee426.wav","drums/peppa-pig-drums-107.wav":"9a681348c98056490d188d51b6e2e610.wav","drums/peppa-pig-mmiwm-64-0.wav":"edcd0b732a06b7b7b3ad7795cf02a124.wav","drums/peppa-pig-mmiwm-64-1.wav":"3e95586bf69523e68d2d03299cd86ce2.wav","drums/peppa-pig-mmiwm-64-2.wav":"11ec7ad0bcc6a0ef79000ebca16cf26d.wav","drums/pinkie-pie-60.wav":"d14e6a191de6410ba1dca66f81644110.wav","drums/pinkie-pie-61.wav":"19f0c0cc55cc638eafae54883603f710.wav","drums/pinkie-pie-83.wav":"7c2479bc3b5715801c11e7aad2db3eb4.wav","drums/rainbowdash-applejack-handclap.wav":"dca71845caccb50335f139871b184ed2.wav","drums/twilight-wood-67-0.wav":"aaf142d98d679d36a9ee679ea2dbc5c4.wav","drums/twilight-wood-67-1.wav":"0228d446ea67cc75c318d42cb2c28222.wav"};
-  var ASSET_URL = 'https://assets.scratch.mit.edu/internalapi/asset/$md5ext/get/';
+  ], null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, [
+    null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null,
+    null, null, null, null, null, null, 
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "unknown_3"
+  ]];
+  var soundbank_assets = {"instruments/daisy-143-C1.wav":"5b82f2943554194b4845b19cdfb53e8e.wav","instruments/daisy-143-C2.wav":"c15ea41de185dc3db1a7692bd203eaf4.wav","instruments/mlp-24-1.wav":"cee852d2ad120bb58ab693f1393f21f4.wav","instruments/mlp-24-1-sitar.wav":"fb082795cd6cbedce87cf9b11f96b182.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"b857b64ec7b6aa0f2aa544f4d16628aa.wav","instruments/mlp-fim-s2e10-49.wav":"aa33f6c14e25c84c714d4694b7d28d8c.wav","instruments/mlp-fim-s2e22-953.wav":"050460f1155e9f7c20f3f5ef0817a694.wav","instruments/mlp-fim-s4e21-282.wav":"b4aa02278b01c7e0316d3431181027ce.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"a0f250b0545da3b91096a323cba2b9d4.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"eecd2c23544c0d696a6354de85d6dd5d.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"0795db3d998b2ade5938a503cb66a249.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"b867845cda0f6b64f9872543004b80e1.wav","instruments/mlp-fim-s8e26-850.wav":"d34f2e283f16163c40ceaa0f2a62daa7.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"3f0e6e12b3f0631bfb98eb71cde85115.wav","instruments/mlp-pearbutter-193.wav":"1bcf34397a2864c6d3edeb84df86220c.wav","instruments/mlp-s1-89-C3.wav":"5996e03a2936c062775f7b65feea4306.wav","instruments/mlp-s1-89-C5.wav":"3de435c82d356209ca7206adef01d893.wav","instruments/mlp-s1e13-fim-40.wav":"23e466d7866c3c98f3c3c82ce12073ac.wav","instruments/mlp-s1e21-fim-3-C2.wav":"d213faa1361ad45b256b297ac47eb109.wav","instruments/mlp-s1e21-fim-3-C3.wav":"a87c1d76df3d671583babf04df18f880.wav","instruments/mlp-s1e21-fim-3-C4.wav":"278395913f05700df5dd4e753d00d172.wav","instruments/mlp-s1e21-fim-3-C5.wav":"42a22d198fb154d716878b7677533c52.wav","instruments/mlp-s1e22-42.wav":"56f494efdcf232dcb6411882ef49d98e.wav","instruments/mlp-s1e22-176.wav":"bfa0bffa5f30025604d92decbc6fda94.wav","instruments/mlp-s1-fim-30_C3.wav":"2779ca5545b5a0b7f2e8cbbc84cd16f7.wav","instruments/mlp-s1-fim-30_C5.wav":"33c43a1cba1ca096e18c4d409a0563ec.wav","instruments/mlp-s1-fim-109.wav":"f05c5fb5e399c2cd554d6bcfa36c0b2f.wav","instruments/mlp-s3-applebloom-168.wav":"8b85323c69622176e1755bbabd16be89.wav","instruments/mlp-s3-fim-5.wav":"5cb1200f45f1caa0490e5352d8f75ba3.wav","instruments/mlp-s4e3-820-1.wav":"b34033853ebd232730fa85ac9234aac3.wav","instruments/mlp-s4e3-820-2.wav":"2d6038cc3cd52d140b725782a8bea359.wav","instruments/mlp-s5-117.wav":"ee9839505c99a4a6152a9cfc8dba4068.wav","instruments/mlp-s5e6-235.wav":"bd10c2befdc530c7d88c1613eea70277.wav","instruments/mlp-s5e9-471-1.wav":"47ddba8d0ca8f8e1ab1cce6b7fee31cb.wav","instruments/mlp-s5e9-471-2.wav":"f4dd77eefd10c887fb570b5a66e8ad9f.wav","instruments/mlp-s6e14-915.wav":"dc2bf92cc83aba8aea21ec912653557c.wav","instruments/mlp-s7e9-e-guitar.wav":"4eb78c8eb5282f1c67785efe642812bb.wav","instruments/mlp-swarm-od-the-century-1290.wav":"7bcfec35b237684bc8d69ce453d2e67d.wav","instruments/peppa-pig-drums-53.wav":"245e1bc4d3a38d83f7a1b9cf4ff51883.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"ff39120289f8d519182615c5b1c7265b.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"ee542ff3e8a719001061d210415708a0.wav","instruments/peppa-pig-mi-69-metallic.wav":"db1a9e6359a0b7c828abc608de65dca2.wav","instruments/peppa-pig-mi-69-tm1.wav":"5497c174430dcb1e4ce0818fe8ced061.wav","instruments/peppa-pig-mi-69-tm2.wav":"4bd3bbebe295b6011fb2efe63ea3ef99.wav","instruments/peppa-pig-mi-69-violin.wav":"b99f6be970cb5a60ea984ee04efc4539.wav","instruments/peppa-pig-mi-114.wav":"8cef50261497964c53c6e1ebd62c7cb6.wav","instruments/peppa-pig-mi-131-1.wav":"02188b1980dfa2651e7cce7b77d87351.wav","instruments/peppa-pig-mi-131-2.wav":"bc96217c24b92aecb405f89dc8bd2f3d.wav","instruments/peppa-pig-mmiwm-144.wav":"ba31847d76b6461df9ba624c791e2cf3.wav","instruments/peppa-pig-w-4.wav":"b1ca63a3c4c9cc581e06ff8a7d72ebcd.wav","instruments/pinkie-pie-14.wav":"78b50b9f7df3d8f68e70d2914fac7132.wav","instruments/pinkie-pie-77-C1.wav":"791a45a476bf7ecacb8363e8f81e2aea.wav","instruments/pinkie-pie-77-C2.wav":"887539356a977186daa71761c2c97229.wav","instruments/pinkie-pie-77-C3.wav":"85c9af622ab13b666602b2822b862b55.wav","drums/applejack-30-0.wav":"ed9f5c1ebb95082c19ebd57d5be59e6b.wav","drums/applejack-30-1.wav":"fc4f6f51992e3e419fa66e448a50ec3e.wav","drums/derpy-67-0.wav":"e48032612451c1e678363499c0e023b4.wav","drums/derpy-67-1.wav":"ac1a1ebb37d1fa87561476976ea89c3a.wav","drums/mlp-fim-s2e7-425-0.wav":"04fa24c29a117a2d909e07e7a74f97a8.wav","drums/mlp-fim-s2e7-425-1.wav":"92b26c0e47f8a95f114b4ff08acd2835.wav","drums/mlp-fim-s5e9-471-1.wav":"e20b55562446f56167f5d26035125556.wav","drums/mlp-fim-s5e9-471-2.wav":"c20de13cc85190f59001a36b6aed1742.wav","drums/mlp-fim-s5e9-471-3.wav":"ef8cd405f636fbabb30bebba560baadf.wav","drums/mlp-fim-s5e9-471-4.wav":"51331e135568075ecf75049487ecfc0c.wav","drums/mlp-fim-s5e9-471-5.wav":"acd82df4915591ee8bcd9026ed1aa65f.wav","drums/mlp-fim-s5e9-471-6.wav":"9d4ffbcb021f7aeceea4177b8f2f9af4.wav","drums/mlp-fim-s5e9-d.wav":"5356699be9ab729b323248e46525c788.wav","drums/mlp-fim-s8e10-22-1.wav":"83a7ec40b819c15433cb9fb01595ac90.wav","drums/mlp-fim-s8e10-22-2.wav":"baaef28005d09557cdaaf5c4b8ef6b0d.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"9650a1ce06f6974d0d87583953abb996.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"13436060385e9f56699f470002f684e3.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"e0fa4372dd8bf3f5084c7c59c36f297f.wav","drums/mlp-fim-s9e15-937-0.wav":"3bc5dae42f67462a1a404c5f530578b5.wav","drums/mlp-fim-s9e15-937-1.wav":"e4240fac108d6cedef2b01c5660a9a5e.wav","drums/mlp-return-harmony-27-50-1.wav":"8fc789e80accd98fcec5ef1fe411f7cf.wav","drums/mlp-return-harmony-27-50-2.wav":"da1f3d2b8017bc113d9ae357b44c722f.wav","drums/mlp-s1e22-30s.wav":"dd90a36929cf81d7104f912deff65d91.wav","drums/mlp-s2e19-38.wav":"0842c85c0b1fc9439205098d841f210d.wav","drums/peppa-pig-drums-30-0.wav":"3b37d2a34f57c7acd9646a3c950e8c0e.wav","drums/peppa-pig-drums-30-1.wav":"48715f091b5b0a36764461a176502823.wav","drums/peppa-pig-drums-51.wav":"3a2d348e5ab245aebf88a50180637668.wav","drums/peppa-pig-drums-63-0.wav":"e85165b49bfdad8d51f3260f27757eb5.wav","drums/peppa-pig-drums-63-1.wav":"8ff02219c2392a87b63676f4440400e5.wav","drums/peppa-pig-drums-107.wav":"635d445ed1028a0bf8241572b226b922.wav","drums/peppa-pig-mmiwm-64-0.wav":"c5cd516ed67b208e304d9044a0ad282c.wav","drums/peppa-pig-mmiwm-64-1.wav":"cd0e1f9fa28be1201c4bf65fa029372b.wav","drums/peppa-pig-mmiwm-64-2.wav":"1ff7a7155734aba5c8dd55cb8da2ab63.wav","drums/pinkie-pie-60.wav":"6e45138fe315db0b1fd5382fb2719205.wav","drums/pinkie-pie-61.wav":"926d64ca0212e16f105ea73f22799996.wav","drums/pinkie-pie-83.wav":"ded22a9f4d9577ebf7c9ee6fe2f5533c.wav","drums/rainbowdash-applejack-handclap.wav":"e5895ae1ab8019a14c092dd8282b7888.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_1.wav":"d4cc798a8569aa21c7bc70e42ab0cba9.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_2.wav":"336611bd335cb6a5cdc441813ca39006.wav","drums/twilight-wood-67-0.wav":"6ab6ba1221266dbeac014ad0ccb65e48.wav","drums/twilight-wood-67-1.wav":"aa13954cc2451ed74df97582b888410a.wav"};
+  function getDrumSpan(program, pitch) {
+      var DMO = DRUMS_MIDI[0];
+      var DM = DRUMS_MIDI[program] || DMO;
+      var drum = DM[pitch] || DMO[pitch];
+      if (!drum) return;
+      return DRUM_INFO[drum];
+  }
+  function getInstrumentSpan(program, pitch) {
+    var inst = MIDI_INSTRUMENT[program];
+    if (!inst) return;
+    var spans = INSTRUMENT_INFO[inst];
+    if (!spans) return;
+    var span = spans[0];
+    for (var i = 1; i < spans.length; i++) {
+      var s = spans[i];
+      if (pitch >= s[0]) span = s;
+    }
+    return span;
+  }
+  var WavReader = function(data) {
+    this.data = data;
+    this.position = 0;
+  }
+  WavReader.prototype.readInt = function() {
+    var val1 = this.data[this.position++];
+    var val2 = this.data[this.position++];
+    var val3 = this.data[this.position++];
+    var val4 = this.data[this.position++];
+    return ((((val4 << 24) + (val3 << 16)) + (val2 << 8)) + val1) | 0;
+  }
+  WavReader.prototype.readUnsignedInt = function() {
+    var val1 = this.data[this.position++];
+    var val2 = this.data[this.position++];
+    var val3 = this.data[this.position++];
+    var val4 = this.data[this.position++];
+    return ((((val4 << 24) + (val3 << 16)) + (val2 << 8)) + val1) >>> 0;
+  }
+  WavReader.prototype.readShort = function() {
+    var val1 = this.data[this.position++];
+    var val2 = this.data[this.position++];
+    return (((val2 << 8) + val1) << 16) >> 16;
+  }
+  WavReader.prototype.readUnsignedShort = function() {
+    var val1 = this.data[this.position++];
+    var val2 = this.data[this.position++];
+    return ((val2 << 8) + val1) >>> 0;
+  }
+  WavReader.prototype.readSub = function(len) {
+    var result = this.data.subarray(this.position, this.position + len);
+    this.position += len;
+    return result;
+  }
+  WavReader.prototype.readString = function(length) {
+    var str = "";
+    for (var i = 0; i < length; i++) 
+      str += String.fromCharCode(this.data[this.position++]);
+    return str;
+  }
+  WavReader.prototype.bytesAvailable = function() {
+    return this.data.length - this.position;
+  }
+  WavReader.prototype.getLength = function() {
+    return this.data.length;
+  }
+  WavReader.prototype.getData = function() {
+    return this.data;
+  }
+  WavReader.prototype.extractChunk = function(desiredType) {
+    this.position = 12;
+    while (this.bytesAvailable() > 8) {
+      var chunkType = this.readString(4);
+      var chunkSize = this.readUnsignedInt();
+      if (chunkType == desiredType) 
+        return new WavReader(this.readSub(chunkSize));
+      this.position += chunkSize;
+    }
+    return null;
+  }
+  WavReader.prototype.readReader = function() {
+    var riffStr = this.readString(4);
+    if (riffStr != "RIFF") 
+      throw new Error("WAVFile: bad file header");
+    var lengthInHeader = this.readInt();
+    if (this.getLength() != (lengthInHeader + 8)) 
+      console.log("WAVFile: bad RIFF size; ignoring");
+    var wavStr = this.readString(4);
+    if (wavStr != "WAVE") 
+      throw new Error("WAVFile: not a WAVE file");
+    return { lengthInHeader: lengthInHeader };
+  }
+  function decodeWav(audioContext, data) {
+    var stepTable = [7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31, 34, 37, 41, 45, 50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143, 157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658, 724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 2272, 2499, 2749, 3024, 3327, 3660, 4026, 4428, 4871, 5358, 5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899, 15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767];
+    var indexTable = [-1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8];
+    var reader = new WavReader(data);
+    reader.readReader();
+    var formatChunk = reader.extractChunk("fmt ");
+    if (formatChunk.getLength() < 16) 
+      throw new Error("WAVFile: format chunk is too small");
+    var encoding = formatChunk.readUnsignedShort();
+    var channels = formatChunk.readUnsignedShort();
+    var rate = formatChunk.readUnsignedInt();
+    var bytesPerSecond = formatChunk.readUnsignedInt();
+    var blockAlignment = formatChunk.readUnsignedShort();
+    var bitsPerSample = formatChunk.readUnsignedShort();
+    var adpcmBlockSize = 0;
+    var compressedData = reader.extractChunk("data").data;
+    var sampleCount = 0;
+    if (encoding == 17) {
+			if (formatChunk.getLength() < 20) throw Error("WAVFile: adpcm format chunk is too small");
+			if (channels != 1) throw Error("WAVFile: adpcm supports only one channel (monophonic)");
+			formatChunk.position += 2;
+      var samplesPerBlock = formatChunk.readUnsignedShort();
+      adpcmBlockSize = ((samplesPerBlock - 1) / 2) + 4;
+      var factChunk = reader.extractChunk("fact");
+      if ((factChunk != null) && (factChunk.length == 4)) {
+				sampleCount = factChunk.readUnsignedInt();
+      } else {
+				sampleCount = 2 * compressedData.length;
+      }
+    } else {
+      sampleCount = (compressedData.length / 2) | 0;
+    }
+    var resD = audioContext.createBuffer(channels, sampleCount, rate);
+    var lData = resD.getChannelData(0);
+    var sidx = 0;
+    var lidx = 0;
+    if (encoding == 17) {
+      var sample = 0;
+      var index = 0;
+      var step = 0;
+      var code = 0;
+      var delta = 0;
+      var lastByte = -1;
+      while (true) {
+        if (((sidx % adpcmBlockSize) == 0) && (lastByte < 0)) {
+          if ((compressedData.length - sidx) <= 0) break;
+          sample = (((compressedData[sidx++] + (compressedData[sidx++] << 8)) << 16) >> 16);
+          index = compressedData[sidx++];
+          sidx++;
+          if (index > 88) index = 88;
+          lData[lidx++] = sample / 32767;
+        } else {
+          if (lastByte < 0) {
+            if ((compressedData.length - sidx) <= 0) break;
+            lastByte = compressedData[sidx++];
+            code = lastByte & 0xF;
+          } else {
+            code = (lastByte >> 4) & 0xF;
+            lastByte = -1;
+          }
+          step = stepTable[index];
+          delta = 0;
+          if (code & 4) delta += step;
+          if (code & 2) delta += step >> 1;
+          if (code & 1) delta += step >> 2;
+          delta += step >> 3;
+          index += indexTable[code];
+          if (index > 88) index = 88;
+          if (index < 0) index = 0;
+          sample += (code & 8) ? -delta : delta;
+          if (sample > 32767) sample = 32767;
+          if (sample < -32768) sample = -32768;
+          lData[lidx++] = sample / 32767;
+        }
+      }
+    } else {
+      while (sidx < compressedData.length) {
+        lData[lidx++] = (((compressedData[sidx++] + (compressedData[sidx++] << 8)) << 16) >> 16) / 32767;
+      }
+    }
+    return resD;
+  }
   function loaderMidiData(midiData) {
     var _data = new Uint8Array(midiData);
     var dataLengthOriginal = _data.length;
@@ -442,9 +574,8 @@ var AnimTredInstruments = (function() {
         if (temp & 0x80) {
           value += (temp - 0x80);
           value <<= 7;
-        } else {
+        } else 
           return value + temp;
-        }
       }
       throw new Error("Unexpected end of input");
     }
@@ -493,7 +624,6 @@ var AnimTredInstruments = (function() {
       var midID = _readUTFBytes(4);
       switch(midID) {
         case "RIFF":
-          // Support RIFF
           var lengthInHeader = _readInt();
           if (dataLengthOriginal != (lengthInHeader + 8)) console.log("bad RIFF size; ignoring");
           if (_readUTFBytes(4) !== "RMID") throw "Invalid RMI file";
@@ -628,7 +758,7 @@ var AnimTredInstruments = (function() {
             } else {
               if (event > 127) {
                 midiChannel = event % 16;
-                eventTypeValue = (event - midiChannel);
+                eventTypeValue = event - midiChannel;
               } else {
                 index--;
               }
@@ -789,8 +919,7 @@ var AnimTredInstruments = (function() {
     }
     return minfo;
   }
-  var Track = function(mse, trackID, data) {
-    this.mse = mse;
+  var Track = function(trackID, data) {
     this.currentPulse = 0;
     this.trackNumber = trackID;
     this.noteQueue = data.notes || [];
@@ -887,10 +1016,10 @@ var AnimTredInstruments = (function() {
     this.tempoTracker = 0;
     this.programIndex = 0;
   }
-  Track.prototype.update = function() {
-    var _t = this.mse.currentPulse;
-    var pitchBendChannel = this.mse.pitchBendChannel;
-    var programChannel = this.mse.programChannel;
+  Track.prototype.update = function(mse) {
+    var _t = mse.currentPulse;
+    var pitchBendChannel = mse.pitchBendChannel;
+    var programChannel = mse.programChannel;
     if (this.pitchBendQueue.tick.length > 0) {
       while (this.pitchBendIndex < this.pitchBendQueue.tick.length && _t >= this.pitchBendQueue.tick[this.pitchBendIndex]) {
         pitchBendChannel[this.pitchBendQueue.channel[this.pitchBendIndex]] = ((this.pitchBendQueue.pitch[this.pitchBendIndex] / 8192) - 1);
@@ -929,7 +1058,7 @@ var AnimTredInstruments = (function() {
         var channel = this.controllerQueue.channel[this.controllerIndex];
         var control = this.controllerQueue.control[this.controllerIndex];
         var value = this.controllerQueue.value[this.controllerIndex];
-        this.mse._setController(channel, control, value, false);
+        mse._setController(channel, control, value, false);
         this.controllerIndex++;
       }
       this.controllerIndex--;
@@ -938,23 +1067,21 @@ var AnimTredInstruments = (function() {
         if (last == null) {
           var channel = this.controllerQueue.channel[this.controllerIndex];
           var control = this.controllerQueue.control[this.controllerIndex];
-          var value = this.controllerQueue.value[this.controllerIndex];
-          this.mse._setController(channel, control, value, true);
+          mse._setController(channel, control, null);
         } else {
           var channel = this.controllerQueue.channel[last];
           var control = this.controllerQueue.control[last];
           var value = this.controllerQueue.value[last];
-          this.mse._setController(channel, control, value, false);
+          mse._setController(channel, control, value);
         }
         this.controllerIndex--;
       }
       this.controllerIndex++;
     }
   }
-  Track.prototype.getNote = function(mute, k) {
+  Track.prototype.getNote = function(_currentPulse, mute, k) {
     var tickOn = this.noteQueue.tickOn;
     var len = tickOn.length;
-    var _currentPulse = this.mse.currentPulse;
     if (len > 0) {
       var count = k;
       var startIndex = this.noteIndex;
@@ -988,6 +1115,38 @@ var AnimTredInstruments = (function() {
             funend();
         });
   }
+  function fillArray(arr, val) {
+    for (var i = 0; i < arr.length; i++) 
+      arr[i] = val;
+  }
+  function setEndedFunc(te) {
+    te.endedFunction = function () {
+      te.ended = true;
+      te.isStop = true;
+    }
+  }
+  var Controller = function() {
+    this.modulationChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.volumeChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    this.expressionChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    this.panChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.dataEntryMSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+    this.dataEntryLSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
+    this.registeredParameterMSBchannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.registeredParameterLSBchannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.sustainPedalChannel = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+  }
+  Controller.prototype.reset = function() {
+    fillArray(this.modulationChannel, 0);
+    fillArray(this.volumeChannel, 1);
+    fillArray(this.expressionChannel, 1);
+    fillArray(this.panChannel, 0);
+    fillArray(this.dataEntryMSB, 2);
+    fillArray(this.dataEntryLSB, 2);
+    fillArray(this.registeredParameterMSBchannel, 0);
+    fillArray(this.registeredParameterLSBchannel, 0);
+    fillArray(this.sustainPedalChannel, false);
+  }
   var Player = function() {
     this._debug = false;
     this.audioContext = new AudioContext();
@@ -1007,6 +1166,7 @@ var AnimTredInstruments = (function() {
     this.isEffect = true;
     this.isPaused = true;
     this.currentTime = 0;
+    this.concurrencyCounter = 0;
     this.programChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     this.notesPlayingChannel = new Array(16);
     for (var i = 0; i < 16; i++) {
@@ -1019,16 +1179,16 @@ var AnimTredInstruments = (function() {
     this.formatType = 0;
     this.currentPulse = 0;
     this.tempo = 0;
+    this.controller = new Controller();
+    this._date = this._getTime();
     this._tempoTick = 0;
     this._tempoTime = 0;
     this._currentTimeLast = 0;
     this._soundbankLoaded = 0;
     this._soundbank = {};
     this._startTime = 0;
-    this.loader = null;
-    this.date = this._getTime();
+    this._loader = null;
     this._frameStart = Date.now();
-    this._interval = setInterval(this._step.bind(this), 5);
     this._panGainChannel = new Array(16);
     this._outputGainChannel = new Array(16);
     this._d = Date.now();
@@ -1038,7 +1198,9 @@ var AnimTredInstruments = (function() {
       this._outputGainChannel[i] = this._panGainChannel[i].inputNode;
     }
     this.resetEffect();
+    this._interval = setInterval(this._step.bind(this), 5);
   }
+  Player.CONCURRENCY_LIMIT = 256;
   Player.prototype._getTime = function() {
     if (this.audioContext.state != "running") 
       this._d2 = Date.now() - this._d;
@@ -1050,16 +1212,7 @@ var AnimTredInstruments = (function() {
     this.pitchBendChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
   Player.prototype.resetController = function() {
-    this.controller = {};
-    this.controller.modulationChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.controller.volumeChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    this.controller.expressionChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    this.controller.panChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.controller.dataEntryMSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-    this.controller.dataEntryLSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-    this.controller.registeredParameterMSBchannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.controller.registeredParameterLSBchannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.controller.sustainPedalChannel = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+    this.controller.reset();
   }
   Player.prototype.cleanup = function() {
     this.stop();
@@ -1073,8 +1226,8 @@ var AnimTredInstruments = (function() {
     this.currentPulse = 0;
     this.currentTime = 0;
     this._currentTimeLast = 0;
-    if (this.loader) 
-      this.loader.stop();
+    if (this._loader) 
+      this._loader.stop();
     if (this.oncleanup) 
       this.oncleanup();
   }
@@ -1103,34 +1256,19 @@ var AnimTredInstruments = (function() {
       this.setStartTime(this.currentTime);
       this._stepUpdateTrack();
       for (var i = 0; i < this.trackQueue.length; i++) {
-        this.trackQueue[i].getNote(true);
+        this.trackQueue[i].getNote(this.currentPulse, true);
       }
     }
   }
   Player.prototype.setStartTime = function(s) {
-    this._startTime = (this.date - ((s / this.speed) * 1000));
+    this._startTime = (this._date - ((s / this.speed) * 1000));
   }
   Player.prototype.setSpeed = function(s) {
     this.speed = s;
     this.setStartTime(this.currentTime);
   }
   Player.prototype._decodeAudio = function(k, callback) {
-    var _this = this;
-    _this.audioContext.decodeAudioData(k, function (buffer) {
-      callback(buffer);
-    }, function (err2) {
-      console.log("Could not decode audio: " + err2);
-    });
-  }
-  Player.prototype._loadSoundAsset = function(f, callback) {
-    var vs1 = ASSET_URL.replace('$md5ext', soundbank_assets[f]);
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      callback(xhr.response);
-    };
-    xhr.responseType = "arraybuffer";
-    xhr.open("GET", vs1);
-    xhr.send();
+    callback(decodeWav(this.audioContext, new Uint8Array(k)));
   }
   Player.prototype._loadSoundFile = function(f, callback) {
     var xhr = new XMLHttpRequest();
@@ -1141,14 +1279,25 @@ var AnimTredInstruments = (function() {
     xhr.open("GET", "soundbank/" + f);
     xhr.send();
   }
+  Player.prototype._loadSoundAsset = function(f, callback) {
+    var vs1 = soundbank_assets[f];
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      callback(xhr.response);
+    };
+    xhr.responseType = "arraybuffer";
+    xhr.open("GET", "https://assets.scratch.mit.edu/internalapi/asset/" + vs1 + "/get/");
+    xhr.send();
+  }
   Player.prototype._loadSoundbankBuffer = function(s, f) {
     var _this = this;
     return function (callback) {
       _this._loadSoundAsset(f, function (buffer) {
-        _this._decodeAudio(buffer.slice(0), function (audioBuffer) {
+        _this._decodeAudio(buffer, function (audioBuffer) {
           _this._soundbank[s] = {
             data: new Uint8Array(buffer),
-            buffer: audioBuffer
+            buffer: audioBuffer,
+            fileName: f
           };
           callback();
         });
@@ -1159,11 +1308,17 @@ var AnimTredInstruments = (function() {
     var _this = this;
     var promises = [];
     this._soundbankLoaded = 0;
+    var SOUNDBANK_FILES = {};
+    for (var soundbankTitle in SOUNDBANKS) {
+      var st = SOUNDBANKS[soundbankTitle];
+      for (var filePath in st) {
+        SOUNDBANK_FILES[filePath] = st[filePath];
+      }
+    }
     for (var filePath in SOUNDBANK_FILES) {
       if (!this._soundbank[filePath]) {
         this._soundbankLoaded++;
-        var l = this._loadSoundbankBuffer(filePath, SOUNDBANK_FILES[filePath]);
-        promises.push(l);
+        promises.push(this._loadSoundbankBuffer(filePath, SOUNDBANK_FILES[filePath]));
       }
     }
     _this.onprogress && _this.onprogress("loaded instruments " + _this._soundbankLoaded);
@@ -1183,7 +1338,7 @@ var AnimTredInstruments = (function() {
     this.node.gain.value = v;
   }
   Player.prototype.play = function() {
-    this.date = this._getTime();
+    this._date = this._getTime();
     if (this.currentTime <= 0) {
       this.resetEffect();
       this.muteMusicr = false;
@@ -1209,7 +1364,7 @@ var AnimTredInstruments = (function() {
     }
   }
   Player.prototype.stop = function() {
-    this.date = this._getTime();
+    this._date = this._getTime();
     this.isPaused = true;
     this.currentTime = 0;
     this.setStartTime(0);
@@ -1217,7 +1372,7 @@ var AnimTredInstruments = (function() {
     this.stopAllPlaying();
   }
   Player.prototype.pause = function() {
-    this.date = this._getTime();
+    this._date = this._getTime();
     this.isPaused = true;
     this.setStartTime(this.currentTime);
     this.stopAllPlaying();
@@ -1279,48 +1434,40 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype.playNote = function(n) {
     if (n.type == 1) {
-      var inst = MIDI_INSTRUMENT[n.instrument - 1];
-      if (!inst) return;
-      var spans = INSTRUMENT_INFO[inst];
-      var span = spans[0];
-      for (var i = 1; i < spans.length; i++) {
-        var s = spans[i];
-        if (n.pitch >= s.top)
-          span = s;
-      }
+      var span = getInstrumentSpan(n.instrument - 1, n.pitch);
       if (!span) return;
-      var buffer = this._soundbank[span.name];
+      var buffer = this._soundbank[span[1]];
       if (!buffer) return;
       var source = this.audioContext.createBufferSource();
       var node = this.audioContext.createGain();
       source.buffer = buffer.buffer;
-      if (source.loop = span.loop) {
-        source.loopStart = span.loopStart;
-        source.loopEnd = span.loopEnd;
+      var loop = span[3];
+      if (loop) {
+        source.loop = true;
+        source.loopStart = loop[0];
+        source.loopEnd = loop[1];
       }
       source.connect(node);
-      source.playbackRate.value = Math.pow(2, ((n.pitch - span.top) / 12));
+      source.playbackRate.value = Math.pow(2, ((n.pitch - span[0]) / 12));
       var gain = node.gain;
       var volume = n.volume;
       gain.value = volume;
       var releaseGain = this.audioContext.createGain();
-      var releaseDuration = span.releaseTime;
-      if (typeof releaseDuration === "undefined") releaseDuration = 0.01;
+      var releaseDuration = span[2];
+      if (releaseDuration == null) releaseDuration = 0.01;
       var releaseStart = this.audioContext.currentTime + n.duration;
       var releaseEnd = releaseStart + releaseDuration;
       releaseGain.gain.setValueAtTime(1, releaseStart);
       releaseGain.gain.linearRampToValueAtTime(0.0001, releaseEnd);
       node.connect(releaseGain);
       releaseGain.connect(this.node);
-      source.start(this.audioContext.currentTime, (span.start || 0));
+      source.start(this.audioContext.currentTime, 0);
       source.stop(releaseEnd);
       return { source: source, node: node };
     } else if (n.type == 0) {
-      var drum = DRUMS_MIDI[n.drum];
-      if (!drum) return;
-      var span = DRUM_INFO[drum];
+      var span = getDrumSpan(0, n.drum);
       if (!span) return;
-      var buffer = this._soundbank[span.name];
+      var buffer = this._soundbank[span];
       if (!buffer) return;
       var source = this.audioContext.createBufferSource();
       var node = this.audioContext.createGain();
@@ -1336,87 +1483,58 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype._playNotes = function(program, pitch, volume, channel, trackNumber, tickOff, tickOn) {
     if (channel == 9) {
-      var drum = DRUMS_MIDI[pitch];
-      if (!drum) return;
-      var span = DRUM_INFO[drum];
+      var span = getDrumSpan(program, pitch);
       if (!span) return;
-      var buffer = this._soundbank[span.name];
+      var buffer = this._soundbank[span];
       if (!buffer) return;
-      var source = this.audioContext.createBufferSource();
-      var node = this.audioContext.createGain();
-      node.gain.value = 0;
-      source.buffer = buffer.buffer;
-      source.connect(node);
-      node.connect(this._outputGainChannel[channel]);
       var isStart = (tickOff - tickOn) > 0;
       var _volume = volume / 127;
       var te = {
         _pitch: pitch,
         _volume: volume,
         _program: program,
+        buffer: buffer.buffer,
+        source: null,
         ended: !isStart,
         start: isStart,
+        isPlay: false,
         isStop: false,
-        note: node,
+        note: null,
         nodeOn: tickOn,
         nodeOff: tickOff,
         volume: _volume,
         releaseGainVolume: 1,
         pitch: 0,
-        source: source,
         track: trackNumber,
         channel: channel
       };
-      te.endedFunction = function () {
-        te.ended = true;
-        te.isStop = true;
-      };
-      source.addEventListener("ended", te.endedFunction);
-      this._startNote(te);
-      this._updateEffectNote(te);
-      source.start();
-      this._addChannelPlaying(channel, pitch, te);
-      if (this._debug) console.log(span.name, isStart);
+      this.notesPlayingChannel[channel][pitch] = te;
+      this.concurrencyCounter++;
+      if (this._debug) console.log(span, isStart);
     } else {
-      var inst = MIDI_INSTRUMENT[program];
-      if (!inst) return;
-      var spans = INSTRUMENT_INFO[inst];
-      if (!spans) return;
-      var span = spans[0];
-      for (var i = 1; i < spans.length; i++) {
-        var s = spans[i];
-        if (pitch >= s.top) span = s;
-      }
+      var span = getInstrumentSpan(program, pitch);
       if (!span) return;
-      var buffer = this._soundbank[span.name];
+      var buffer = this._soundbank[span[1]];
       if (!buffer) return;
-      var source = this.audioContext.createBufferSource();
-      var node = this.audioContext.createGain();
-      source.buffer = buffer.buffer;
-      if (source.loop = span.loop) {
-        source.loopStart = span.loopStart;
-        source.loopEnd = span.loopEnd;
-      }
-      source.connect(node);
-      var _pitch = pitch - span.top;
-      source.playbackRate.value = Math.pow(2, (_pitch / 12));
-      var gain = node.gain;
+      var _pitch = pitch - span[0];
       var _volume = (volume / 127);
       var isStart = (tickOff - tickOn) > 0;
-      gain.value = 0;
-      node.connect(this._outputGainChannel[channel]);
-      var releaseDuration = span.releaseTime;
-      if (typeof releaseDuration === "undefined" || !isStart) 
+      var releaseDuration = span[2];
+      if (releaseDuration == null || !isStart) 
         releaseDuration = 0.01;
+      var loop = span[3];
       var te = {
         _pitch: pitch,
         _volume: volume,
         _program: program,
         ended: false,
-        source: source,
-        note: node,
+        source: null,
+        note: null,
+        buffer: buffer.buffer,
+        loop: loop,
         setDurationInf: false,
         isStop: false,
+        isPlay: false,
         releaseGainVolume: 1,
         start: isStart,
         release: {
@@ -1430,20 +1548,10 @@ var AnimTredInstruments = (function() {
         track: trackNumber,
         channel: channel
       };
-      te.endedFunction = function () {
-        te.ended = true;
-        te.isStop = true;
-      };
-      source.addEventListener("ended", te.endedFunction);
-      this._startNote(te);
-      this._updateEffectNote(te);
-      source.start(this.audioContext.currentTime, 0);
-      this._addChannelPlaying(channel, pitch, te);
-      if (this._debug) console.log(span.name, isStart);
+      this.notesPlayingChannel[channel][pitch] = te;
+      this.concurrencyCounter++;
+      if (this._debug) console.log(span[1], isStart);
     }
-  }
-  Player.prototype._addChannelPlaying = function(c, n, note) {
-    this.notesPlayingChannel[c][n] = note;
   }
   Player.prototype._getSustainPedalChannel = function(channel) {
     return this.controller.sustainPedalChannel[channel];
@@ -1467,12 +1575,12 @@ var AnimTredInstruments = (function() {
       if (this.isEffect && note.track) {
         var _pitch = (note.pitch + this._getPitch(note.channel));
         var rateSpeed = Math.pow(2, (_pitch / 12));
-        note.source.playbackRate.value = rateSpeed;
+        if (note.source) note.source.playbackRate.value = rateSpeed;
         var volumeEffect = Math.min(note.volume * this._getVolumeChannel(note.channel), 1.27);
         var volumeOld = (Math.pow(5, volumeEffect) - 1.0) / 4; // Normal
         note.note.gain.value = volumeOld * note.releaseGainVolume;
       } else {
-        note.source.playbackRate.value = Math.pow(2, note.pitch / 12);
+        if (note.source) note.source.playbackRate.value = Math.pow(2, note.pitch / 12);
         note.note.gain.value = note.volume * note.releaseGainVolume;
         note.duration = note.dur;
       }
@@ -1494,13 +1602,13 @@ var AnimTredInstruments = (function() {
       this.isPaused = true;
     }
     this._currentTimeLast = this.currentTime;
-    if (!this.isPaused && !this.muteMusicr) this.currentTime = Math.round((this.date - this._startTime) * this.speed) / 1000;
+    if (!this.isPaused && !this.muteMusicr) this.currentTime = Math.round((this._date - this._startTime) * this.speed) / 1000;
     this._stepUpdateTrack();
     this._stepUpdateEffect();
     this._stepNotesPlaying();
     this._stepPlayingNote();
     if (this.muteMusicr) this.muteMusicr = false;
-    this.date = this._getTime();
+    this._date = this._getTime();
     this._frameStart = Date.now();
   }
   Player.prototype._stepUpdateEffect = function() {
@@ -1510,8 +1618,8 @@ var AnimTredInstruments = (function() {
       var p = ((p1 * 100) + 100) / 200;
       var leftVal = Math.cos(p * Math.PI / 2);
       var rightVal = Math.sin(p * Math.PI / 2);
-      pan.rightGain.gain.value = rightVal;
-      pan.leftGain.gain.value = leftVal;
+      pan.rightGain.gain.value = Math.max(rightVal / 0.7071067690849304, 0);
+      pan.leftGain.gain.value = Math.max(leftVal / 0.7071067690849304, 0);
     }
   }
   Player.prototype._stepUpdateTrack = function() {
@@ -1529,27 +1637,25 @@ var AnimTredInstruments = (function() {
             this._stepUpdateTimeTrack(_currentTimeLast, 1);
             break;
           }
-          _currentTimeLast += 100000;
+          _currentTimeLast += 10000;
         }
-      } else {
-        if (_currentTime < _currentTimeLast) {
-          while (true) {
-            if (_currentTime < _currentTimeLast) {
-              this._stepUpdateTimeTrack(_currentTimeLast, -1);
-            } else {
-              _currentTimeLast = _currentTime;
-              this._stepUpdateTimeTrack(_currentTimeLast, -1);
-              break;
-            }
-            _currentTimeLast -= 100000;
+      } else if (_currentTime < _currentTimeLast) {
+        while (true) {
+          if (_currentTime < _currentTimeLast) {
+            this._stepUpdateTimeTrack(_currentTimeLast, -1);
+          } else {
+            _currentTimeLast = _currentTime;
+            this._stepUpdateTimeTrack(_currentTimeLast, -1);
+            break;
           }
+          _currentTimeLast -= 10000;
         }
       }
     }
   }
   Player.prototype._trackAllUpdate = function() {
     for (var i = 0; i < this.trackQueue.length; i++)
-      this.trackQueue[i].update();
+      this.trackQueue[i].update(this);
   }
   Player.prototype._stepUpdateTimeTrack = function(g, h) {
     if (h !== 0) {
@@ -1566,54 +1672,59 @@ var AnimTredInstruments = (function() {
             _currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo));
             track.tempoTracker++;
           }
-        } else {
-          if (h < 0) {
+        } else if (h < 0) {
+          track.tempoTracker--;
+          while (track.tempoTracker >= 0 && _currentPulse < _tempoQueue.tick[track.tempoTracker]) {
             track.tempoTracker--;
-            while (track.tempoTracker >= 0 && _currentPulse < _tempoQueue.tick[track.tempoTracker]) {
-              track.tempoTracker--;
-              if (track.tempoTracker >= 0) {
-                this.tempo = _tempoQueue.setting[track.tempoTracker] / this.timeDivision;
-                this._tempoTime += (_tempoQueue.tick[track.tempoTracker] - this._tempoTick) * this.tempo;
-                this._tempoTick = _tempoQueue.tick[track.tempoTracker];
-              } else {
-                this.tempo = 500000 / this.timeDivision;
-                this._tempoTime = 0;
-                this._tempoTick = 0;
-              }
-              _currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo));
+            if (track.tempoTracker >= 0) {
+              this.tempo = _tempoQueue.setting[track.tempoTracker] / this.timeDivision;
+              this._tempoTime += (_tempoQueue.tick[track.tempoTracker] - this._tempoTick) * this.tempo;
+              this._tempoTick = _tempoQueue.tick[track.tempoTracker];
+            } else {
+              this.tempo = 500000 / this.timeDivision;
+              this._tempoTime = 0;
+              this._tempoTick = 0;
             }
-            track.tempoTracker++;
+            _currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo));
           }
+          track.tempoTracker++;
         }
       }
       this.currentPulse = (this._tempoTick + ((g - this._tempoTime) / this.tempo));
     }
     this._trackAllUpdate();
   }
-  Player.prototype._setController = function(channel, control, value, isEnd) {
+  Player.prototype._setController = function(channel, control, value) {
     switch (control) {
       case 1: // Modulation wheel (MSB)
-        this.controller.modulationChannel[channel] = value / 200;
-        if (isEnd) 
+        if (value == null) 
           this.controller.modulationChannel[channel] = 0;
+        else 
+          this.controller.modulationChannel[channel] = value / 200;
         break;
       case 6: // Data Entry (MSB)
-        this.controller.dataEntryMSB[channel] = value;
+        if (value == null) 
+          this.controller.dataEntryMSB[channel] = 2;
+        else 
+          this.controller.dataEntryMSB[channel] = value;
         break;
       case 7: // Channel Volume (formerly Main Volume)
-        this.controller.volumeChannel[channel] = value / 100;
-        if (isEnd) 
+        if (value == null) 
           this.controller.volumeChannel[channel] = 1;
+        else 
+          this.controller.volumeChannel[channel] = value / 100;
         break;
       case 10: // Pan
-        this.controller.panChannel[channel] = (value - 64) / 100;
-        if (isEnd) 
+        if (value == null) 
           this.controller.panChannel[channel] = 0;
+        else 
+          this.controller.panChannel[channel] = (value - 64) / 100;
         break;
       case 11: // Expression Controller
-        this.controller.expressionChannel[channel] = value / 127;
-        if (isEnd) 
+        if (value == null) 
           this.controller.expressionChannel[channel] = 1;
+        else 
+          this.controller.expressionChannel[channel] = value / 127;
         break;
       case 0: // Bank Select (MSB)
       case 2: // Breath control (MSB)
@@ -1628,7 +1739,10 @@ var AnimTredInstruments = (function() {
       case 19: // General Purpose Controller #4 (MSB)
         break;
       case 38: // Data entry (LSB)
-        this.controller.dataEntryLSB[channel] = value;
+        if (value == null) 
+          this.controller.dataEntryLSB[channel] = 2;
+        else 
+          this.controller.dataEntryLSB[channel] = value;
         break;
       case 32: // Bank Select (LSB)
       case 33: // Modulation wheel (LSB)
@@ -1647,9 +1761,10 @@ var AnimTredInstruments = (function() {
       case 51: // General Purpose Controller #4 (LSB)
         break;
       case 64:
-        this.controller.sustainPedalChannel[channel] = value > 0;
-        if (isEnd)
+        if (value == null)
           this.controller.sustainPedalChannel[channel] = false;
+        else 
+          this.controller.sustainPedalChannel[channel] = value > 0;
         if (this.isEffect) {
           var _notesPlaying = this.notesPlayingChannel[channel];
           for (var i = 0; i < _notesPlaying.length; i++) {
@@ -1706,10 +1821,10 @@ var AnimTredInstruments = (function() {
       case 99: // Non-Registered Parameter Number (MSB)
         break;
       case 100: // Registered Parameter Number LSB
-        this.controller.registeredParameterLSBchannel[channel] = value;
+        this.controller.registeredParameterLSBchannel[channel] = value || 0;
         break;
       case 101: // Registered Parameter Number MSB
-        this.controller.registeredParameterMSBchannel[channel] = value;
+        this.controller.registeredParameterMSBchannel[channel] = value || 0;
         break;
       case 120: // All Sound Off
       case 126: // Poly mode on/off (+ all notes off)
@@ -1743,29 +1858,32 @@ var AnimTredInstruments = (function() {
     }
   }
   Player.prototype._noteStop = function(note, isEnded) {
-    if (note.source) {
-      if ((!note.isStop) && !isEnded) {
-        note.source.stop(0);
-        note.isStop = true;
+    if (note.isPlay) {
+      if (note.source) {
+        if ((!note.isStop) && !isEnded) {
+          note.source.stop(0);
+          note.isStop = true;
+        }
+        if (note.endedFunction) {
+          note.source.removeEventListener("ended", note.endedFunction);
+          note.endedFunction = null;
+        }
+        note.source.disconnect();
+        note.source = null;
       }
-      if (note.endedFunction) {
-        note.source.removeEventListener("ended", note.endedFunction);
-        note.endedFunction = null;
+      if (note.note) {
+        note.note.disconnect();
+        note.note = null;
       }
-      note.source.disconnect();
-      note.source = null;
-    }
-    if (note.note) {
-      note.note.disconnect();
-      note.note = null;
     }
     note.ended = true;
   }
   Player.prototype._stepPlayingNote = function() {
+    var isPlay = false;
     for (var i = 0; i < this.trackQueue.length; i++) {
       var track = this.trackQueue[i];
       var _noteQueue = track.noteQueue;
-      var notes = track.getNote(this.muteMusicr, 192);
+      var notes = track.getNote(this.currentPulse, this.muteMusicr, 1024);
       if (!notes) continue;
       if (this.isPaused) continue;
       var startIndex = notes[0];
@@ -1778,41 +1896,63 @@ var AnimTredInstruments = (function() {
         var pitch = _noteQueue.pitch[n];
         var volume = _noteQueue.velocity[n];
         if (volume < 2) continue;
+        if (this.concurrencyCounter >= Player.CONCURRENCY_LIMIT) 
+          continue;
         if (this.onplaynote) {
-          if (channel == 9) {
-            this.onplaynote({
-              drum: pitch,
-              volume: (volume / 127),
-              channel: channel,
-              type: 0
-            });
-          } else {
-            this.onplaynote({
-              pitch: pitch,
-              dur: ((tickOff - tickOn) * this.tempo) / 1000000,
-              instrument: program + 1,
-              volume: (volume / 127),
-              channel: channel,
-              type: 1
-            });
-          }
+          this.onplaynote({
+            pitch: pitch,
+            dur: ((tickOff - tickOn) * this.tempo) / 1000000,
+            program: program,
+            volume: (volume / 127),
+            channel: channel
+          });
         }
-        if (true) {
-          var _notesplaying = this.notesPlayingChannel[channel];
-          var h = _notesplaying[pitch];
-          if (h) {
-            var _release = h.release;
-            if (!h.ended && _release && !_release.ended && !h.setDurationInf) {
-              var j = Math.min(h.nodeOff, tickOff);
-              if (h.nodeOff >= tickOff && h.nodeOff <= tickOn) 
-                tickOff = j;
-            }
-            this._noteStop(h, false);
-            _notesplaying[pitch] = null;
+        var _notesplaying = this.notesPlayingChannel[channel];
+        var h = _notesplaying[pitch];
+        if (h) {
+          var _release = h.release;
+          if (!h.ended && _release && !_release.ended && !h.setDurationInf) {
+            var j = Math.min(h.nodeOff, tickOff);
+            if (h.nodeOff >= tickOff && h.nodeOff <= tickOn) 
+              tickOff = j;
           }
+          if (h.isPlay) this._noteStop(h, false);
+          _notesplaying[pitch] = null;
+          this.concurrencyCounter--;
         }
         this._playNotes(program, pitch, volume, channel, track.trackNumber, tickOff, tickOn);
+        isPlay = true;
       }
+    }
+    if (isPlay) {
+      for (var channel = 0; channel < 16; channel++) {
+        var _notesPlaying = this.notesPlayingChannel[channel];
+        for (var i = 0; i < _notesPlaying.length; i++) {
+          var h = _notesPlaying[i];
+          if (!h) continue;
+          if (!h.isPlay) {
+            var node = this.audioContext.createGain();
+            node.gain.value = 0;
+            node.connect(this._outputGainChannel[channel]);
+            var source = this.audioContext.createBufferSource();
+            source.buffer = h.buffer;
+            var loop = h.loop;
+            if (loop) {
+              source.loop = true;
+              source.loopStart = loop[0];
+              source.loopEnd = loop[1];
+            }
+            source.connect(h.note = node);
+            h.source = source;
+            this._startNote(h);
+            this._updateEffectNote(h);
+            setEndedFunc(h);
+            source.addEventListener("ended", h.endedFunction);
+            source.start(this.audioContext.currentTime, 0);
+            h.isPlay = true;
+          }
+        }
+      }   
     }
   }
   Player.prototype._stepNotesPlaying = function() {
@@ -1828,10 +1968,10 @@ var AnimTredInstruments = (function() {
             else if (this.currentPulse < note.nodeOn) note.ended = true;
             if (_release.ended) {
               if (!("startTime" in _release)) 
-                _release.startTime = this.date;
+                _release.startTime = this._date;
               if (_release.duration) {
-                note.releaseGainVolume = Math.max(0, 1 - ((this.date - _release.startTime) / _release.duration));
-                if ((this.date - _release.startTime) >= _release.duration) 
+                note.releaseGainVolume = Math.max(0, 1 - ((this._date - _release.startTime) / _release.duration));
+                if ((this._date - _release.startTime) >= _release.duration) 
                   note.ended = true;
               } else {
                 note.ended = true;
@@ -1843,6 +1983,7 @@ var AnimTredInstruments = (function() {
         }
         if (note.ended) {
           this._noteStop(note, true);
+          this.concurrencyCounter--;
           _notesPlaying[i] = null;
         }
       }
@@ -1856,14 +1997,14 @@ var AnimTredInstruments = (function() {
       _this.onprogress("reading midi");
     var mp = loaderMidiData(data);
     mp.onload = function (result) {
-      _this.loader = null;
+      _this._loader = null;
       _this.loadedTime = Date.now() - loadedTime;
       _this._init(result);
       if (_this.onload) 
         _this.onload();
     }
     mp.onerror = function(e) {
-      _this.loader = null;
+      _this._loader = null;
       if (_this.onerror) 
         _this.onerror(e);
     }
@@ -1871,7 +2012,7 @@ var AnimTredInstruments = (function() {
       if (_this.onprogress) 
         _this.onprogress("processing track " + a + " / " + b + " " + Math.round(r * 100) + "%");
     }
-    _this.loader = mp;
+    _this._loader = mp;
     mp.start();
   }
   Player.prototype.toJSON = function() {
@@ -1928,7 +2069,7 @@ var AnimTredInstruments = (function() {
     this.timeDivision = data.timeDivision;
     this.formatType = data.formatType;
     for (var i = 0; i < tracks.length; i++) 
-      this.trackQueue.push(new Track(this, i + 1, tracks[i]));
+      this.trackQueue.push(new Track(i + 1, tracks[i]));
     this.tempo = 500000 / data.timeDivision;
     this.duration = this.getDuration();
     this.resetTrack();
@@ -1940,12 +2081,14 @@ var AnimTredInstruments = (function() {
   }
   return {
     Player: Player,
+    getDrumSpan: getDrumSpan,
+    getInstrumentSpan: getInstrumentSpan,
     MIDI_INSTRUMENT: MIDI_INSTRUMENT,
     DRUMS_MIDI: DRUMS_MIDI,
     DRUM_INFO: DRUM_INFO,
     INSTRUMENT_INFO: INSTRUMENT_INFO,
-    SOUNDBANK_FILES: SOUNDBANK_FILES,
+    SOUNDBANKS: SOUNDBANKS,
     formats: ["mid", "rmi", "midi"],
-    version: "v1.2.3"
+    version: "v1.3.0"
   }
 }());

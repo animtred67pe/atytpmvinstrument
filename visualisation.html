@@ -53,7 +53,7 @@
 				<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 265px;">
 			</div>
 		</div>
-		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007 Fan</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
@@ -213,7 +213,7 @@
 				}
 				MidiControls.prototype.onplaynote = function (e) {
 					if (this.graphicEqualizers.length < 150) {
-						if (e.type == 1) {
+						if (e.channel != 9) {
 							this.graphicEqualizers.push({
 								pitch: e.pitch,
 								volume: e.volume,
@@ -221,12 +221,12 @@
 								s: this.mse.currentTime,
 								b: 0,
 								c: 0,
-								h: 0,
+								h: 0
 							});
 						}
 					}
 					if (this.circles.length < 150) {
-						if (e.type == 1) {
+						if (e.channel != 9) {
 							this.circles.push({
 								pitch: 32 + ((e.pitch - 32) / 2),
 								volume: e.volume,
@@ -235,7 +235,7 @@
 								b: 0,
 								x: 0,
 								y: 0,
-								c: this._counter,
+								c: this._counter
 							});
 						} else {
 							this.circles.push({
@@ -244,7 +244,7 @@
 								color: this.channelColor[e.channel],
 								volume: e.volume,
 								b: 0,
-								c: this._counter,
+								c: this._counter
 							});
 						}
 						this._counter += 32;

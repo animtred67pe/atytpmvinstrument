@@ -37,162 +37,228 @@
 	<body>
 		<a href="./" style="position: absolute; left: 5px; top: 5px;">back</a>
 		<div class="app">
-			<h1>YTPMV Cartoon Instruments v1.2.3</h1>
+			<h1>YTPMV Cartoon Instruments v1.3.0</h1>
 			<p>The YTPMV Cartoon Sounds, Midi Player in javascript(ES5)</p>
-			<p>My Little Pony & Peppa Pig, record Bandican and OBS Studio a Editor program: Adobe Premiere & Adobe Audition & Audio Editor this a finish to <a href="./">YTPMV Cartoon Instruments (Back)</a></p>
-			<div class="hfgfhh2">
-				<input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 475px;" disabled>
-				<br>
-				<button id="playstop" disabled>Play</button>
-				<label id="cuer">0:00/0:00</label>
-				<div style="float: right; margin: 0;">
-					<label>Volume:</label>
-					<input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
-				</div>	
-			</div>
+			<p>Sounds My Little Pony & Peppa Pig, record Bandican and OBS Studio a Editor program: Adobe Premiere & Adobe Audition & Audio Editor this a finish to <a href="./">YTPMV Cartoon Instruments (Back)</a></p>
 			<p>sounds source used: <a href="animtredinstruments.js">view soundbank sources</a></p>
 			<p>program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3</p>
 			<p>website source code available on <a href="https://github.com/animtred67pe/atytpmvinstrument">GitHub.</a></p>
-			<p style="color: #999999;">created by <a style="color: #999999;" href="https://scratch.mit.edu/users/atfsmedia25/" target="_blank">atfsmedia25</a></p>
+			<p style="color: #999999;">Made by EddyAlonsoAyalaQuispe</p>
 		</div>
 		<script src="animtredinstruments.js"></script>
-		<script src="abmidbin.js"></script>
 		<script>
-			(function() {}());
-			var autoplayL = false;
-
 			var player = new AnimTredInstruments.Player();
-
-			window.player = player;
-
-			var cuer = document.getElementById('cuer');
-			function mod(x, y) {
-				var r = x % y;
-				if (r / y < 0) r += y;
-				return r; 
-			};
-			function getDuraction(num) {
-				var txt = '';
-				if (Math.floor(num) > 3599) {
-					txt += '' + Math.floor(num / 3600);
-					txt += ':';
-					if (mod(Math.floor(num / 60), 60) > 9) {
-						txt += '' + mod(Math.floor(num / 60), 60);
-					} else {
-						txt += '0' + mod(Math.floor(num / 60), 60);
-					}
-					txt += ':';
-					if (mod(Math.floor(num), 60) > 9) {
-						txt += '' + mod(Math.floor(num), 60);
-					} else {
-						txt += '0' + mod(Math.floor(num), 60);
-					}
-				} else {
-					txt += '' + mod(Math.floor(num / 60), 60);
-					txt += ':';
-					if (mod(Math.floor(num), 60) > 9) {
-						txt += '' + mod(Math.floor(num), 60);
-					} else {
-						txt += '0' + mod(Math.floor(num), 60);
-					}
-				}
-				return txt;
-			}
-			var fgdgdfg = document.getElementById("yrtyryry");
-			var fgdgdfg2 = document.getElementById("yrtyryry2");
-			var playstop = document.getElementById('playstop');
-			var z_dir2 = null;
-			function z_dir() {
-				fgdgdfg.value = (player.currentTime / player.duration) * 100000;
-				var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
-				if (f_ggg !== cuer.innerHTML) {
-					cuer.innerHTML = f_ggg;
-				}
-			}
-			fgdgdfg2.addEventListener('input', function() {
-				player.setVolume(fgdgdfg2.value / 100);
-			}, false);
-			fgdgdfg.addEventListener('input', function() {
-				player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
-			}, false);
-			player.onended = function () {
-				player.setCurrentTime(0);
-				playstop.innerHTML = 'Play';
-			}
-			function URLsearchParams(name, isD) {
-				var _u = new URL(window.location.href);
-				if (_u.searchParams) {
-					if (isD) {
-						return _u.searchParams.has(name);
-					} else {
-						return _u.searchParams.get(name);
-					}
-				} else {
-					if (isD) {
-						return false;
-					} else {
-						return null;
-					}
-				}
-			}
-			if (URLsearchParams('offeffect', true)) {
-				player.isEffect = false;
-			}
-			function loadMidiFile(file) {
-				document.querySelector(".hfgfhh2").title = '';
-				var a = new FileReader();
-				a.onload = (function() {
-					if (z_dir2) {
-						clearInterval(z_dir2);
-					}
-					fgdgdfg.value = 0;
-					cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
-					playstop.innerHTML = 'Play';
-					playstop.setAttribute("disabled", true);
-					fgdgdfg.setAttribute("disabled", true);
-					setTimeout(function () {
-						player.loadMid(a.result);
-						fgdgdfg.removeAttribute("disabled");
-						z_dir2 = setInterval(z_dir, 100);
-						player.loadSoundbank(function(e) {
-							playstop.removeAttribute("disabled");
-							if (autoplayL) {
-								playstop.innerHTML = 'Pause';
-								player.play();
+			function encodeWavAdpcm(float_array, rate) {
+			    var stepTable = [7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31, 34, 37, 41, 45, 50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143, 157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658, 724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 2272, 2499, 2749, 3024, 3327, 3660, 4026, 4428, 4871, 5358, 5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899, 15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767];
+			    var indexTable = [-1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8];
+			    var blockSize = 512;
+			    var sampleCount = float_array.length;
+			    var sample = 0;
+			    var predicted = 0;
+			    var index = 0;
+			    var step = 0;
+			    var code = 0;
+			    var diff = 0;
+			    var delta = 0;
+			    var savedNibble = -1;
+			    var lastSamplePosition = sampleCount - 2;
+			    var samplesPerBlock = (2 * (blockSize - 4)) + 1;
+			    var blockCount = Math.floor((sampleCount + samplesPerBlock - 1) / samplesPerBlock);
+			    var _sampleCount = samplesPerBlock * blockCount;
+			    var out = [];
+			    var sIdx = 0;
+			    while(_sampleCount--) {
+			      if (sIdx <= lastSamplePosition) {
+			        var _sample = ((float_array[sIdx++] * 32767) | 0);
+			        if (_sample > 32767) _sample = 32767;
+			        if (_sample < -32768) _sample = -32768;
+			        sample = _sample;
+			      } else {
+			        sample = 0;
+			      }
+			      if ((out.length % blockSize) == 0) {
+			        var _sample = sample;
+			        if (_sample > 32767) _sample = 32767;
+			        if (_sample < -32768) _sample = -32768;
+			        if (_sample < 0) {
+			          _sample = (32768 + _sample) + 32768;
+			        }
+			        out.push(_sample & 255);
+			        out.push(_sample >> 8);
+			        out.push((index << 24) >> 24);
+			        out.push(0);
+							predicted = sample;
+						} else {
+							diff = sample - predicted;
+							step = stepTable[index];
+							code = delta = 0;
+							if (diff < 0) {
+			          code = 8;
+			          diff = -diff;
+			        }
+							if (diff >= step) {
+			          code |= 4;
+			          diff -= step;
+			          delta += step;
+			        }
+							step = step >> 1;
+							if (diff >= step) {
+			          code |= 2;
+			          diff -= step;
+			          delta += step;
+			        }
+							step = step >> 1;
+							if (diff >= step) {
+			          code |= 1;
+			          diff -= step;
+			          delta += step;
+			        }
+							delta += step >> 1;
+							if (savedNibble < 0) {
+								savedNibble = code;
+							} else {
+			          out.push((((code << 4) | savedNibble) << 24) >> 24);
+								savedNibble = -1;
 							}
-							autoplayL = true;
-						});
-					}, 2);
-				}).bind(this);
-				a.readAsArrayBuffer(file);
+							predicted += (code & 8) ? -delta : delta;
+							if (predicted > 32767) predicted = 32767;
+							if (predicted < -32768) predicted = -32768;
+							index += indexTable[code];
+							if (index > 88) index = 88;
+							if (index < 0) index = 0;
+			      }
+			    }
+				if (savedNibble >= 0) out.push((savedNibble << 24) >> 24);
+			    out = new Uint8Array(out);
+			    var sizeLen = out.length + 52;
+			    var dataLen = out.length;
+			    var samplesPerBlock = (2 * (blockSize - 4)) + 1;
+			    var bytesPerSec = Math.floor(((2 * blockSize) / samplesPerBlock) * (rate / 2));
+			    var fmt = new Uint8Array([82, 73, 70, 70, sizeLen & 255, sizeLen >> 8, sizeLen >> 16, sizeLen >> 24, 87, 65, 86, 69, 102, 109, 116, 32, 20, 0, 0, 0, 17, 0, 1, 0, rate & 255, rate >> 8, rate >> 16, rate >> 24, bytesPerSec & 255, bytesPerSec >> 8, bytesPerSec >> 16, bytesPerSec >> 24, blockSize & 255, blockSize >> 8, 4, 0, 2, 0, samplesPerBlock & 255, samplesPerBlock >> 8, 102, 97, 99, 116, 4, 0, 0, 0, sampleCount & 255, sampleCount >> 8, sampleCount >> 16, sampleCount >> 24, 100, 97, 116, 97, dataLen & 255, dataLen >> 8, dataLen >> 16, dataLen >> 24]);
+			    var result = new Uint8Array(fmt.length + out.length);
+			    result.set(fmt, 0);
+			    result.set(out, fmt.length);
+			    return result;
 			}
-			function dropHandler(ev) {
-				ev.preventDefault();
-				if (ev.dataTransfer.items) {
-					var item = ev.dataTransfer.items[0];
-					if (item) {
-						if (item.kind === 'file') {
-							var file = item.getAsFile();
-							loadMidiFile(file);
+			function spanToInfo(span) {
+				var name = span[1];
+				var sound = player._soundbank[span[1]];
+				var result_data = sound.data;
+				var loop = span[3];
+				if (loop) {
+					var buffer = sound.buffer;
+					var rate = buffer.sampleRate;
+					var fdata = buffer.getChannelData(0);
+					var hg = (5 * rate) | 0;
+					var result_fdata = new Float32Array(hg);
+					var fstart = (loop[0] * rate) | 0;
+					var fend = (loop[1] * rate) | 0;
+					var idxs = 0;
+					for (var i = 0; i < hg; i++) {
+						result_fdata[i] = fdata[idxs++];
+						if (idxs >= fend) {
+							idxs = fstart;
 						}
 					}
+					result_data = encodeWavAdpcm(result_fdata, rate);
+				}
+				return {
+					name: name,
+					data: result_data,
 				}
 			}
-			function dragOverHandler(ev) {
-				ev.preventDefault();
-			}
-			document.body.addEventListener("drop", dropHandler);
-			document.body.addEventListener("dragover", dragOverHandler);
-			playstop.onclick = function () {
-				if (player.isPaused) {
-					playstop.innerHTML = 'Pause';
-					player.play();
-				} else {
-					playstop.innerHTML = 'Play';
-					player.pause();
+			function downloadsoundbankspans() {
+				var xml = new XMLHttpRequest();
+				xml.onload = function() {
+					var j = new TextDecoder().decode(new Uint8Array(xml.response, 0x2c));
+					var f = new Function(j);
+					var r = f();
+					var nameP = "ytpmw_cartoon_soundbank";
+					player.loadSoundbank(function() {
+						var _soundbank = player._soundbank;
+						var DRUM_INFO = AnimTredInstruments.DRUM_INFO;
+						var INSTRUMENT_INFO = AnimTredInstruments.INSTRUMENT_INFO;
+						var jsz = new JSZip();
+						for (var key in DRUM_INFO) {
+							var sound = _soundbank[DRUM_INFO[key]];
+							jsz.file(nameP + "/drums/" + DRUM_INFO[key] + "_D.wav", sound.data);
+						}
+						for (var key in INSTRUMENT_INFO) {
+							var spans = INSTRUMENT_INFO[key];
+							for (var i = 0; i < spans.length; i++) {
+								var sound = spanToInfo(spans[i]);
+								for (var j = 0; j < 16; j++) {
+									jsz.file(nameP + "/instruments/" + sound.name + "_I" + j + ".wav", sound.data);
+								}
+							}
+						}
+						jsz.file(nameP + "/instrument_map.txt", AnimTredInstruments.MIDI_INSTRUMENT.join("\n"));
+						jsz.file(nameP + "/drum_map.txt", AnimTredInstruments.DRUMS_MIDI[0].join("\n"));
+						var tv = [];
+						for (var i = 0; i < 1024; i++) {
+							var volumeEffect = i / 100;
+							var volumeOld = (Math.pow(5, volumeEffect) - 1.0) / 4; // Normal
+							tv.push(volumeOld);
+						}
+						jsz.file(nameP + "/volume_old.txt", tv.join("\n"));
+						var drumspans = "";
+						for (var key in DRUM_INFO) {
+							drumspans += key + "\n";
+							drumspans += DRUM_INFO[key] + "\n";
+						}
+						var instspans = "";
+						for (var key in INSTRUMENT_INFO) {
+							var spans = INSTRUMENT_INFO[key];
+							instspans += key + "\n";
+							var resS = [];
+							for (var i = 0; i < spans.length; i++) {
+								var span = spans[i];
+								resS.push(span[0]);
+								resS.push(span[1]);
+								resS.push(span[2] || "");
+								resS.push(String(!!span[3]));
+							}
+							instspans += resS.join(",") + "\n";
+						}
+						jsz.file(nameP + "/instrument_spans.txt", instspans);
+						jsz.file(nameP + "/drum_spans.txt", drumspans);
+						jsz.generateAsync({type: 'blob', compression: 'DEFLATE'}, function(metadata) {}).then(function(d) {var bb = new Blob([d]);var aaa = document.createElement('a');aaa.href = URL.createObjectURL(bb);aaa.download = nameP + '.zip';aaa.click()});
+					});
 				}
+				xml.responseType = "arraybuffer";
+				xml.open("GET", "https://assets.scratch.mit.edu/internalapi/asset/29c334ca6e4b3bcd84326e26f087c8a8.wav/get/");
+				xml.send();
 			}
-			loadMidiFile(new Blob([new Uint8Array(atexplacemidi)]));
+			function downloadsoundbanks() {
+				var xml = new XMLHttpRequest();
+				xml.onload = function() {
+					var j = new TextDecoder().decode(new Uint8Array(xml.response, 0x2c));
+					var f = new Function(j);
+					var r = f();
+					var nameP = "ytpmw_cartoon_soundbank";
+					player.loadSoundbank(function() {
+						var _soundbank = player._soundbank;
+						var jsz = new JSZip();
+						for (var key in _soundbank) {
+							var sound = _soundbank[key];
+							jsz.file(nameP + "/" + sound.fileName, sound.data);
+						}
+						jsz.generateAsync({
+							type: 'blob',
+							compression: 'DEFLATE',
+						}, function(metadata) {}).then(function(d) {
+							var bb = new Blob([d]);
+							var aaa = document.createElement('a');
+							aaa.href = URL.createObjectURL(bb);
+							aaa.download = nameP + '.zip';
+							aaa.click();
+						});
+					});
+				}
+				xml.responseType = "arraybuffer";
+				xml.open("GET", "https://assets.scratch.mit.edu/internalapi/asset/29c334ca6e4b3bcd84326e26f087c8a8.wav/get/");
+				xml.send();
+			}
 		</script>
 	</body>
 </html>

@@ -9,6 +9,7 @@
 				overflow: hidden;
 				background-color: #222;
 				color: #fff;
+				font-family: monospace;
 			}
 			a {
 				color: #fff;
@@ -33,41 +34,131 @@
 			<br>
 			<a id="midisongprev" href="#">Prev mid</a>
 			<a id="midisongnext" href="#">Next mid</a>
+			<a id="midiplaypause" href="#">Play/Pause</a>
 		</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
 				var player = new AnimTredInstruments.Player();
+				window.player = player;
 				var songsDatas = [];
 				var loadmidifile = document.getElementById('loadmidifile');
 				var midireset = document.getElementById('midireset');
 				var midisongnext = document.getElementById('midisongnext');
 				var midisongprev = document.getElementById('midisongprev');
+				var midiplaypause = document.getElementById('midiplaypause');
 				var cansvas = document.getElementById('scenes');
 				var ggdf_loaded = "";
 				var vcbb = document.getElementById('vcbb');
 				var ctx = cansvas.getContext("2d");
 				var xoom = 1;
-				var son = -1;
+				var current_song = -1;
+				var select_song = 0;
 				var vassf2 = -46;
 				var vassf3 = [0, 0];
 				var vassf4 = 0;
 				var vassf5 = 0;
-				var circles = [];
-				var _counter = 0;
-				var _rotation = 0;
 				var hHS = 0;
-				var selSa = 0;
+				var selSa = false;
 				var isRunning = false;
+				var colorNote = 0;
+				var GSGSG = [];
+				var GSGSG2 = [];
+				var gfgfhh = {};
+				var fHH = {};
+				var soundsCount = {
+					"My Little Pony": 0,
+					"Peppa Pig": 0,
+				}
+				var SOUNDBANK_FILES = {};
+				for (var soundbankTitle in AnimTredInstruments.SOUNDBANKS) {
+					var st = AnimTredInstruments.SOUNDBANKS[soundbankTitle];
+					for (var filePath in st) {
+						fHH[filePath] = soundbankTitle;
+					}
+				}
 				function reset() {
-					selSa = 0;
+					gfgfhh = {};
+					GSGSG = [];
+					GSGSG2 = [];
+					for (var i in AnimTredInstruments.SOUNDBANKS) {
+						gfgfhh[i] = {};
+					}
+					soundsCount = {
+						"My Little Pony": 0,
+						"Peppa Pig": 0
+					}
+					var fsd = 0;
+					for (var fdssf2 in gfgfhh) {
+						GSGSG2.push({
+							name: fdssf2,
+							index: fsd,
+							scoreRender: 0,
+							y: 35
+						});
+						GSGSG.push({
+							name: fdssf2,
+							index: fsd,
+							score: 0,
+							scoreRender: 0
+						});
+						fsd++;
+					}
+					selSa = false;
 					player.cleanup();
-					son = -1;
+					select_song = 0;
+					current_song = -1;
 					vassf2 = -46;
 					vassf3 = [0, 0];
 					vassf4 = 0;
-					circles = [];
 					hHS = 24;
+					colorNote = 0;
+				}
+				player.onplaynote = function (e) {
+					if (e.channel == 9) {
+						var span = AnimTredInstruments.getDrumSpan(e.program, e.pitch);
+						if (!span) return;
+						addScS(fHH[span]);
+					} else {
+						var span = AnimTredInstruments.getInstrumentSpan(e.program, e.pitch);
+						if (!span) return;
+						addScS(fHH[span[1]]);
+					}
+					colorNote += 1;
+				}
+				function addScS(na) {
+					if (na in gfgfhh) {
+						for (var i = 0; i < GSGSG.length; i++) {
+							if (GSGSG[i].name == na) {
+								if (na.indexOf("My little pony") >= 0 || na.indexOf("My Little Pony") >= 0 || na.indexOf("MLP") >= 0 || na.indexOf("Friendship") >= 0 || na.indexOf("friendship") >= 0 || na.indexOf("Sweeping") >= 0) soundsCount["My Little Pony"]++;
+								if (na.indexOf("Peppa Pig") >= 0) soundsCount["Peppa Pig"]++;
+								GSGSG[i].score++;
+								if (i !== 0) {
+									var fd = i - 1;
+									var fdgdfg = false;
+									while (true) {
+										if (!(GSGSG[i].score > GSGSG[fd].score)) {
+											fd++;
+											break;
+										}
+										fd -= 1;
+										if (fd < 0) {
+											fd++;
+											fdgdfg = true;
+											break;
+										}
+									}
+									if (i !== fd) {
+										var hf1 = GSGSG[i];
+										var hf2 = GSGSG[fd];
+										GSGSG[i] = hf2;
+										GSGSG[fd] = hf1;	
+									}
+								}
+								break;
+							}
+						}
+					}
 				}
 				midireset.onclick = function() {
 					reset();
@@ -95,43 +186,39 @@
 					"#e2fa32", // 15
 				];
 				function reste() {
-					circles = [];
-					_counter = 0;
-					_rotation = 0;
-					selSa = 0;
-				}
-				player.onended = function () {
-					if (son < songsDatas.length - 1) {
-						vassf3[0] = 6;
-						vassf3[1] = 0;
+					gfgfhh = {};
+					GSGSG = [];
+					colorNote = 0;
+					GSGSG2 = [];
+					selSa = true;
+					for (var i in AnimTredInstruments.SOUNDBANKS) {
+						gfgfhh[i] = {};
+					}
+					var fsd = 0;
+					for (var fdssf2 in gfgfhh) {
+						GSGSG2.push({
+							name: fdssf2,
+							index: fsd,
+							scoreRender: 0,
+							y: 35
+						});
+						GSGSG.push({
+							name: fdssf2,
+							index: fsd,
+							score: 0,
+							scoreRender: 0
+						});
+						fsd++;
+					}
+					soundsCount = {
+						"My Little Pony": 0,
+						"Peppa Pig": 0,
 					}
 				}
-				player.onplaynote = function (e) {
-					if (circles.length < 150) {
-						if (e.type == 1) {
-							circles.push({
-								pitch: 32 + ((e.pitch - 32) / 2),
-								volume: e.volume,
-								color: channelColor[e.channel],
-								channel: e.channel,
-								d: Math.max(0.3, e.dur) * 30,
-								b: 0,
-								x: 0,
-								y: 0,
-								c: _counter,
-							});
-						} else {
-							circles.push({
-								pitch: 50,
-								d: 10,
-								color: channelColor[e.channel],
-								channel: e.channel,
-								volume: e.volume,
-								b: 0,
-								c: _counter,
-							});
-						}
-						_counter += 32;
+				player.onended = function () {
+					if (current_song < songsDatas.length - 1) {
+						vassf3[0] = 6;
+						vassf3[1] = 0;
 					}
 				}
 				function ghfjgj(c) {
@@ -146,38 +233,43 @@
 					}
 					return null;
 				}
-				function loadMidiVase(isR) {
-					var _ = son;
-					if (isR) {
-						son--;
-						if (son < 0) {
-							son = 0;
+				function loadMidiVase(s) {
+					var _ = current_song;
+					if (s > 0) {
+						current_song++;
+					} else if (s < 0) {
+						current_song--;
+						if (current_song < 0) {
+							current_song = 0;
 						}
-					} else {
-						son++;
 					}
-					if (son >= songsDatas.length) {
-						son = _;
+					if (current_song >= songsDatas.length) {
+						current_song = _;
 						return;
 					}
+					loadMidiSong();
+				}
+				function loadMidiSong() {
+					vassf3[1] = 0.03;
+					vassf3[0] = 3;
 					reste();
-					var gdg = ghfjgj(son);
+					var gdg = ghfjgj(current_song);
 					if (gdg) {
-						player.loadMidiFromData(songsDatas[son].data);
-						selSa = 2.22;
+						player.loadMidiFromData(songsDatas[current_song].data);
 						vassf4 = gdg[0];
 						player.play();
 					}
 				}
 				function nextSong() {
-					vassf3[1] = 0.03;
-					vassf3[0] = 3;
-					loadMidiVase(false);
+					if (current_song < 0) select_song = -1;
+					current_song = select_song;
+					loadMidiVase(1);
+					select_song = current_song;
 				}
 				function previousSong() {
-					vassf3[1] = 0.03;
-					vassf3[0] = 3;
-					loadMidiVase(true);
+					current_song = select_song;
+					loadMidiVase(-1);
+					select_song = current_song;
 				}
 				function getDuraction(num) {
 					var txt = '';
@@ -206,66 +298,51 @@
 					}
 					return txt;
 				}
+				function getByte(b) {
+					if (b >= 1000000) {
+						return (Math.floor(b / 100000) / 10) + " MB";
+					} else {
+						if (b >= 1000) {
+							return Math.floor(b / 1000) + " KB";
+						} else {
+							return b + " B";
+						}
+					}
+				}
+
+				var gfgdgfd = 0;
+				var _colorNote = 0;
 
 				function step() {
 					ctx.save();
 					ctx.scale(xoom, xoom);
+					gfgdgfd += (player.concurrencyCounter - gfgdgfd) / 16;
+					_colorNote += (colorNote - _colorNote) / 16;
+					if (gfgdgfd > 50) gfgdgfd = 50;
 					if (isRunning) {
 						ctx.save();
 						ctx.globalAlpha = 1;
 						ctx.clearRect(0,0,640,360);
-						ctx.fillStyle = '#000';
+						ctx.fillStyle = 'hsl(' + ((_colorNote % 360) | 0) + ',' + 100 + '%,' + ((gfgdgfd / 100) * 50) + '%)';
 						ctx.fillRect(0,0,640,360);
-						var ds = [];
-						for (var i5 = 0; i5 < circles.length; i5++) {
-							var s2 = circles[i5];
-							if (s2.b < s2.d) 
-								ds.push(s2);
+						var dgdfg5f = 0;
+						for (var i9 = 0; i9 < GSGSG.length; i9++) {
+							//GSGSG[i9].scoreRender = GSGSG[i9].score;
+							GSGSG[i9].scoreRender += (GSGSG[i9].score - GSGSG[i9].scoreRender) / 8;
 						}
-						circles = ds;
-						for (var i2 = 0; i2 < circles.length; i2++) {
-							var o = circles[i2];
-							var tdir = o.c + (_rotation * Math.sin((o.d * 4) * Math.PI / 180));
-							var tradius = Math.min((o.d / 64) * (o.volume * 250), 100);
-							o.x = (Math.sin(tdir * Math.PI / 180)) * tradius;
-							o.y = (Math.cos(tdir * Math.PI / 180)) * tradius;
-							o.b += 0.5;
+						for (var i9 = 0; i9 < GSGSG2.length; i9++) {
+							var xhre = GSGSG[i9].index;
+							if (GSGSG[i9].score > 0) {
+								//GSGSG2[xhre].y = i9;
+								GSGSG2[xhre].y += ((i9 - GSGSG2[xhre].y) / 6);
+							}
+							GSGSG2[xhre].scoreRender = GSGSG[i9].scoreRender;
+							GSGSG2[xhre].score = GSGSG[i9].score;
 						}
-						_rotation = player.currentTime * 50;
-						var _zoomf = 1.5;
-						for (var i2 = 0; i2 < circles.length; i2++) {
-							var o = circles[i2];
-							ctx.save();
-							ctx.translate((640 / 2) + (o.x * _zoomf), (360 / 2) + (o.y * _zoomf));
-							ctx.fillStyle = o.color;
-							ctx.globalAlpha = (Math.min(((o.d - o.b) / o.d) * 2, 1) * player._getVolumeChannel(o.channel));
-							ctx.beginPath();
-							var h_gfhfh = ((o.d / 80) * (o.volume * 140)) * ((o.d - o.b) / o.d);
-							ctx.arc(0, 0, Math.max(1, h_gfhfh * _zoomf), 0, 2 * Math.PI);
-							ctx.fill();
-							ctx.restore();
-						}
-						ctx.globalAlpha = 0.5;
-						ctx.fillStyle = '#000';
-						ctx.fillRect(0,0,640,360);
 						ctx.globalAlpha = 1;
-						if (vassf3[0] == 6) {
-							vassf3[1] += 0.03;
-							if (vassf3[1] > 1) 
-								vassf3[0] = 2;
-						}
-						if (vassf3[0] == 2) 
-							nextSong();
-						if (vassf3[0] == 3) {
-							vassf3[1] += 0.03;
-							vassf3[0] = 4;
-						}
-						selSa -= 0.017;
-						if (selSa < 0.4) selSa = 0.4;
-						ctx.globalAlpha = Math.min(selSa, 1);
 						var oaE = (songsDatas.length * 20) - 358;
-						var oafd = (son * 20) - 180;
-						if (oafd > -46 && son >= 8 && songsDatas.length >= 16) {
+						var oafd = (select_song * 20) - 180;
+						if (oafd > -46 && select_song >= 8 && songsDatas.length >= 16) {
 							if (oafd > oaE) {
 								oafd = oaE;
 							}
@@ -274,27 +351,103 @@
 						}
 						var fgdgdfgdgfd = (oafd - vassf2) / 8;
 						vassf2 += fgdgdfgdgfd;
-						for (var ig6 = 0; ig6 < songsDatas.length; ig6++) {
-							var sfsd = songsDatas[ig6];
-							if (ig6 == son) {
-								ctx.font = "16px Arial";
-								ctx.fillStyle = '#fff';
-							} else {
-								ctx.fillStyle = '#bbb';
+						for (var i8 = 0; i8 < GSGSG2.length; i8++) {
+							if (GSGSG2[i8].scoreRender > 0) {
+								var nameR = GSGSG2[i8].name;
+								nameR += ": " + GSGSG2[i8].score;
+								var ox = 12;
+								var oy = 54 + (GSGSG2[i8].y * 15);
+								var ow = (GSGSG2[i8].scoreRender / GSGSG[0].scoreRender) * 620;
+								var oh = 15;
+								var gfdd = (GSGSG2[i8].scoreRender * 2) % 360;
 								ctx.font = "12px Arial";
+								ctx.textAlign = "left";
+								ctx.fillStyle = '#fff';
+								ctx.fillText(nameR, 12, 65 + (GSGSG2[i8].y * 15));
+								ctx.save();
+								ctx.beginPath();
+								ctx.rect(ox, oy, ow, oh);
+								ctx.clip();
+								ctx.fillStyle = 'hsl(' + gfdd + ',' + 100 + '%,' + 50 + '%)';
+								ctx.fillRect(ox, oy, ow, oh);
+								if (gfdd > 35 && gfdd < 210) {
+									ctx.fillStyle = '#000';
+								} else {
+									ctx.fillStyle = '#fff';
+								}
+								ctx.font = "12px Arial";
+								ctx.textAlign = "left";
+								ctx.fillText(nameR, 12, 65 + (GSGSG2[i8].y * 15));
+								ctx.restore();
+								dgdfg5f++;
 							}
-							var fdgfd = ((ig6 * 20) - vassf2);
-							ctx.textAlign = "left";
-							ctx.fillText(sfsd.name, 10, fdgfd);
+						}
+						ctx.textAlign = "left";
+						ctx.font = "16px Arial";
+						ctx.fillStyle = '#fff';
+						ctx.fillText((songsDatas[current_song] && songsDatas[current_song].name) || "", 12, 43);
+						ctx.fillStyle = '#fff';
+						ctx.font = "16px Arial";
+						ctx.textAlign = "center";
+						if (player.isPaused) {
+							ctx.fillText("Paused", 320, 340);
+						} else {
+							var countMLP = soundsCount["My Little Pony"];
+							var countPP = soundsCount["Peppa Pig"];
+							if (countMLP > 0 || countPP > 0) {
+								var sdfddddd = "Sounds: ";
+								if (countMLP > 0) 
+									sdfddddd += "My Little Pony";
+								if (countPP > 0) {
+									if (countMLP > 0) sdfddddd += " & ";
+									sdfddddd += "Peppa Pig";
+								}
+								ctx.fillText(sdfddddd, 320, 340);
+							}	
+						}
+						if (!selSa) {
+							ctx.globalAlpha = 0.8;
+							ctx.fillStyle = '#000';
+							ctx.fillRect(0,0,640,360);
+							ctx.globalAlpha = 1;
+							for (var ig6 = 0; ig6 < songsDatas.length; ig6++) {
+								var sfsd = songsDatas[ig6];
+								if (ig6 == select_song) {
+									ctx.fillStyle = '#fff';
+									ctx.font = "16px Arial";
+								} else {
+									ctx.font = "12px Arial";
+									if (ig6 == current_song) {
+										ctx.fillStyle = '#00f';
+									} else {
+										ctx.fillStyle = '#0f0';
+									}
+								}
+								var fdgfd = ((ig6 * 20) - vassf2);
+								ctx.textAlign = "left";
+								ctx.fillText(sfsd.name + " (" + getByte(sfsd.size) + ")" + ((ig6 == current_song) ? " [Playing]" : ""), 10, fdgfd);
+							}
 						}
 						ctx.globalAlpha = 1;
+						if (vassf3[0] == 6) {
+							vassf3[1] += 0.03;
+							if (vassf3[1] > 1) 
+								vassf3[0] = 2;
+						}
+						if (vassf3[0] == 2) 
+							loadMidiVase(1);
+						if (vassf3[0] == 3) {
+							vassf3[1] += 0.03;
+							vassf3[0] = 4;
+						}
 						ctx.fillStyle = '#000';
 						ctx.fillRect(0, 0, 640, 26);
 						ctx.fillStyle = '#fff';
 						ctx.font = "16px Arial";
 						ctx.textAlign = "left";
-						ctx.fillText(getDuraction(vassf4 + player.currentTime) + "/" + getDuraction(vassf5) + " song "+ (son + 1) +"/"+songsDatas.length + " " + getDuraction(player.currentTime) + "/" + getDuraction(player.duration), 6, 18);
+						ctx.fillText(getDuraction(vassf4 + player.currentTime) + "/" + getDuraction(vassf5) + " song "+ (current_song + 1) +"/"+songsDatas.length + " " + getDuraction(player.currentTime) + "/" + getDuraction(player.duration), 6, 18);
 						ctx.textAlign = "right";
+						ctx.fillStyle = '#fff';
 						ctx.fillText("YTPMV Cartoon Instruments " + AnimTredInstruments.version, 640 - 6, 18);
 						ctx.fillStyle = '#ddd';
 						ctx.globalAlpha = 1;
@@ -305,10 +458,14 @@
 							if (((vassf4 + player.currentTime) >= dgdfg3f) && ((vassf4 + player.currentTime) <= (dgdfg3f + songsDatas[i6].duration))) {
 								ctx.fillStyle = '#ff0';
 							} else {
-								if (i6 % 2) {
-									ctx.fillStyle = '#639';
+								if ((i6 == select_song) && !selSa) {
+									ctx.fillStyle = '#f00';
 								} else {
-									ctx.fillStyle = '#282';
+									if (i6 % 2) {
+										ctx.fillStyle = '#639';
+									} else {
+										ctx.fillStyle = '#282';
+									}	
 								}
 							}
 							ctx.fillRect(fdgdfgdfg2 * 640, 350, (songsDatas[i6].duration / vassf5) * 640, 10);
@@ -370,9 +527,15 @@
 						fend();
 					}
 				}
+				function playPause() {
+					if (player.isPaused) {
+						player.play();
+					} else {
+						player.pause();
+					}
+				}
 				var loaderState = 0;
 				var dfdfdfdfdf = [];
-				var dfdfdfdfdf3 = 0;
 				var loadedd = 0;
 				function readBlob(file, callback) {
 					return function(fg) {
@@ -390,7 +553,6 @@
 					sa.multiple = true;
 					sa.addEventListener('change', function (e) {
 						dfdfdfdfdf = [];
-						dfdfdfdfdf3 = 0;
 						loadedd = 0;
 						vassf5 = 0;
 						loaderState = 0;
@@ -405,47 +567,72 @@
 							dfg.push(file);
 						}
 						var promises = [];
-						var promises2 = [];
 						for (var i = 0; i < dfg.length; i++) {
 							promises.push(readBlob(dfg[i], function(e, t, g) {
-								dfdfdfdfdf.push(e);
+								dfdfdfdfdf.push({
+									name: t,
+									data: e
+								});
 								ggdf_loaded = "decode arrayBuffer " + promise32 + "/" + dfg.length;
 								promise32++;
-								promises2.push(t);
 								g();
 							}));
 						}
-						allCallbackLoader(promises, function() {
-							dfdfdfdfdf3 = promises2;
-							player.onload = function() {
-								var gdfgfdg = player.toJSON();
-								gdfgfdg.duration *= 1000000;
-								vassf5 += (gdfgfdg.duration / 1000000);
-								songsDatas.push({
-									name: dfdfdfdfdf3[loadedd],
-									duration: (gdfgfdg.duration / 1000000),
-									data: gdfgfdg
-								});
-								loaderState = 2;
-								setTimeout(gghgh, 10);
-							}
-							player.onerror = function(e) {
-								console.log("cannot read midi " + dfdfdfdfdf3[loadedd] + ": ", e);
-								loaderState = 2;
-								setTimeout(gghgh, 10);
-							}
-							setTimeout(gghgh, 10);
-						});
+						allCallbackLoader(promises, loadSongs);
 					}, false);
 					sa.click();
 				}
+				function loadSongs() {
+					player.onload = function() {
+						var gdfgfdg = player.toJSON();
+						gdfgfdg.duration *= 1000000;
+						vassf5 += (gdfgfdg.duration / 1000000);
+						songsDatas.push({
+							name: dfdfdfdfdf[loadedd].name,
+							size: dfdfdfdfdf[loadedd].data.byteLength,
+							duration: (gdfgfdg.duration / 1000000),
+							data: gdfgfdg
+						});
+						loaderState = 2;
+						setTimeout(gghgh, 10);
+					}
+					player.onerror = function(e) {
+						console.log("cannot read midi " + dfdfdfdfdf[loadedd].name + "", e);
+						loaderState = 2;
+						setTimeout(gghgh, 10);
+					}
+					setTimeout(gghgh, 10);
+				}
 				document.addEventListener("keydown", function(e){
 					if (isRunning) {
+						var key = String.fromCharCode(e.keyCode).toLowerCase();
+						if (key == "q") {
+							selSa = !selSa;
+						}
+						var _selSa = selSa;
+						if (key == " ") {
+							current_song = select_song;
+							loadMidiSong();
+							selSa = _selSa;
+						}
+						if (key == "p") {
+							playPause();
+						}
 						if (e.keyCode == 39) {
 							nextSong();
+							selSa = _selSa;
 						}
 						if (e.keyCode == 37) {
 							previousSong();
+							selSa = _selSa;
+						}
+						if (e.keyCode == 38) {
+							select_song--;
+							if (select_song < 0) select_song = 0;
+						}
+						if (e.keyCode == 40) {
+							select_song++;
+							if (select_song >= songsDatas.length - 1) select_song = songsDatas.length - 1;
 						}
 					}
 				});
@@ -457,15 +644,15 @@
 					if (isRunning) 
 						previousSong();
 				}
-				function parseGS(fs) {
-					player.loadMid(fs);
+				midiplaypause.onclick = function() {
+					playPause();
 				}
 				player.onprogress = function(a) {
 					ggdf_loaded = "loading " + Math.floor((loadedd / dfdfdfdfdf.length) * 100) + "% : " + a;
 				};
 				function gghgh() {
 					if (loaderState == 0) {
-						parseGS(dfdfdfdfdf[loadedd]);
+						player.loadMid(dfdfdfdfdf[loadedd].data);
 					} else if (loaderState == 2) {
 						loadedd++;
 						if (loadedd == dfdfdfdfdf.length) {
