@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>YTPMV Cartoon Instruments</title>
+		<title>YTPMV Cartoon Midi</title>
 		<style type="text/css">
 			body {
 				margin: 0;
@@ -301,7 +301,7 @@
 						this.graphicEqualizersArr[Math.round((o.pitch / 127) * this.maxGraphicEqualizers)] += Math.max(0, (o.c * o.volume));
 					}
 					this._rotation = this.mse.currentTime * 50;
-					cuer.innerHTML = getDuraction(this.mse.currentTime) + '/' + getDuraction(this.mse.duration);
+					cuer.innerHTML = getDuraction(this.mse.currentTime) + '/' + getDuraction(Math.ceil(this.mse.duration));
 					var duH1 = (this.mse.currentTime / this.mse.duration);
 					this.ctx.clearRect(0, 0, 360, 210);
 					this.ctx.globalAlpha = 1;

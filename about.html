@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>YTPMV Cartoon Instruments - About</title>
+		<title>About - YTPMV Cartoon Midi</title>
 		<style>
 			body{
 				font-family: monospace;
@@ -37,7 +37,7 @@
 	<body>
 		<a href="./" style="position: absolute; left: 5px; top: 5px;">back</a>
 		<div class="app">
-			<h1>YTPMV Cartoon Instruments v1.3.0</h1>
+			<h1>YTPMV Cartoon Midi</h1>
 			<p>The YTPMV Cartoon Sounds, Midi Player in javascript(ES5)</p>
 			<p>Sounds My Little Pony & Peppa Pig, record Bandican and OBS Studio a Editor program: Adobe Premiere & Adobe Audition & Audio Editor this a finish to <a href="./">YTPMV Cartoon Instruments (Back)</a></p>
 			<p>sounds source used: <a href="animtredinstruments.js">view soundbank sources</a></p>
@@ -167,30 +167,34 @@
 					data: result_data,
 				}
 			}
-			function downloadsoundbankspans() {
+			function downloadsoundbankspans(hasSounds) {
 				var xml = new XMLHttpRequest();
 				xml.onload = function() {
+					var HSHdf = 16;
 					var j = new TextDecoder().decode(new Uint8Array(xml.response, 0x2c));
 					var f = new Function(j);
 					var r = f();
 					var nameP = "ytpmw_cartoon_soundbank";
 					player.loadSoundbank(function() {
 						var _soundbank = player._soundbank;
+						var SOUNDBANKS = AnimTredInstruments.SOUNDBANKS;
 						var DRUM_INFO = AnimTredInstruments.DRUM_INFO;
 						var INSTRUMENT_INFO = AnimTredInstruments.INSTRUMENT_INFO;
 						var jsz = new JSZip();
-						for (var key in DRUM_INFO) {
-							var sound = _soundbank[DRUM_INFO[key]];
-							jsz.file(nameP + "/drums/" + DRUM_INFO[key] + "_D.wav", sound.data);
-						}
-						for (var key in INSTRUMENT_INFO) {
-							var spans = INSTRUMENT_INFO[key];
-							for (var i = 0; i < spans.length; i++) {
-								var sound = spanToInfo(spans[i]);
-								for (var j = 0; j < 16; j++) {
-									jsz.file(nameP + "/instruments/" + sound.name + "_I" + j + ".wav", sound.data);
-								}
+						if (hasSounds) {
+							for (var key in DRUM_INFO) {
+								var sound = _soundbank[DRUM_INFO[key]];
+								jsz.file(nameP + "/drums/" + DRUM_INFO[key] + "_D.wav", sound.data);
 							}
+							for (var key in INSTRUMENT_INFO) {
+								var spans = INSTRUMENT_INFO[key];
+								for (var i = 0; i < spans.length; i++) {
+									var sound = spanToInfo(spans[i]);
+									for (var j = 0; j < HSHdf; j++) {
+										jsz.file(nameP + "/instruments/" + sound.name + "_I" + j + ".wav", sound.data);
+									}
+								}
+							}	
 						}
 						jsz.file(nameP + "/instrument_map.txt", AnimTredInstruments.MIDI_INSTRUMENT.join("\n"));
 						jsz.file(nameP + "/drum_map.txt", AnimTredInstruments.DRUMS_MIDI[0].join("\n"));
@@ -220,6 +224,16 @@
 							}
 							instspans += resS.join(",") + "\n";
 						}
+						var sbs = "";
+						for (var key in SOUNDBANKS) {
+							var fsafsa = Object.keys(SOUNDBANKS[key]);
+							sbs += key + "\n";
+							sbs += fsafsa.length + "\n";
+							for (var i = 0; i < fsafsa.length; i++) {
+								sbs += fsafsa[i] + "\n";
+							}
+						}
+						jsz.file(nameP + "/soundbanks.txt", sbs);
 						jsz.file(nameP + "/instrument_spans.txt", instspans);
 						jsz.file(nameP + "/drum_spans.txt", drumspans);
 						jsz.generateAsync({type: 'blob', compression: 'DEFLATE'}, function(metadata) {}).then(function(d) {var bb = new Blob([d]);var aaa = document.createElement('a');aaa.href = URL.createObjectURL(bb);aaa.download = nameP + '.zip';aaa.click()});

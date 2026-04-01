@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Midi Playlist - YTPMV Cartoon Instruments</title>
+		<title>Midi Playlist - YTPMV Cartoon Midi</title>
 		<style>
 			body {
 				overflow: hidden;
@@ -35,6 +35,7 @@
 			<a id="midisongprev" href="#">Prev mid</a>
 			<a id="midisongnext" href="#">Next mid</a>
 			<a id="midiplaypause" href="#">Play/Pause</a>
+			<a id="midiplaylishshowhide" href="#">Playlist Show/Hide</a>
 		</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
@@ -47,6 +48,7 @@
 				var midisongnext = document.getElementById('midisongnext');
 				var midisongprev = document.getElementById('midisongprev');
 				var midiplaypause = document.getElementById('midiplaypause');
+				var midiplaylishshowhide = document.getElementById('midiplaylishshowhide');
 				var cansvas = document.getElementById('scenes');
 				var ggdf_loaded = "";
 				var vcbb = document.getElementById('vcbb');
@@ -61,7 +63,6 @@
 				var hHS = 0;
 				var selSa = false;
 				var isRunning = false;
-				var colorNote = 0;
 				var GSGSG = [];
 				var GSGSG2 = [];
 				var gfgfhh = {};
@@ -78,6 +79,7 @@
 					}
 				}
 				function reset() {
+					selSa = true;
 					gfgfhh = {};
 					GSGSG = [];
 					GSGSG2 = [];
@@ -112,7 +114,6 @@
 					vassf3 = [0, 0];
 					vassf4 = 0;
 					hHS = 24;
-					colorNote = 0;
 				}
 				player.onplaynote = function (e) {
 					if (e.channel == 9) {
@@ -124,7 +125,6 @@
 						if (!span) return;
 						addScS(fHH[span[1]]);
 					}
-					colorNote += 1;
 				}
 				function addScS(na) {
 					if (na in gfgfhh) {
@@ -135,16 +135,14 @@
 								GSGSG[i].score++;
 								if (i !== 0) {
 									var fd = i - 1;
-									var fdgdfg = false;
 									while (true) {
-										if (!(GSGSG[i].score > GSGSG[fd].score)) {
+										if (GSGSG[i].score <= GSGSG[fd].score) {
 											fd++;
 											break;
 										}
-										fd -= 1;
+										fd--;
 										if (fd < 0) {
 											fd++;
-											fdgdfg = true;
 											break;
 										}
 									}
@@ -188,9 +186,7 @@
 				function reste() {
 					gfgfhh = {};
 					GSGSG = [];
-					colorNote = 0;
 					GSGSG2 = [];
-					selSa = true;
 					for (var i in AnimTredInstruments.SOUNDBANKS) {
 						gfgfhh[i] = {};
 					}
@@ -310,20 +306,14 @@
 					}
 				}
 
-				var gfgdgfd = 0;
-				var _colorNote = 0;
-
 				function step() {
 					ctx.save();
 					ctx.scale(xoom, xoom);
-					gfgdgfd += (player.concurrencyCounter - gfgdgfd) / 16;
-					_colorNote += (colorNote - _colorNote) / 16;
-					if (gfgdgfd > 50) gfgdgfd = 50;
 					if (isRunning) {
 						ctx.save();
 						ctx.globalAlpha = 1;
 						ctx.clearRect(0,0,640,360);
-						ctx.fillStyle = 'hsl(' + ((_colorNote % 360) | 0) + ',' + 100 + '%,' + ((gfgdgfd / 100) * 50) + '%)';
+						ctx.fillStyle = '#000';
 						ctx.fillRect(0,0,640,360);
 						var dgdfg5f = 0;
 						for (var i9 = 0; i9 < GSGSG.length; i9++) {
@@ -445,7 +435,7 @@
 						ctx.fillStyle = '#fff';
 						ctx.font = "16px Arial";
 						ctx.textAlign = "left";
-						ctx.fillText(getDuraction(vassf4 + player.currentTime) + "/" + getDuraction(vassf5) + " song "+ (current_song + 1) +"/"+songsDatas.length + " " + getDuraction(player.currentTime) + "/" + getDuraction(player.duration), 6, 18);
+						ctx.fillText(getDuraction(vassf4 + player.currentTime) + "/" + getDuraction(Math.ceil(vassf5)) + " song "+ (current_song + 1) +"/"+songsDatas.length + " " + getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration)), 6, 18);
 						ctx.textAlign = "right";
 						ctx.fillStyle = '#fff';
 						ctx.fillText("YTPMV Cartoon Instruments " + AnimTredInstruments.version, 640 - 6, 18);
@@ -609,22 +599,18 @@
 						if (key == "q") {
 							selSa = !selSa;
 						}
-						var _selSa = selSa;
 						if (key == " ") {
 							current_song = select_song;
 							loadMidiSong();
-							selSa = _selSa;
 						}
 						if (key == "p") {
 							playPause();
 						}
 						if (e.keyCode == 39) {
 							nextSong();
-							selSa = _selSa;
 						}
 						if (e.keyCode == 37) {
 							previousSong();
-							selSa = _selSa;
 						}
 						if (e.keyCode == 38) {
 							select_song--;
@@ -636,13 +622,20 @@
 						}
 					}
 				});
+				midiplaylishshowhide.onclick = function() {
+					if (isRunning) {
+						selSa = !selSa;
+					}
+				}
 				midisongnext.onclick = function() {
-					if (isRunning) 
+					if (isRunning) {
 						nextSong();
+					}
 				}
 				midisongprev.onclick = function() {
-					if (isRunning) 
+					if (isRunning) {
 						previousSong();
+					}
 				}
 				midiplaypause.onclick = function() {
 					playPause();

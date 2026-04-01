@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>YTPMV Cartoon Instruments - Player</title>
+		<title>YTPMV Cartoon Midi Player</title>
 		<style>
 			body {
 				margin: 0;
@@ -107,7 +107,7 @@
 				var z_dir2 = null;
 				function z_dir() {
 					fgdgdfg.value = (player.currentTime / player.duration) * 100000;
-					var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(player.duration);
+					var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration));
 					if (f_ggg !== cuer.innerHTML) {
 						cuer.innerHTML = f_ggg;
 					}

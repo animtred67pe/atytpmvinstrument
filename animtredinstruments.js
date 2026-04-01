@@ -1,10 +1,9 @@
 /*
- * YTPMV Cartoon Instruments v1.3.0
+ * YTPMV Cartoon Midi v1.3.1
  * 
  * The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
- * audio program used: Adobe Premiere & Adobe Audition & Audio Editor & Bandican & OBS Studio & Scratch 3
  * 
- * soundbank size 1.93 MB
+ * soundbank size 1.94 MB
  */
 
 var AnimTredInstruments = (function() {
@@ -204,7 +203,7 @@ var AnimTredInstruments = (function() {
       "Flute": "instruments/mlp-s5-117.wav"
     },
     "Friendship is Musical | Season 3": {
-      "Pizzicato": "instruments/mlp-s3-applebloom-168.wav",
+      "Pizzicato": "instruments/mlp-s3-scootaloo-168.wav",
       "SteelDrum": "instruments/mlp-s3-fim-5.wav",
       "AcousticBassDrum": "drums/pinkie-pie-83.wav"
     },
@@ -389,7 +388,7 @@ var AnimTredInstruments = (function() {
     null,
     "unknown_3"
   ]];
-  var soundbank_assets = {"instruments/daisy-143-C1.wav":"5b82f2943554194b4845b19cdfb53e8e.wav","instruments/daisy-143-C2.wav":"c15ea41de185dc3db1a7692bd203eaf4.wav","instruments/mlp-24-1.wav":"cee852d2ad120bb58ab693f1393f21f4.wav","instruments/mlp-24-1-sitar.wav":"fb082795cd6cbedce87cf9b11f96b182.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"b857b64ec7b6aa0f2aa544f4d16628aa.wav","instruments/mlp-fim-s2e10-49.wav":"aa33f6c14e25c84c714d4694b7d28d8c.wav","instruments/mlp-fim-s2e22-953.wav":"050460f1155e9f7c20f3f5ef0817a694.wav","instruments/mlp-fim-s4e21-282.wav":"b4aa02278b01c7e0316d3431181027ce.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"a0f250b0545da3b91096a323cba2b9d4.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"eecd2c23544c0d696a6354de85d6dd5d.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"0795db3d998b2ade5938a503cb66a249.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"b867845cda0f6b64f9872543004b80e1.wav","instruments/mlp-fim-s8e26-850.wav":"d34f2e283f16163c40ceaa0f2a62daa7.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"3f0e6e12b3f0631bfb98eb71cde85115.wav","instruments/mlp-pearbutter-193.wav":"1bcf34397a2864c6d3edeb84df86220c.wav","instruments/mlp-s1-89-C3.wav":"5996e03a2936c062775f7b65feea4306.wav","instruments/mlp-s1-89-C5.wav":"3de435c82d356209ca7206adef01d893.wav","instruments/mlp-s1e13-fim-40.wav":"23e466d7866c3c98f3c3c82ce12073ac.wav","instruments/mlp-s1e21-fim-3-C2.wav":"d213faa1361ad45b256b297ac47eb109.wav","instruments/mlp-s1e21-fim-3-C3.wav":"a87c1d76df3d671583babf04df18f880.wav","instruments/mlp-s1e21-fim-3-C4.wav":"278395913f05700df5dd4e753d00d172.wav","instruments/mlp-s1e21-fim-3-C5.wav":"42a22d198fb154d716878b7677533c52.wav","instruments/mlp-s1e22-42.wav":"56f494efdcf232dcb6411882ef49d98e.wav","instruments/mlp-s1e22-176.wav":"bfa0bffa5f30025604d92decbc6fda94.wav","instruments/mlp-s1-fim-30_C3.wav":"2779ca5545b5a0b7f2e8cbbc84cd16f7.wav","instruments/mlp-s1-fim-30_C5.wav":"33c43a1cba1ca096e18c4d409a0563ec.wav","instruments/mlp-s1-fim-109.wav":"f05c5fb5e399c2cd554d6bcfa36c0b2f.wav","instruments/mlp-s3-applebloom-168.wav":"8b85323c69622176e1755bbabd16be89.wav","instruments/mlp-s3-fim-5.wav":"5cb1200f45f1caa0490e5352d8f75ba3.wav","instruments/mlp-s4e3-820-1.wav":"b34033853ebd232730fa85ac9234aac3.wav","instruments/mlp-s4e3-820-2.wav":"2d6038cc3cd52d140b725782a8bea359.wav","instruments/mlp-s5-117.wav":"ee9839505c99a4a6152a9cfc8dba4068.wav","instruments/mlp-s5e6-235.wav":"bd10c2befdc530c7d88c1613eea70277.wav","instruments/mlp-s5e9-471-1.wav":"47ddba8d0ca8f8e1ab1cce6b7fee31cb.wav","instruments/mlp-s5e9-471-2.wav":"f4dd77eefd10c887fb570b5a66e8ad9f.wav","instruments/mlp-s6e14-915.wav":"dc2bf92cc83aba8aea21ec912653557c.wav","instruments/mlp-s7e9-e-guitar.wav":"4eb78c8eb5282f1c67785efe642812bb.wav","instruments/mlp-swarm-od-the-century-1290.wav":"7bcfec35b237684bc8d69ce453d2e67d.wav","instruments/peppa-pig-drums-53.wav":"245e1bc4d3a38d83f7a1b9cf4ff51883.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"ff39120289f8d519182615c5b1c7265b.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"ee542ff3e8a719001061d210415708a0.wav","instruments/peppa-pig-mi-69-metallic.wav":"db1a9e6359a0b7c828abc608de65dca2.wav","instruments/peppa-pig-mi-69-tm1.wav":"5497c174430dcb1e4ce0818fe8ced061.wav","instruments/peppa-pig-mi-69-tm2.wav":"4bd3bbebe295b6011fb2efe63ea3ef99.wav","instruments/peppa-pig-mi-69-violin.wav":"b99f6be970cb5a60ea984ee04efc4539.wav","instruments/peppa-pig-mi-114.wav":"8cef50261497964c53c6e1ebd62c7cb6.wav","instruments/peppa-pig-mi-131-1.wav":"02188b1980dfa2651e7cce7b77d87351.wav","instruments/peppa-pig-mi-131-2.wav":"bc96217c24b92aecb405f89dc8bd2f3d.wav","instruments/peppa-pig-mmiwm-144.wav":"ba31847d76b6461df9ba624c791e2cf3.wav","instruments/peppa-pig-w-4.wav":"b1ca63a3c4c9cc581e06ff8a7d72ebcd.wav","instruments/pinkie-pie-14.wav":"78b50b9f7df3d8f68e70d2914fac7132.wav","instruments/pinkie-pie-77-C1.wav":"791a45a476bf7ecacb8363e8f81e2aea.wav","instruments/pinkie-pie-77-C2.wav":"887539356a977186daa71761c2c97229.wav","instruments/pinkie-pie-77-C3.wav":"85c9af622ab13b666602b2822b862b55.wav","drums/applejack-30-0.wav":"ed9f5c1ebb95082c19ebd57d5be59e6b.wav","drums/applejack-30-1.wav":"fc4f6f51992e3e419fa66e448a50ec3e.wav","drums/derpy-67-0.wav":"e48032612451c1e678363499c0e023b4.wav","drums/derpy-67-1.wav":"ac1a1ebb37d1fa87561476976ea89c3a.wav","drums/mlp-fim-s2e7-425-0.wav":"04fa24c29a117a2d909e07e7a74f97a8.wav","drums/mlp-fim-s2e7-425-1.wav":"92b26c0e47f8a95f114b4ff08acd2835.wav","drums/mlp-fim-s5e9-471-1.wav":"e20b55562446f56167f5d26035125556.wav","drums/mlp-fim-s5e9-471-2.wav":"c20de13cc85190f59001a36b6aed1742.wav","drums/mlp-fim-s5e9-471-3.wav":"ef8cd405f636fbabb30bebba560baadf.wav","drums/mlp-fim-s5e9-471-4.wav":"51331e135568075ecf75049487ecfc0c.wav","drums/mlp-fim-s5e9-471-5.wav":"acd82df4915591ee8bcd9026ed1aa65f.wav","drums/mlp-fim-s5e9-471-6.wav":"9d4ffbcb021f7aeceea4177b8f2f9af4.wav","drums/mlp-fim-s5e9-d.wav":"5356699be9ab729b323248e46525c788.wav","drums/mlp-fim-s8e10-22-1.wav":"83a7ec40b819c15433cb9fb01595ac90.wav","drums/mlp-fim-s8e10-22-2.wav":"baaef28005d09557cdaaf5c4b8ef6b0d.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"9650a1ce06f6974d0d87583953abb996.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"13436060385e9f56699f470002f684e3.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"e0fa4372dd8bf3f5084c7c59c36f297f.wav","drums/mlp-fim-s9e15-937-0.wav":"3bc5dae42f67462a1a404c5f530578b5.wav","drums/mlp-fim-s9e15-937-1.wav":"e4240fac108d6cedef2b01c5660a9a5e.wav","drums/mlp-return-harmony-27-50-1.wav":"8fc789e80accd98fcec5ef1fe411f7cf.wav","drums/mlp-return-harmony-27-50-2.wav":"da1f3d2b8017bc113d9ae357b44c722f.wav","drums/mlp-s1e22-30s.wav":"dd90a36929cf81d7104f912deff65d91.wav","drums/mlp-s2e19-38.wav":"0842c85c0b1fc9439205098d841f210d.wav","drums/peppa-pig-drums-30-0.wav":"3b37d2a34f57c7acd9646a3c950e8c0e.wav","drums/peppa-pig-drums-30-1.wav":"48715f091b5b0a36764461a176502823.wav","drums/peppa-pig-drums-51.wav":"3a2d348e5ab245aebf88a50180637668.wav","drums/peppa-pig-drums-63-0.wav":"e85165b49bfdad8d51f3260f27757eb5.wav","drums/peppa-pig-drums-63-1.wav":"8ff02219c2392a87b63676f4440400e5.wav","drums/peppa-pig-drums-107.wav":"635d445ed1028a0bf8241572b226b922.wav","drums/peppa-pig-mmiwm-64-0.wav":"c5cd516ed67b208e304d9044a0ad282c.wav","drums/peppa-pig-mmiwm-64-1.wav":"cd0e1f9fa28be1201c4bf65fa029372b.wav","drums/peppa-pig-mmiwm-64-2.wav":"1ff7a7155734aba5c8dd55cb8da2ab63.wav","drums/pinkie-pie-60.wav":"6e45138fe315db0b1fd5382fb2719205.wav","drums/pinkie-pie-61.wav":"926d64ca0212e16f105ea73f22799996.wav","drums/pinkie-pie-83.wav":"ded22a9f4d9577ebf7c9ee6fe2f5533c.wav","drums/rainbowdash-applejack-handclap.wav":"e5895ae1ab8019a14c092dd8282b7888.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_1.wav":"d4cc798a8569aa21c7bc70e42ab0cba9.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_2.wav":"336611bd335cb6a5cdc441813ca39006.wav","drums/twilight-wood-67-0.wav":"6ab6ba1221266dbeac014ad0ccb65e48.wav","drums/twilight-wood-67-1.wav":"aa13954cc2451ed74df97582b888410a.wav"};
+  var soundbank_assets = {"instruments/daisy-143-C1.wav":"5b82f2943554194b4845b19cdfb53e8e.wav","instruments/daisy-143-C2.wav":"c15ea41de185dc3db1a7692bd203eaf4.wav","instruments/mlp-24-1.wav":"cee852d2ad120bb58ab693f1393f21f4.wav","instruments/mlp-24-1-sitar.wav":"fb082795cd6cbedce87cf9b11f96b182.wav","instruments/mlp-fim-s1-fluttershy-1.wav":"b857b64ec7b6aa0f2aa544f4d16628aa.wav","instruments/mlp-fim-s2e10-49.wav":"aa33f6c14e25c84c714d4694b7d28d8c.wav","instruments/mlp-fim-s2e22-953.wav":"050460f1155e9f7c20f3f5ef0817a694.wav","instruments/mlp-fim-s4e21-282.wav":"b4aa02278b01c7e0316d3431181027ce.wav","instruments/mlp-fim-s5e9-750-1-C3.wav":"a0f250b0545da3b91096a323cba2b9d4.wav","instruments/mlp-fim-s5e9-750-1-C4.wav":"eecd2c23544c0d696a6354de85d6dd5d.wav","instruments/mlp-fim-s5e9-750-2-C3.wav":"0795db3d998b2ade5938a503cb66a249.wav","instruments/mlp-fim-s5e9-750-2-C4.wav":"b867845cda0f6b64f9872543004b80e1.wav","instruments/mlp-fim-s8e26-850.wav":"d34f2e283f16163c40ceaa0f2a62daa7.wav","instruments/mlp-fim-s9e15-937-agogo.wav":"3f0e6e12b3f0631bfb98eb71cde85115.wav","instruments/mlp-pearbutter-193.wav":"1bcf34397a2864c6d3edeb84df86220c.wav","instruments/mlp-s1-89-C3.wav":"5996e03a2936c062775f7b65feea4306.wav","instruments/mlp-s1-89-C5.wav":"3de435c82d356209ca7206adef01d893.wav","instruments/mlp-s1e13-fim-40.wav":"23e466d7866c3c98f3c3c82ce12073ac.wav","instruments/mlp-s1e21-fim-3-C2.wav":"d213faa1361ad45b256b297ac47eb109.wav","instruments/mlp-s1e21-fim-3-C3.wav":"a87c1d76df3d671583babf04df18f880.wav","instruments/mlp-s1e21-fim-3-C4.wav":"278395913f05700df5dd4e753d00d172.wav","instruments/mlp-s1e21-fim-3-C5.wav":"42a22d198fb154d716878b7677533c52.wav","instruments/mlp-s1e22-42.wav":"6b8df1c4b24c5440b3f02f12575704f4.wav","instruments/mlp-s1e22-176.wav":"bfa0bffa5f30025604d92decbc6fda94.wav","instruments/mlp-s1-fim-30_C3.wav":"2779ca5545b5a0b7f2e8cbbc84cd16f7.wav","instruments/mlp-s1-fim-30_C5.wav":"33c43a1cba1ca096e18c4d409a0563ec.wav","instruments/mlp-s1-fim-109.wav":"f05c5fb5e399c2cd554d6bcfa36c0b2f.wav","instruments/mlp-s3-scootaloo-168.wav":"8b85323c69622176e1755bbabd16be89.wav","instruments/mlp-s3-fim-5.wav":"5cb1200f45f1caa0490e5352d8f75ba3.wav","instruments/mlp-s4e3-820-1.wav":"b34033853ebd232730fa85ac9234aac3.wav","instruments/mlp-s4e3-820-2.wav":"2d6038cc3cd52d140b725782a8bea359.wav","instruments/mlp-s5-117.wav":"ee9839505c99a4a6152a9cfc8dba4068.wav","instruments/mlp-s5e6-235.wav":"78d0b4f3c60074bd054dc3fcc70a6eed.wav","instruments/mlp-s5e9-471-1.wav":"47ddba8d0ca8f8e1ab1cce6b7fee31cb.wav","instruments/mlp-s5e9-471-2.wav":"f4dd77eefd10c887fb570b5a66e8ad9f.wav","instruments/mlp-s6e14-915.wav":"dc2bf92cc83aba8aea21ec912653557c.wav","instruments/mlp-s7e9-e-guitar.wav":"4eb78c8eb5282f1c67785efe642812bb.wav","instruments/mlp-swarm-od-the-century-1290.wav":"7bcfec35b237684bc8d69ce453d2e67d.wav","instruments/peppa-pig-drums-53.wav":"245e1bc4d3a38d83f7a1b9cf4ff51883.wav","instruments/peppa-pig-mi-69-cello_C3.wav":"ff39120289f8d519182615c5b1c7265b.wav","instruments/peppa-pig-mi-69-cello_C4.wav":"ee542ff3e8a719001061d210415708a0.wav","instruments/peppa-pig-mi-69-metallic.wav":"db1a9e6359a0b7c828abc608de65dca2.wav","instruments/peppa-pig-mi-69-tm1.wav":"5497c174430dcb1e4ce0818fe8ced061.wav","instruments/peppa-pig-mi-69-tm2.wav":"4bd3bbebe295b6011fb2efe63ea3ef99.wav","instruments/peppa-pig-mi-69-violin.wav":"b99f6be970cb5a60ea984ee04efc4539.wav","instruments/peppa-pig-mi-114.wav":"8cef50261497964c53c6e1ebd62c7cb6.wav","instruments/peppa-pig-mi-131-1.wav":"02188b1980dfa2651e7cce7b77d87351.wav","instruments/peppa-pig-mi-131-2.wav":"bc96217c24b92aecb405f89dc8bd2f3d.wav","instruments/peppa-pig-mmiwm-144.wav":"ba31847d76b6461df9ba624c791e2cf3.wav","instruments/peppa-pig-w-4.wav":"b1ca63a3c4c9cc581e06ff8a7d72ebcd.wav","instruments/pinkie-pie-14.wav":"78b50b9f7df3d8f68e70d2914fac7132.wav","instruments/pinkie-pie-77-C1.wav":"791a45a476bf7ecacb8363e8f81e2aea.wav","instruments/pinkie-pie-77-C2.wav":"887539356a977186daa71761c2c97229.wav","instruments/pinkie-pie-77-C3.wav":"85c9af622ab13b666602b2822b862b55.wav","drums/applejack-30-0.wav":"ed9f5c1ebb95082c19ebd57d5be59e6b.wav","drums/applejack-30-1.wav":"fc4f6f51992e3e419fa66e448a50ec3e.wav","drums/derpy-67-0.wav":"e48032612451c1e678363499c0e023b4.wav","drums/derpy-67-1.wav":"ac1a1ebb37d1fa87561476976ea89c3a.wav","drums/mlp-fim-s2e7-425-0.wav":"04fa24c29a117a2d909e07e7a74f97a8.wav","drums/mlp-fim-s2e7-425-1.wav":"92b26c0e47f8a95f114b4ff08acd2835.wav","drums/mlp-fim-s5e9-471-1.wav":"e20b55562446f56167f5d26035125556.wav","drums/mlp-fim-s5e9-471-2.wav":"c20de13cc85190f59001a36b6aed1742.wav","drums/mlp-fim-s5e9-471-3.wav":"ef8cd405f636fbabb30bebba560baadf.wav","drums/mlp-fim-s5e9-471-4.wav":"51331e135568075ecf75049487ecfc0c.wav","drums/mlp-fim-s5e9-471-5.wav":"acd82df4915591ee8bcd9026ed1aa65f.wav","drums/mlp-fim-s5e9-471-6.wav":"9d4ffbcb021f7aeceea4177b8f2f9af4.wav","drums/mlp-fim-s5e9-d.wav":"5356699be9ab729b323248e46525c788.wav","drums/mlp-fim-s8e10-22-1.wav":"83a7ec40b819c15433cb9fb01595ac90.wav","drums/mlp-fim-s8e10-22-2.wav":"baaef28005d09557cdaaf5c4b8ef6b0d.wav","drums/mlp-fim-s8e10-grass-398-1.wav":"9650a1ce06f6974d0d87583953abb996.wav","drums/mlp-fim-s8e10-grass-398-2.wav":"13436060385e9f56699f470002f684e3.wav","drums/mlp-fim-s8e10-grass-398-3.wav":"e0fa4372dd8bf3f5084c7c59c36f297f.wav","drums/mlp-fim-s9e15-937-0.wav":"3bc5dae42f67462a1a404c5f530578b5.wav","drums/mlp-fim-s9e15-937-1.wav":"e4240fac108d6cedef2b01c5660a9a5e.wav","drums/mlp-return-harmony-27-50-1.wav":"8fc789e80accd98fcec5ef1fe411f7cf.wav","drums/mlp-return-harmony-27-50-2.wav":"da1f3d2b8017bc113d9ae357b44c722f.wav","drums/mlp-s1e22-30s.wav":"dd90a36929cf81d7104f912deff65d91.wav","drums/mlp-s2e19-38.wav":"0842c85c0b1fc9439205098d841f210d.wav","drums/peppa-pig-drums-30-0.wav":"3b37d2a34f57c7acd9646a3c950e8c0e.wav","drums/peppa-pig-drums-30-1.wav":"48715f091b5b0a36764461a176502823.wav","drums/peppa-pig-drums-51.wav":"3a2d348e5ab245aebf88a50180637668.wav","drums/peppa-pig-drums-63-0.wav":"e85165b49bfdad8d51f3260f27757eb5.wav","drums/peppa-pig-drums-63-1.wav":"8ff02219c2392a87b63676f4440400e5.wav","drums/peppa-pig-drums-107.wav":"635d445ed1028a0bf8241572b226b922.wav","drums/peppa-pig-mmiwm-64-0.wav":"c5cd516ed67b208e304d9044a0ad282c.wav","drums/peppa-pig-mmiwm-64-1.wav":"cd0e1f9fa28be1201c4bf65fa029372b.wav","drums/peppa-pig-mmiwm-64-2.wav":"1ff7a7155734aba5c8dd55cb8da2ab63.wav","drums/pinkie-pie-60.wav":"6e45138fe315db0b1fd5382fb2719205.wav","drums/pinkie-pie-61.wav":"926d64ca0212e16f105ea73f22799996.wav","drums/pinkie-pie-83.wav":"ded22a9f4d9577ebf7c9ee6fe2f5533c.wav","drums/rainbowdash-applejack-handclap.wav":"e5895ae1ab8019a14c092dd8282b7888.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_1.wav":"d4cc798a8569aa21c7bc70e42ab0cba9.wav","drums/The_Mane_Six_Try_to_Be_Friends_Of_the_Yaks-MLP_Friendship_Is_Magic_2.wav":"336611bd335cb6a5cdc441813ca39006.wav","drums/twilight-wood-67-0.wav":"6ab6ba1221266dbeac014ad0ccb65e48.wav","drums/twilight-wood-67-1.wav":"aa13954cc2451ed74df97582b888410a.wav"};
   function getDrumSpan(program, pitch) {
       var DMO = DRUMS_MIDI[0];
       var DM = DRUMS_MIDI[program] || DMO;
@@ -454,9 +453,6 @@ var AnimTredInstruments = (function() {
   WavReader.prototype.getLength = function() {
     return this.data.length;
   }
-  WavReader.prototype.getData = function() {
-    return this.data;
-  }
   WavReader.prototype.extractChunk = function(desiredType) {
     this.position = 12;
     while (this.bytesAvailable() > 8) {
@@ -471,13 +467,13 @@ var AnimTredInstruments = (function() {
   WavReader.prototype.readReader = function() {
     var riffStr = this.readString(4);
     if (riffStr != "RIFF") 
-      throw new Error("WAVFile: bad file header");
+      throw "WAVFile: bad file header";
     var lengthInHeader = this.readInt();
     if (this.getLength() != (lengthInHeader + 8)) 
       console.log("WAVFile: bad RIFF size; ignoring");
     var wavStr = this.readString(4);
     if (wavStr != "WAVE") 
-      throw new Error("WAVFile: not a WAVE file");
+      throw "WAVFile: not a WAVE file";
     return { lengthInHeader: lengthInHeader };
   }
   function decodeWav(audioContext, data) {
@@ -487,7 +483,7 @@ var AnimTredInstruments = (function() {
     reader.readReader();
     var formatChunk = reader.extractChunk("fmt ");
     if (formatChunk.getLength() < 16) 
-      throw new Error("WAVFile: format chunk is too small");
+      throw "WAVFile: format chunk is too small";
     var encoding = formatChunk.readUnsignedShort();
     var channels = formatChunk.readUnsignedShort();
     var rate = formatChunk.readUnsignedInt();
@@ -498,8 +494,8 @@ var AnimTredInstruments = (function() {
     var compressedData = reader.extractChunk("data").data;
     var sampleCount = 0;
     if (encoding == 17) {
-			if (formatChunk.getLength() < 20) throw Error("WAVFile: adpcm format chunk is too small");
-			if (channels != 1) throw Error("WAVFile: adpcm supports only one channel (monophonic)");
+			if (formatChunk.getLength() < 20) throw "WAVFile: adpcm format chunk is too small";
+			if (channels != 1) throw "WAVFile: adpcm supports only one channel (monophonic)";
 			formatChunk.position += 2;
       var samplesPerBlock = formatChunk.readUnsignedShort();
       adpcmBlockSize = ((samplesPerBlock - 1) / 2) + 4;
@@ -647,7 +643,8 @@ var AnimTredInstruments = (function() {
     var readTrack = function() {
       _dataLength = dataLengthOriginal;
       var chuckId = _readUTFBytes(4);
-      if (!(chuckId == "MTrk")) throw "MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file";
+      if (!(chuckId == "MTrk")) 
+        throw "MTrk not found for track number " + (trackID + 1) + " - invalid MIDI file";
       var tempos = {};
       var texts = {};
       var keyPressure = {};
@@ -700,6 +697,7 @@ var AnimTredInstruments = (function() {
       var noteTickOff = [];
       var noteTickOn = [];
       var noteVelocity = [];
+      var pulseCounterLength = 0;
       trackIndex = index;
       trackSize = _readBytes(4);
       _dataLength = trackSize + index;
@@ -707,15 +705,9 @@ var AnimTredInstruments = (function() {
         while ((index < _dataLength) && ((Date.now() - startTime) < 100)) {
           pulseCounter += _readVariableLength() || 0;
           event = _data[index++];
+          if (!((event == 255) && (_data[index] == 47))) pulseCounterLength = pulseCounter;
           if (event == 255) {
             switch (_data[index++]) {
-              case 47:
-                index = _dataLength;
-                break;
-              case 81:
-                tempos.tick.push(pulseCounter);
-                tempos.setting.push(_readBytes(_readVariableLength()));
-                break;
               case 1:
               case 2:
               case 3:
@@ -726,6 +718,13 @@ var AnimTredInstruments = (function() {
                 texts.tick.push(pulseCounter);
                 texts.type.push(_data[index - 1]);
                 texts.text.push(_readUTFBytes( _readVariableLength()));
+                break;
+              case 47:
+                index = _dataLength;
+                break;
+              case 81:
+                tempos.tick.push(pulseCounter);
+                tempos.setting.push(_readBytes(_readVariableLength()));
                 break;
               case 88:
                 timeSignature.tick.push(pulseCounter);
@@ -830,7 +829,8 @@ var AnimTredInstruments = (function() {
         if (trackEnd) {
           return false;
         } else {
-          if (index !==  _dataLength) throw "Track number " + (trackID + 1) + " has overrun - invalid MIDI file"; 
+          if (index !== _dataLength) 
+            throw "Track number " + (trackID + 1) + " has overrun - invalid MIDI file";
           return true;
         }
       }
@@ -843,7 +843,7 @@ var AnimTredInstruments = (function() {
               pitch: notePitch,
               tickOff: noteTickOff,
               tickOn: noteTickOn,
-              velocity: noteVelocity,
+              velocity: noteVelocity
             },
             tempos: tempos,
             pitchBends: pitchBends,
@@ -855,7 +855,7 @@ var AnimTredInstruments = (function() {
             timeSignature: timeSignature,
             keySignature: keySignature,
             systemExclusive: systemExclusive,
-            pulseCounterLength: pulseCounter
+            pulseCounterLength: pulseCounterLength
           });    
           return true;
         } else {
@@ -885,8 +885,13 @@ var AnimTredInstruments = (function() {
               trackID++;
             } else gfd = false;
           } else {
-            if (trackID < trackLength) mp = readTrack();
-            else gfd = false;
+            if (trackID < trackLength) {
+              mp = readTrack();
+              if (!mp) {
+                gfd = false;
+                trackID = trackLength;
+              }
+            } else gfd = false;
           }
         }
       } catch(e) {
@@ -1154,7 +1159,7 @@ var AnimTredInstruments = (function() {
     this.node.gain.value = 1;
     this.node.connect(this.audioContext.destination);
     this.duration = 0;
-    this.muteMusicr = false;
+    this._muteMusicr = false;
     this.DateTime = 0;
     this.onplaynote = null;
     this.onended = null;
@@ -1240,13 +1245,13 @@ var AnimTredInstruments = (function() {
       this.trackQueue[i].reset();
   }
   Player.prototype.setCurrentTime = function(s) {
-    this.muteMusicr = true;
+    this._muteMusicr = true;
     this.stopAllPlaying();
     if (this.currentTime == s) return;
     var h = Math.max(0, Math.min(this.duration, s));
     if (h <= 0) {
       this.resetEffect();
-      this.muteMusicr = false;
+      this._muteMusicr = false;
       this.currentTime = 0;
       this._currentTimeLast = 0;
       this.setStartTime(0);
@@ -1341,7 +1346,7 @@ var AnimTredInstruments = (function() {
     this._date = this._getTime();
     if (this.currentTime <= 0) {
       this.resetEffect();
-      this.muteMusicr = false;
+      this._muteMusicr = false;
       this.currentTime = 0;
       this._currentTimeLast = 0;
       this.setStartTime(0);
@@ -1488,21 +1493,19 @@ var AnimTredInstruments = (function() {
       var buffer = this._soundbank[span];
       if (!buffer) return;
       var isStart = (tickOff - tickOn) > 0;
-      var _volume = volume / 127;
       var te = {
         _pitch: pitch,
         _volume: volume,
         _program: program,
+        tickOn: tickOn,
+        tickOff: tickOff,
         buffer: buffer.buffer,
         source: null,
+        node: null,
         ended: !isStart,
         start: isStart,
         isPlay: false,
         isStop: false,
-        note: null,
-        nodeOn: tickOn,
-        nodeOff: tickOff,
-        volume: _volume,
         releaseGainVolume: 1,
         pitch: 0,
         track: trackNumber,
@@ -1517,7 +1520,6 @@ var AnimTredInstruments = (function() {
       var buffer = this._soundbank[span[1]];
       if (!buffer) return;
       var _pitch = pitch - span[0];
-      var _volume = (volume / 127);
       var isStart = (tickOff - tickOn) > 0;
       var releaseDuration = span[2];
       if (releaseDuration == null || !isStart) 
@@ -1527,24 +1529,23 @@ var AnimTredInstruments = (function() {
         _pitch: pitch,
         _volume: volume,
         _program: program,
-        ended: false,
-        source: null,
-        note: null,
+        tickOff: tickOff,
+        tickOn: tickOn,
         buffer: buffer.buffer,
+        source: null,
+        node: null,
+        ended: false,
+        start: isStart,
+        isPlay: false,
+        isStop: false,
         loop: loop,
         setDurationInf: false,
-        isStop: false,
-        isPlay: false,
         releaseGainVolume: 1,
-        start: isStart,
         release: {
           duration: releaseDuration * 1000,
           ended: false,
         },
-        volume: _volume,
         pitch: _pitch,
-        nodeOff: tickOff,
-        nodeOn: tickOn,
         track: trackNumber,
         channel: channel
       };
@@ -1564,25 +1565,26 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype._getPitch = function(channel) {
     if (channel == 9) return 0;
-    var pitch = this.pitchBendChannel[channel] * this.controller.dataEntryMSB[channel];
-    return pitch;
+    return this.pitchBendChannel[channel] * this.controller.dataEntryMSB[channel];
   }
   Player.prototype._startNote = function(n) {
     if (this.isEffect && n.track) if (this._getSustainPedalChannel(n.channel)) n.setDurationInf = true;
   }
   Player.prototype._updateEffectNote = function(note) {
-    if (note.start) {
-      if (this.isEffect && note.track) {
-        var _pitch = (note.pitch + this._getPitch(note.channel));
-        var rateSpeed = Math.pow(2, (_pitch / 12));
-        if (note.source) note.source.playbackRate.value = rateSpeed;
-        var volumeEffect = Math.min(note.volume * this._getVolumeChannel(note.channel), 1.27);
+    if (note.start && note.track) {
+      var _volume = note._volume / 127;
+      var source = note.source;
+      var node = note.node;
+      if (this.isEffect) {
+        var _pitch = note.pitch + this._getPitch(note.channel);
+        var rateSpeed = Math.pow(2, _pitch / 12);
+        if (source) source.playbackRate.value = rateSpeed;
+        var volumeEffect = Math.min(_volume * this._getVolumeChannel(note.channel), 1.27);
         var volumeOld = (Math.pow(5, volumeEffect) - 1.0) / 4; // Normal
-        note.note.gain.value = volumeOld * note.releaseGainVolume;
+        if (node) node.gain.value = volumeOld * note.releaseGainVolume;
       } else {
-        if (note.source) note.source.playbackRate.value = Math.pow(2, note.pitch / 12);
-        note.note.gain.value = note.volume * note.releaseGainVolume;
-        note.duration = note.dur;
+        if (source) source.playbackRate.value = Math.pow(2, note.pitch / 12);
+        if (node) node.gain.value = _volume * note.releaseGainVolume;
       }
     }
   }
@@ -1602,12 +1604,12 @@ var AnimTredInstruments = (function() {
       this.isPaused = true;
     }
     this._currentTimeLast = this.currentTime;
-    if (!this.isPaused && !this.muteMusicr) this.currentTime = Math.round((this._date - this._startTime) * this.speed) / 1000;
+    if (!this.isPaused && !this._muteMusicr) this.currentTime = Math.round((this._date - this._startTime) * this.speed) / 1000;
     this._stepUpdateTrack();
     this._stepUpdateEffect();
     this._stepNotesPlaying();
     this._stepPlayingNote();
-    if (this.muteMusicr) this.muteMusicr = false;
+    if (this._muteMusicr) this._muteMusicr = false;
     this._date = this._getTime();
     this._frameStart = Date.now();
   }
@@ -1637,7 +1639,7 @@ var AnimTredInstruments = (function() {
             this._stepUpdateTimeTrack(_currentTimeLast, 1);
             break;
           }
-          _currentTimeLast += 10000;
+          _currentTimeLast += 100000;
         }
       } else if (_currentTime < _currentTimeLast) {
         while (true) {
@@ -1648,7 +1650,7 @@ var AnimTredInstruments = (function() {
             this._stepUpdateTimeTrack(_currentTimeLast, -1);
             break;
           }
-          _currentTimeLast -= 10000;
+          _currentTimeLast -= 100000;
         }
       }
     }
@@ -1775,7 +1777,7 @@ var AnimTredInstruments = (function() {
                 note.setDurationInf = true;
               } else {
                 note.setDurationInf = false;
-                if (this.currentPulse >= note.nodeOff) {
+                if (this.currentPulse >= note.tickOff) {
                   if (note.release && !note.release.ended) {
                     note.release.ended = true;
                   } else {
@@ -1871,9 +1873,9 @@ var AnimTredInstruments = (function() {
         note.source.disconnect();
         note.source = null;
       }
-      if (note.note) {
-        note.note.disconnect();
-        note.note = null;
+      if (note.node) {
+        note.node.disconnect();
+        note.node = null;
       }
     }
     note.ended = true;
@@ -1883,7 +1885,7 @@ var AnimTredInstruments = (function() {
     for (var i = 0; i < this.trackQueue.length; i++) {
       var track = this.trackQueue[i];
       var _noteQueue = track.noteQueue;
-      var notes = track.getNote(this.currentPulse, this.muteMusicr, 1024);
+      var notes = track.getNote(this.currentPulse, this._muteMusicr, 1024);
       if (!notes) continue;
       if (this.isPaused) continue;
       var startIndex = notes[0];
@@ -1912,8 +1914,8 @@ var AnimTredInstruments = (function() {
         if (h) {
           var _release = h.release;
           if (!h.ended && _release && !_release.ended && !h.setDurationInf) {
-            var j = Math.min(h.nodeOff, tickOff);
-            if (h.nodeOff >= tickOff && h.nodeOff <= tickOn) 
+            var j = Math.min(h.tickOff, tickOff);
+            if (h.tickOff >= tickOff && h.tickOff <= tickOn) 
               tickOff = j;
           }
           if (h.isPlay) this._noteStop(h, false);
@@ -1942,7 +1944,7 @@ var AnimTredInstruments = (function() {
               source.loopStart = loop[0];
               source.loopEnd = loop[1];
             }
-            source.connect(h.note = node);
+            source.connect(h.node = node);
             h.source = source;
             this._startNote(h);
             this._updateEffectNote(h);
@@ -1964,8 +1966,8 @@ var AnimTredInstruments = (function() {
         if (!note.ended) {
           var _release = note.release;
           if (_release) {
-            if (!note.setDurationInf && (this.currentPulse >= note.nodeOff)) _release.ended = true;
-            else if (this.currentPulse < note.nodeOn) note.ended = true;
+            if (!note.setDurationInf && (this.currentPulse >= note.tickOff)) _release.ended = true;
+            else if (this.currentPulse < note.tickOn) note.ended = true;
             if (_release.ended) {
               if (!("startTime" in _release)) 
                 _release.startTime = this._date;
@@ -2007,6 +2009,7 @@ var AnimTredInstruments = (function() {
       _this._loader = null;
       if (_this.onerror) 
         _this.onerror(e);
+      else console.log(e);
     }
     mp.onprogress = function(r, a, b) {
       if (_this.onprogress) 
@@ -2043,11 +2046,11 @@ var AnimTredInstruments = (function() {
     var time = 0;
     var tempoLen = this.getTempoLength();
     var tempoIdx = 0;
-    while (tempoIdx < tempoLen) {
-      var _currentPulse = 0;
+    var _currentPulse = 0;
+    while (tempoIdx < tempoLen && _currentPulse < _pulseCounterLength) {
+      _currentPulse = tempoTick + ((time - duration) / tempo);
       for (var i = 0; i < _tracks.length; i++) {
         var _tempoQueue = this.trackQueue[i].tempoQueue;
-        _currentPulse = (tempoTick + ((time - duration) / tempo));
         while (_tracks[i].tempoIdx < _tempoQueue.tick.length && _currentPulse >= _tempoQueue.tick[_tracks[i].tempoIdx]) {
           duration += (_tempoQueue.tick[_tracks[i].tempoIdx] - tempoTick) * tempo;
           tempoTick = _tempoQueue.tick[_tracks[i].tempoIdx];
@@ -2089,6 +2092,6 @@ var AnimTredInstruments = (function() {
     INSTRUMENT_INFO: INSTRUMENT_INFO,
     SOUNDBANKS: SOUNDBANKS,
     formats: ["mid", "rmi", "midi"],
-    version: "v1.3.0"
+    version: "v1.3.1"
   }
 }());

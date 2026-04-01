@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>YTPMV Cartoon Instruments</title>
+		<title>YTPMV Cartoon Midi</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
@@ -192,7 +192,7 @@
 					}
 				}
 				function z_dir() {
-					if (!player.muteMusicr) fgdgdfg.value = (player.currentTime / player.duration) * 100;
+					fgdgdfg.value = (player.currentTime / player.duration) * 100;
 					var f6fhf = 0;
 					var fgdlll = [];
 					for (var cid = 0; cid < 16; cid++) {
@@ -208,7 +208,7 @@
 							}
 						}
 					}
-					var f_ggg =  "Time: " + getDuraction(player.currentTime) + "/" + getDuraction(player.duration) + " Notes: " + player.getNoteTracker() + "/" + player.getNoteLength()  + " Tempos: " +  player.getTempoTracker() + "/" + player.getTempoLength();
+					var f_ggg =  "Time: " + getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration)) + " Notes: " + player.getNoteTracker() + "/" + player.getNoteLength()  + " Tempos: " +  player.getTempoTracker() + "/" + player.getTempoLength();
 					if (z_dir3_3 && (f_ggg !== cuer.innerHTML)) 
 						cuer.innerHTML = f_ggg;
 					var gfdgfdg = "Type: " + player.formatType + " Tracks: " + player.trackQueue.length + " PPQN: " + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM Tick: " + Math.round(player.currentPulse) + "/" + player.getPulseCounterLength();
