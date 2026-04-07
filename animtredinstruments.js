@@ -1124,9 +1124,16 @@ var AnimTredInstruments = (function() {
     for (var i = 0; i < arr.length; i++) 
       arr[i] = val;
   }
-  function setEndedFunc(te) {
-    te.endedFunction = function () {
-      te.isStop = true;
+  function setEndedFunc(te, channel) {
+    if (channel == 9) {
+      te.endedFunction = function() {
+        te.ended = true;
+        te.isStop = true;
+      }
+    } else {
+      te.endedFunction = function() {
+        te.isStop = true;
+      }
     }
   }
   var Controller = function() {
@@ -1530,8 +1537,8 @@ var AnimTredInstruments = (function() {
         _pitch: pitch,
         _volume: volume,
         _program: program,
-        tickOff: tickOff,
         tickOn: tickOn,
+        tickOff: tickOff,
         buffer: buffer.buffer,
         source: null,
         node: null,
@@ -1949,7 +1956,7 @@ var AnimTredInstruments = (function() {
             h.source = source;
             this._startNote(h);
             this._updateEffectNote(h);
-            setEndedFunc(h);
+            setEndedFunc(h, channel);
             source.addEventListener("ended", h.endedFunction);
             source.start(this.audioContext.currentTime, 0);
             h.isPlay = true;

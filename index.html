@@ -198,13 +198,12 @@
 					for (var cid = 0; cid < 16; cid++) {
 						var rchannel = player.notesPlayingChannel[cid];
 						for (var i = 0; i < rchannel.length; i++) {
-							if (rchannel[i]) {
-								var _release = rchannel[i].release;
-								if (_release) 
-									if (_release.ended) 
-										continue;
-								f6fhf++;
-								fgdlll[rchannel[i]._pitch] = channelColor[rchannel[i].channel];
+							var rch = rchannel[i];
+							if (rch) {
+								if (player.currentPulse >= rch.tickOn && player.currentPulse < rch.tickOff) {
+									f6fhf++;
+									fgdlll[rch._pitch] = channelColor[rch.channel];
+								}
 							}
 						}
 					}
