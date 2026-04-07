@@ -573,7 +573,7 @@ var AnimTredInstruments = (function() {
         } else 
           return value + temp;
       }
-      throw new Error("Unexpected end of input");
+      throw "Unexpected end of input";
     }
     var _readUTFBytes = function(byteCount) {
       var value = "";
@@ -1126,7 +1126,6 @@ var AnimTredInstruments = (function() {
   }
   function setEndedFunc(te) {
     te.endedFunction = function () {
-      te.ended = true;
       te.isStop = true;
     }
   }
@@ -1355,7 +1354,9 @@ var AnimTredInstruments = (function() {
     this.isPaused = false;
     this.setStartTime(this.currentTime);
     if (this.currentTime >= this.duration) {
+      this.resetEffect();
       this.currentTime = 0;
+      this._currentTimeLast = 0;
       this.setStartTime(0);
       this.resetTrack();
     }
@@ -1905,7 +1906,7 @@ var AnimTredInstruments = (function() {
             pitch: pitch,
             dur: ((tickOff - tickOn) * this.tempo) / 1000000,
             program: program,
-            volume: (volume / 127),
+            volume: volume,
             channel: channel
           });
         }

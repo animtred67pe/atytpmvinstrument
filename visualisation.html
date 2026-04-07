@@ -226,27 +226,15 @@
 						}
 					}
 					if (this.circles.length < 150) {
-						if (e.channel != 9) {
-							this.circles.push({
-								pitch: 32 + ((e.pitch - 32) / 2),
-								volume: e.volume,
-								color: this.channelColor[e.channel],
-								d: Math.max(0.3, e.dur) * 30,
-								b: 0,
-								x: 0,
-								y: 0,
-								c: this._counter
-							});
-						} else {
-							this.circles.push({
-								pitch: 50,
-								d: 10,
-								color: this.channelColor[e.channel],
-								volume: e.volume,
-								b: 0,
-								c: this._counter
-							});
-						}
+						this.circles.push({
+							color: this.channelColor[e.channel],
+							volume: e.volume,
+							d: Math.max(0.3, e.dur) * 30,
+							b: 0,
+							c: this._counter,
+							x: 0,
+							y: 0
+						});
 						this._counter += 32;
 					}
 				}
@@ -274,7 +262,7 @@
 					for (var i2 = 0; i2 < this.circles.length; i2++) {
 						var o = this.circles[i2];
 						var tdir = (o.c + (this._rotation * Math.sin((o.d * 4) * Math.PI / 180)));
-						var tradius = Math.min((o.d / 64) * (o.volume * 250), 100);
+						var tradius = Math.min((o.d / 64) * (o.volume * 3), 160);
 						o.x = (Math.sin(tdir * Math.PI / 180)) * tradius;
 						o.y = (Math.cos(tdir * Math.PI / 180)) * tradius;
 						o.b += 0.5;
@@ -300,7 +288,8 @@
 						}
 						this.graphicEqualizersArr[Math.round((o.pitch / 127) * this.maxGraphicEqualizers)] += Math.max(0, (o.c * o.volume));
 					}
-					this._rotation = this.mse.currentTime * 50;
+					this._rotation += ((60 / 12) * Math.cos((this.mse.currentTime * 8) * Math.PI / 180)) * 0.4;
+					//this._rotation = this.mse.currentTime * 50;
 					cuer.innerHTML = getDuraction(this.mse.currentTime) + '/' + getDuraction(Math.ceil(this.mse.duration));
 					var duH1 = (this.mse.currentTime / this.mse.duration);
 					this.ctx.clearRect(0, 0, 360, 210);
@@ -311,14 +300,15 @@
 					this.ctx.save();
 					this.ctx.translate(10, 30);
 					if (this.visualisationType == 0) {
+						var zoomC = 0.75;
 						for (var i2 = 0; i2 < this.circles.length; i2++) {
 							var o = this.circles[i2];
 							this.ctx.save();
-							this.ctx.translate(170 + o.x, 85 + o.y);
+							this.ctx.translate(170 + (o.x * zoomC), 85 + (o.y * zoomC));
 							this.ctx.fillStyle = o.color;
-							this.ctx.globalAlpha = Math.min(((o.d - o.b) / o.d) * 2, 1);
+							this.ctx.globalAlpha = Math.min(((o.d - o.b) / o.d), 1);
 							this.ctx.beginPath();
-							this.ctx.arc(0, 0, Math.max(1, ((o.d / 80) * (o.volume * 140)) * ((o.d - o.b) / o.d)), 0, 2 * Math.PI);
+							this.ctx.arc(0, 0, Math.max(1, ((o.d / 80) * (o.volume * 2)) * ((o.d - o.b) / o.d)) * (zoomC * 0.5), 0, 2 * Math.PI);
 							this.ctx.fill();
 							this.ctx.restore();
 						}
@@ -326,7 +316,7 @@
 						this.ctx.globalAlpha = 1;
 						for (var i2 = 0; i2 < this.maxGraphicEqualizers; i2++) {
 							var o = this.graphicEqualizersArr[i2];
-							var gh = o * 40;
+							var gh = o * 0.3333333333;
 							this.ctx.fillStyle = "hsl(" + ((i2 / this.maxGraphicEqualizers) * 400) + ", 100%, 50%)";
 							this.ctx.fillRect((i2 * (340 / this.maxGraphicEqualizers)), 170 - gh, (340 / this.maxGraphicEqualizers), gh);
 						}
@@ -427,7 +417,6 @@
 					this.mousePressed = false;
 				}
 				var midcontrol = new MidiControls(player, document.getElementById('midiscene'));
-				player.setVolume(0.67);
 				player.onload = function() {
 					player.loadSoundbank(function() {
 						player.play();
