@@ -20,7 +20,6 @@
 				left: 50%;
 				transform: translate(-50%, -50%);
 			}
-
 		</style>
 	</head>
 	<body>
@@ -119,7 +118,7 @@
 					if (e.channel == 9) {
 						var span = AnimTredInstruments.getDrumSpan(e.program, e.pitch);
 						if (!span) return;
-						addScS(fHH[span]);
+						addScS(fHH[span[0]]);
 					} else {
 						var span = AnimTredInstruments.getInstrumentSpan(e.program, e.pitch);
 						if (!span) return;

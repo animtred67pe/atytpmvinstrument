@@ -1,513 +1,779 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Black Midi - YTPMV Cartoon Midi</title>
-		<style>
-			body{
-				font-family: monospace;
-				margin: 0;
-				overflow: hidden;
-			}
-			a{
-				color: #ddd;
-			}
-			.app{
-				position: absolute;
-				background-color: #111;
-				color: #ddd;
-				margin: 0;
-				padding: 0;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-			}
-			.hfgfhh2{
-				background-color: rgb(64, 129, 107);
-			}
-			#hfggf2{
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
-		</style>
-	</head>
-	<body>
-		<div class="app">
-			<a href="./">back</a>
-			<div id="hfggf2">
-				<canvas width="1280" height="720" id="hfggf2f"></canvas>
-				<div class="hfgfhh2">
-					<a href="#" id="loadmidifile">Open Mid</a>
-					<a href="#" id="playstop">Play</a>
-					<input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 360px;">
-					<label id="cuer">0:00/0:00</label>
-					<input type="range" style="float: right;" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
-					<label style="float: right;">Volume:</label>
-					<input type="range" style="float: right;" name="" value="100" min="100" max="10000" step="0.01" id="yrtyryr6464" style="width: 200px;">
-					<label style="float: right;">Display Speed:</label>
-				</div>
-			</div>
+    <head>
+        <title>Black Midi - YTPMV Cartoon Midi</title>
+        <style>
+            body{
+                background-color: #000;
+                color: #fff;
+                margin: 0;
+                overflow: hidden;
+                font-family: monospace;
+            }
+            #playerArea {
+                position: absolute;
+            }
+            #playerArea canvas{
+                position: absolute;
+            }
+            .gdgdfgd {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                padding: 5px;
+                background-color: rgba(0,0,0,0.5);
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="playerArea"></div>
+        <div style="position: absolute; bottom: 10px; left: 10px; background-color: #111;">
+            <button id="loadmidifile">Open Mid</button>
+            <label>Display Speed:</label>
+            <input type="range" name="" value="100" min="100" max="2500" step="0.01" id="yrtyryr6464" style="width: 200px;">
+            <label>Volume:</label>
+            <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
+            <label id="cuer">0:00/0:00</label>
+            <input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 360px;">
+        </div>
+		<div style="position: absolute; top: 0%; right: 0%; padding: 8px;">
+			<a href="./" style="color: #fff;">Back</a>
 		</div>
-		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAAQ2007</div>
-		<canvas width="1000" height="622" id="hfggf3" style="display: none;"></canvas>
-		<script src="animtredinstruments.js"></script>
-		<script>
-			(function() {
-				var hfggf2 = document.getElementById("hfggf2f");
-				var hfggf3 = document.getElementById("hfggf3");
-				var yrtyryr6464 = document.getElementById('yrtyryr6464');
-				var ss_isplaySpeed = 100;
-				var ctx2 = hfggf2.getContext("2d");
-				var ctx3 = hfggf3.getContext("2d");
-				var ggdf_loaded = "";
-				var mousePoint = [0, 0];
-				hfggf2.onmousemove = function(e) {
-					var df = hfggf2.getBoundingClientRect();
-					mousePoint[0] = e.clientX - df.left;
-					mousePoint[1] = e.clientY - df.top;
-				}
-				hfggf2.onmousedown = function(e) {
-					e.preventDefault();
-					mouseDown = true;
-				}
-				hfggf2.onmouseup = function(e) {
-					e.preventDefault();
-					mouseDown = false;
-				}
-				var player = new AnimTredInstruments.Player();
+        <script src="animtredinstruments.js"></script>
+        <script>
+            var RENDERER_HEIGHT = 337.5;
 
-				player.onprogress = function (a) {
-					if (a) ggdf_loaded = a; else ggdf_loaded = "";
-				}
+            var RenderCanvas2d = function() {
+                this.canvas = document.createElement("canvas");
+                this.ctx = this.canvas.getContext("2d");
+                this.canvas.width = 600;
+                this.canvas.height = RENDERER_HEIGHT | 0;
+                this.scale = 1;
+                this.name = "Canvas2d";
+            }
+            RenderCanvas2d.prototype.clear = function() {
+                this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
+            }
+            RenderCanvas2d.prototype.setColor = function(r, g, b, a) {
+                this.ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
+            }
+            RenderCanvas2d.prototype.rescale = function(scale) {
+                this.scale = scale;
+                this.canvas.width = (600 * scale) | 0;
+                this.canvas.height = (RENDERER_HEIGHT * scale) | 0;
+            }
+            RenderCanvas2d.prototype.drawRect = function(x, y, w, h) {
+                var scale = this.scale;
+                this.ctx.fillRect(x * scale, y * scale, w * scale, h * scale);
+            }
+            RenderCanvas2d.prototype.flush = function() {};
 
-				window.player = player;
+            var vs2 = `
+precision mediump float;
+uniform mat3 view_matrix;
+attribute vec2 position;
+attribute vec4 color;
+varying vec4 frag_color;
+void main() {
+   frag_color = vec4(color.xyz, color.w);
+	gl_Position = vec4((view_matrix * vec3(position, 1)).xy, 0.0, 1.0);
+}`;
+			var fs2 = `
+precision mediump float;
+varying vec4 frag_color;
+void main() {
+   gl_FragColor = frag_color;
+}`;
 
-				var cuer = document.getElementById('cuer');
-				var Adfgdgfd = "01010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010";
-				var xpiano = [];
-				var g = 0;
-				for (var i = 0; i < Adfgdgfd.length; i++) {
-					if (Adfgdgfd[i] == "1") {
-						g += 0;
-						xpiano.push(g + 0.5);
-					} else {
-						g++;
-						xpiano.push(g);
-					}
-				}
-				function mod(x, y) {
-					var r = x % y;
-					if (r / y < 0) 
-						r += y;
-					return r; 
-				};
-				function URLsearchParams(name,isD) {
-					var _u = new URL(window.location.href);
-					if (_u.searchParams) {
-						if (isD) {
-							return _u.searchParams.has(name);
-						} else {
-							return _u.searchParams.get(name);
-						}
-					} else {
-						if (isD) {
-							return false;
-						} else {
-							return null;
-						}
-					}
-				}
-				if (URLsearchParams('offeffect', true)) {
-					player.isEffect = false;
-				}
-				function getDuraction(num) {
-					var txt = '';
-					if (Math.floor(num) > 3599) {
-						txt += '' + Math.floor(num / 3600);
-						txt += ':';
-						if (mod(Math.floor(num / 60), 60) > 9) {
-							txt += '' + mod(Math.floor(num / 60), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num / 60), 60);
-						}
-						txt += ':';
-						if (mod(Math.floor(num), 60) > 9) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
-					} else {
-						txt += '' + mod(Math.floor(num / 60), 60);
-						txt += ':';
-						if (mod(Math.floor(num), 60) > 9) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
-					}
-					return txt;
-				}
-				var trackRender = [];
-				var fdgfdg = 0;
-				var fgdgdfg = document.getElementById("yrtyryry");
-				var fgdgdfg2 = document.getElementById("yrtyryry2");
-				var playstop = document.getElementById('playstop');
-				var z_dir2 = null;
-				var channelColor = [
-					"#2f5fed", // 0
-					"#ed752f", // 1
-					"#2fed5f", // 2
-					"#ed2f78", // 3
-					"#31f7f7", // 4
-					"#dd31f7", // 5
-					"#94f731", // 6
-					"#4931f7", // 7
-					"#f7c631", // 8
-					"#31aef7", // 9
-					"#f73131", // 10
-					"#31f7ab", // 11
-					"#f731c6", // 12
-					"#4cf731", // 13
-					"#9431f7", // 14
-					"#e2fa32", // 15
-				];
-				var sdfsdf = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-				var fghfhfbnvnv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-				var jj2 = 0;
-				player.oncleanup = function () {
-					trackRender = [];
-					jj2 = 0;
-					fghfhfbnvnv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-					sdfsdf = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-				}
-				var fgjhjh = [
-					"Tempo Change",
-					"Time Signature",
-					"Key Signature",
-					"Program Change",
-					"Control Change",
-					"Key Pressure",
-					"Channel Pressure",
-					"Text",
-					"Pitch Bend",
-					"System Exclusive",
-					"Unknown",
-				];
-				player.onload = function () {
-					player.loadSoundbank(function(e) {
-						playstop.innerHTML = 'Pause';
-						player.play();
-					});
-					trackRender = [];
-					for (var i = 0; i < player.trackQueue.length; i++) {
-						var track = player.trackQueue[i];
-						trackRender.push({
-							indexRe: 0,
-							tes: [0,0,0,0,0,0,0,0,0,0,0],
-							ref: [
-								track.tempoQueue,
-								track.timeSignatureQueue,
-								track.keySignatureQueue,
-								track.programQueue,
-								track.controllerQueue,
-								track.keyPressureQueue,
-								track.channelPressureQueue,
-								track.textQueue,
-								track.pitchBendQueue,
-								track.systemExclusiveQueue,
-								null,
-							]
-						});
-					}
-				}
-				function dddhgkjh2(ct, x, y, min, max, value) {
-					var gf = ct.fillStyle;
-					ct.fillStyle = '#ccc';
-					ct.beginPath();
-					ct.arc(x, y, 12, 0, 2 * Math.PI);
-					ct.fill();
-					ct.beginPath();
-					ct.moveTo(x, y);
-					ct.lineWidth = 2;
-					var h = (180 - (((value - min) / (max - min)) - 0.5) * 270);
-					ct.lineTo(x + (Math.sin(h * Math.PI / 180) * 10), y + (Math.cos(h * Math.PI / 180) * 10));
-					ct.stroke();
-					ct.fillStyle = gf;
-				}
-				function dddhgkjh(ct, x, y, channel, gghf) {
-					ct.globalAlpha = 1;
-					ct.fillRect(x, y, 240, 45);
-					ct.globalAlpha = 1 - gghf;
-					ct.fillStyle = "#ddd";
-					ct.fillRect(x, y, 240, 45);
-					ct.globalAlpha = 1;
-					ct.fillStyle = "#000";
-					ct.textAlign = "right";
-					ct.font = "10px Arial";
-					ct.fillText(channel, x + 237, y + 12);
-					ct.textAlign = "center";
-					dddhgkjh2(ct, x + 20, y + 20, -1, 1, player.pitchBendChannel[channel]);
-					ct.fillText("pitch", x + 20, y + 40);
-					dddhgkjh2(ct, x + 50, y + 20, -0.64, 0.63, player.controller.panChannel[channel]);
-					ct.fillText("pad", x + 50, y + 40);
-					ct.font = "15px Arial";
-					ct.fillText(player.programChannel[channel], x + 80, y + 25);
-					ct.font = "10px Arial";
-					ct.fillText("program", x + 80, y + 40);
-					dddhgkjh2(ct, x + 120, y + 20, 0, 1.27, player.controller.volumeChannel[channel]);
-					ct.fillText("volume", x + 120, y + 40);
-					dddhgkjh2(ct, x + 165, y + 20, 0, 1, player.controller.expressionChannel[channel]);
-					ct.fillText("expression", x + 165, y + 40);
-					ct.font = "15px Arial";
-					ct.fillText(player.controller.sustainPedalChannel[channel] > 0, x + 210, y + 25);
-					ct.font = "10px Arial";
-					ct.fillText("sustain", x + 210, y + 40);
-				}
-				function z_dir() {
-					var bdfgdgd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-					fgdgdfg.value = (player.currentTime / player.duration) * 100000;
-					var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration));
-					if (f_ggg !== cuer.innerHTML) cuer.innerHTML = f_ggg;
-					var fd = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-					var f6fhf = 0;
-					for (var cid = 0; cid < 16; cid++) {
-						var rchannel = player.notesPlayingChannel[cid];
-						for (var i = 0; i < rchannel.length; i++) {
-							if (rchannel[i]) {
-								sdfsdf[rchannel[i].channel] = true;
-								fghfhfbnvnv[rchannel[i].channel] = 1;
-								fd[rchannel[i].channel] = true;
-								f6fhf++;
-							}
-						}
-					}
-					ctx2.clearRect(0, 0, hfggf2.width, hfggf2.height);
-					ctx2.fillStyle = "#eee";
-					ctx2.fillRect(0, 0, hfggf2.width, hfggf2.height);
-					ctx3.clearRect(0, 0, hfggf2.width, hfggf2.height);
-					ctx3.fillStyle = "#eee";
-					ctx3.fillRect(0, 0, hfggf3.width, hfggf3.height);
-					var gfddf = '';
-					ctx3.fillStyle = "#fff";
-					ctx3.fillRect(0, 110, 1000, 512);
-					for (var i = 0; i < 128; i++) {
-						ctx3.fillStyle = "#333";
-						if (Adfgdgfd[i] == '1') ctx3.fillStyle = "#111";
-						ctx3.fillRect(0, (622 - 4) - (i * 4), 1000, 4);
-					}
-					for (var i = 0; i < 11; i++) {
-						ctx3.fillStyle = "#777";
-						if (i % 2 == 1) ctx3.fillStyle = "#555";
-						ctx3.fillRect(0, (i * 9), 1000, 9);
-					}
-					ctx3.save();
-					var _displaySpeed = ss_isplaySpeed * (player.tempo / 1000000);
-					var resultR = [];
-					resultR[0] = false;
-					resultR[1] = 0;
-					resultR[2] = 0;
-					resultR[3] = 0;
-					var resultT = [];
-					resultT[0] = false;
-					resultT[1] = null;
-					resultT[2] = 0;
-					resultT[3] = null;
-					for (var trackID = 0; trackID < trackRender.length; trackID++) {
-						var tracksRender = trackRender[trackID];
-						var track = player.trackQueue[trackID];
-						var noteQueue = track.noteQueue;
-						if (noteQueue.tickOn.length > 0) {
-							while (tracksRender.indexRe < noteQueue.tickOn.length && player.currentPulse >= noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe++;
-							tracksRender.indexRe--;
-							while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe--;
-							tracksRender.indexRe++;
-							for (var id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
-								var TINEd = noteQueue.tickOn[id] - player.currentPulse;
-								var durH = (noteQueue.tickOff[id] - noteQueue.tickOn[id]);
-								if (TINEd < 0 && TINEd > (0 - durH)) {
-									bdfgdgd[noteQueue.pitch[id]] = channelColor[noteQueue.channel[id]];
-								}
-								// mousePoint 260 78
-								var fx = 80 + (TINEd * _displaySpeed);
-								var fy = (622 - 4) - (noteQueue.pitch[id] * 4);
-								var fw = (durH * _displaySpeed);
-								var fh = 4;
-								if ((((mousePoint[0] - 260) > fx) && (mousePoint[0] - 260) < (fx + fw)) && (((mousePoint[1] - 78) > fy) && ((mousePoint[1] - 78) < (fy + fh)))) {
-									ctx3.fillStyle = "#000";
-									resultR[0] = true;
-									resultR[1] = noteQueue.pitch[id];
-									resultR[2] = noteQueue.velocity[id];
-									resultR[3] = noteQueue.channel[id];
-								} else {
-									ctx3.fillStyle = channelColor[noteQueue.channel[id]];
-								}
-								ctx3.fillRect(fx, fy, fw, fh);
-								if (80 + (TINEd * _displaySpeed) > 1000) break;
-							}
-						}
-						for (var idxd = 0; idxd < 11; idxd++) {
-							var tempoQueue = tracksRender.ref[idxd];
-							if (!tempoQueue) continue;
-							if (tempoQueue.tick.length > 0) {
-								while (tracksRender.tes[idxd] < tempoQueue.tick.length && player.currentPulse > tempoQueue.tick[tracksRender.tes[idxd]]) tracksRender.tes[idxd]++;
-								tracksRender.tes[idxd]--;
-								while (tracksRender.tes[idxd] >= 0 && player.currentPulse <= tempoQueue.tick[tracksRender.tes[idxd]]) tracksRender.tes[idxd]--;
-								tracksRender.tes[idxd]++;
-								for (var id = tracksRender.tes[idxd]; id < tempoQueue.tick.length; id++) {
-									var TINEd = tempoQueue.tick[id] - player.currentPulse;
-									ctx3.fillStyle = "#00f";
-									var fx = 80 + (TINEd * _displaySpeed);
-									var fy = (idxd * 9);
-									if ("channel" in tempoQueue) ctx3.fillStyle = channelColor[tempoQueue.channel[id]];
-									if ((((mousePoint[0] - 260) > fx) && (mousePoint[0] - 260) < (fx + 9)) && (((mousePoint[1] - 78) > fy) && (mousePoint[1] - 78) < (fy + 9))) {
-										ctx3.fillStyle = "#faf";
-										resultT[0] = true;
-										if ("channel" in tempoQueue) resultT[1] = tempoQueue.channel[id];
-										if ("control" in tempoQueue) resultT[3] = tempoQueue.control[id];
-										if ("value" in tempoQueue) resultT[2] = tempoQueue.value[id];
-										if ("setting" in tempoQueue) resultT[2] = tempoQueue.setting[id];
-										if ("pitch" in tempoQueue) resultT[2] = tempoQueue.pitch[id];
-										if ("program" in tempoQueue) resultT[2] = tempoQueue.program[id];
-										if ("key" in tempoQueue) resultT[2] = tempoQueue.key[id];
-										if ("text" in tempoQueue) resultT[2] = tempoQueue.text[id];
-									}
-									ctx3.fillRect(fx, fy, 9, 9);
-									if (80 + (TINEd * _displaySpeed) > 1000) break;
-								}
-							}
-						}
-					}
-					for (var i = 0; i < 128; i++) {
-						ctx3.fillStyle = "#fff";
-						if (Adfgdgfd[i] == '1') ctx3.fillStyle = "#111";
-						if (bdfgdgd[i]) ctx3.fillStyle = bdfgdgd[i];
-						ctx3.fillRect(0, (622 - 4) - (i * 4), 80, 4);
-					}
-					for (var i = 0; i < 11; i++) {
-						ctx3.fillStyle = "#fff";
-						if (i % 2 == 1) ctx3.fillStyle = "#ccc";
-						ctx3.fillRect(0, (i * 9), 80, 9);
-						ctx3.fillStyle = "#000";
-						ctx3.textAlign = "left";
-						ctx3.font = "8px Arial";
-						ctx3.fillText(fgjhjh[i], 2, (i * 9) + 8);
-					}
-					ctx3.restore();
-					ctx2.drawImage(hfggf3, 260, 700 - 622);
-					ctx2.fillStyle = "#fff";
-					ctx2.textAlign = "center";
-					ctx2.font = "24px Arial";
-					ctx2.fillText(ggdf_loaded, 260 + (1000 / 2), (700 - 622) + 240);
-					ctx2.fillStyle = "#000";
-					ctx2.textAlign = "left";
-					ctx2.font = "18px Arial";
-					ctx2.fillText("Tracks: " + player.trackQueue.length + ' Type: ' + player.formatType + ' PPQN: ' + player.timeDivision + " " + (Math.round(((60000000 / player.timeDivision) / (player.tempo)) * 10) / 10) + "BPM notes: " + player.getNoteTracker() + "/" + player.getNoteLength() + " tempos: " + player.getTempoTracker() + "/" + player.getTempoLength() + " Voices: " + f6fhf, 260, 25);
-					ctx2.fillStyle = "#000";
-					ctx2.fillRect(260, (25 + 10), 1000, 18);
-					ctx2.fillStyle = "#0f0";
-					ctx2.fillRect(260, (25 + 10), (player.currentTime / player.duration) * 1000, 18);
-					ctx2.fillStyle = "#bbb";
-					ctx2.textAlign = "left";
-					ctx2.font = "12px Arial";
-					ctx2.fillText(f_ggg + " time: " + player.currentTime + " duration: " + player.duration, 262, (25 + 24));
-					if (resultR[0]) {
-						ctx2.textAlign = "left";
-						ctx2.font = "16px Arial";
-						var rr8 = "Pitch: " + resultR[1] + " Velocity: " + resultR[2] + " Channel: " + resultR[3];
-						var rrr = ctx2.measureText(rr8).width;
-						ctx2.fillStyle = "#000";
-						ctx2.fillRect(mousePoint[0], mousePoint[1] - 14, rrr, 16);
-						ctx2.fillStyle = "#bbb";
-						ctx2.fillText(rr8, mousePoint[0], mousePoint[1]);
-					}
-					if (resultT[0]) {
-						ctx2.fillStyle = "#bbb";
-						ctx2.textAlign = "left";
-						ctx2.font = "16px Arial";
-						if (resultT[3] === null) {
-							ctx2.fillText("Value: " + resultT[2] + " Channel: " + resultT[1], mousePoint[0], mousePoint[1]);
-						} else {
-							ctx2.fillText("Value: " + resultT[2] + " Control: " + resultT[3] + " Channel: " + resultT[1], mousePoint[0], mousePoint[1]);
-						}
-					}
-					var hhh = 0;
-					for (var i = 0; i < 16; i++) {
-						ctx2.fillStyle = channelColor[i];
-						dddhgkjh(ctx2, 0, i * 45, i, fghfhfbnvnv[i]);
-						hhh++;
-					}
-					for (var index = 0; index < fghfhfbnvnv.length; index++) {
-						fghfhfbnvnv[index] = 0;
-					}
-				}
-				fgdgdfg2.addEventListener('input', function() {
-					player.setVolume(fgdgdfg2.value / 100);
-				}, false);
-				yrtyryr6464.addEventListener('input', function() {
-					ss_isplaySpeed = yrtyryr6464.value;
-				}, false);
-				fgdgdfg.addEventListener('input', function() {
-					player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
-				}, false);
-				player.onended = function () {
-					player.setCurrentTime(0);
-					playstop.innerHTML = 'Play';
-				}
-				z_dir2 = setInterval(z_dir, 1000 / 60);
-				function loadMidiFile(file) {
-					var a = new FileReader();
-					a.onload = (function() {
-						fgdgdfg.value = 0;
-						cuer.innerHTML = getDuraction(0) + "/" + getDuraction(0);
-						playstop.innerHTML = 'Play';
-						setTimeout(function () {
-							player.loadMid(a.result);
-						}, 2);
-					}).bind(this);
-					a.readAsArrayBuffer(file);
-				}
-				var loadmidifile = document.getElementById('loadmidifile');
-				loadmidifile.onclick = function () {
-					var sa = document.createElement('input');
-					sa.type = 'file';
-					sa.accept = '.mid, .rmi, .midi';
-					sa.addEventListener('change', function (e) {
-						var file = e.target.files[0];
-						loadMidiFile(file);
-					}, false);
-					sa.click();
-				}
-				function dropHandler(ev) {
-					ev.preventDefault();
-					if (ev.dataTransfer.items) {
-						var item = ev.dataTransfer.items[0];
-						if (item) {
-							if (item.kind === 'file') {
-								var file = item.getAsFile();
-								loadMidiFile(file);
-							}
-						};
-					}
-				}
-				function dragOverHandler(ev) {
-					ev.preventDefault();
-				}
-				window.addEventListener("drop", dropHandler);
-				window.addEventListener("dragover", dragOverHandler);
-				playstop.onclick = function () {
-					if (player.isPaused) {
-						playstop.innerHTML = 'Pause';
-						player.play();
-					} else {
-						playstop.innerHTML = 'Play';
-						player.pause();
-					}
-				}	
-			}());
-		</script>
-	</body>
+			function projection(width, height) {
+			    return [
+			        2 / width, 0, 0,
+			        0, -2 / height, 0,
+			        -1, 1, 1,
+			    ];
+			}
+
+            var Shader = function(gl, program) {
+                this.gl = gl;
+                this.program = program;
+                this.uniformLocations = {};
+                this.attributeLocations = {};
+                var activeUniforms = gl.getProgramParameter(program, this.gl.ACTIVE_UNIFORMS);
+                for (var index = 0; index < activeUniforms; index++) {
+                    var info = gl.getActiveUniform(program, index);
+                    if (!info) {
+                        throw new Error('uniform at index ' + index + ' does not exist');
+                    }
+                    var name = info.name;
+                    var location = gl.getUniformLocation(program, name);
+                    if (!location) {
+                        throw new Error('uniform named ' + name + ' does not exist');
+                    }
+                    this.uniformLocations[name] = location;
+                }
+                var activeAttributes = gl.getProgramParameter(program, this.gl.ACTIVE_ATTRIBUTES);
+                for (var index = 0; index < activeAttributes; index++) {
+                    var info = gl.getActiveAttrib(program, index);
+                    if (!info) {
+                        throw new Error('attribute at index ' + index + ' does not exist');
+                    }
+                    this.attributeLocations[info.name] = gl.getAttribLocation(program, info.name);
+                }
+            }
+            Shader.prototype.uniform1f = function(name, value) {
+                var location = this.getUniform(name);
+                this.gl.uniform1f(location, value);
+            }
+            Shader.prototype.uniform2f = function(name, a, b) {
+                var location = this.getUniform(name);
+                this.gl.uniform2f(location, a, b);
+            }
+            Shader.prototype.uniform3f = function(name, a, b, c) {
+                var location = this.getUniform(name);
+                this.gl.uniform3f(location, a, b, c);
+            }
+            Shader.prototype.uniform4f = function(name, a, b, c, d) {
+                var location = this.getUniform(name);
+                this.gl.uniform4f(location, a, b, c, d);
+            }
+            Shader.prototype.uniformMatrix3 = function(name, value) {
+                var location = this.getUniform(name);
+                this.gl.uniformMatrix3fv(location, false, value);
+            }
+            Shader.prototype.hasUniform = function(name) {
+                return this.uniformLocations.hasOwnProperty(name);
+            }
+            Shader.prototype.getUniform = function(name) {
+                if (!this.hasUniform(name)) {
+                    throw new Error('uniform of name ' + name + ' does not exist');
+                }
+                return this.uniformLocations[name];
+            }
+            Shader.prototype.attributeBuffer = function(name, value) {
+                if (!this.hasAttribute(name)) {
+                    throw new Error('attribute of name ' + name + ' does not exist');
+                }
+                var location = this.attributeLocations[name];
+                this.gl.enableVertexAttribArray(location);
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, value);
+                this.gl.vertexAttribPointer(location, 2, this.gl.FLOAT, false, 0, 0);
+            }
+            Shader.prototype.hasAttribute = function(name) {
+                return this.attributeLocations.hasOwnProperty(name);
+            }
+            Shader.prototype.getAttribute = function(name) {
+                if (!this.hasAttribute(name)) {
+                    throw new Error('attribute of name ' + name + ' does not exist');
+                }
+                return this.attributeLocations[name];
+            }
+
+			var RenderWebGL = function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = 600;
+                canvas.height = RENDERER_HEIGHT | 0;
+
+                var gl = canvas.getContext('webgl', {
+                    alpha: true
+                });
+                
+                this.canvas = canvas;
+                this.gl = gl;
+
+                this.r = 1;
+                this.g = 1;
+                this.b = 1;
+                this.a = 1;
+
+                this.scale = 1;
+
+                this.shaderColorLine = this.createShader(vs2, fs2);
+                
+                gl.enable(gl.BLEND);
+                gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+                this.penLines = new Float32Array(32768);
+                this.penLinesIndex = 0;
+
+                this.penColors = new Float32Array(65536);
+                this.penColorsIndex = 0;
+
+                this.lineBuffer = gl.createBuffer();
+                this.colorBuffer = gl.createBuffer();
+
+                this.name = "WebGL";
+            }
+            RenderWebGL.prototype.rescale = function(scale) {
+                this.scale = scale;
+                this.canvas.width = (600 * scale) | 0;
+                this.canvas.height = (RENDERER_HEIGHT * scale) | 0;
+            }
+            RenderWebGL.prototype.createShader = function(vs, fs, definitions) {
+                var program = this.compileProgram(vs, fs, definitions);
+                return new Shader(this.gl, program);
+            }
+            RenderWebGL.prototype.compileProgram = function(vs, fs, definitions) {
+                var vertexShader = this.compileShader(this.gl.VERTEX_SHADER, vs, definitions);
+                var fragmentShader = this.compileShader(this.gl.FRAGMENT_SHADER, fs, definitions);
+                var program = this.gl.createProgram();
+                if (!program) {
+                    throw new Error('Cannot create program');
+                }
+                this.gl.attachShader(program, vertexShader);
+                this.gl.attachShader(program, fragmentShader);
+                this.gl.linkProgram(program);
+                if (!this.gl.getProgramParameter(program, this.gl.LINK_STATUS)) {
+                    var error = this.gl.getProgramInfoLog(program);
+                    this.gl.deleteProgram(program);
+                    throw new Error('Program compilation error: ' + error);
+                }
+                return program;
+            }
+            RenderWebGL.prototype.compileShader = function(type, source, definitions) {
+                if (definitions) {
+                    for (var def of definitions) {
+                        source = '#define ' + def + '\n' + source;
+                    }
+                }
+                var shader = this.gl.createShader(type);
+                if (!shader) {
+                    throw new Error('Cannot create shader');
+                }
+                this.gl.shaderSource(shader, source);
+                this.gl.compileShader(shader);
+                if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
+                    var error = this.gl.getShaderInfoLog(shader);
+                    this.gl.deleteShader(shader);
+                    throw new Error('Shader compilation error: ' + error);
+                }
+                return shader;
+            }
+            RenderWebGL.prototype.useShader = function(shader) {
+                if (this.currentShader !== shader) {
+                    this.gl.useProgram(shader.program);
+                    this.currentShader = shader;
+                }
+            }
+            RenderWebGL.prototype.setColor = function(r, g, b, a) {
+                this.r = r / 255;
+                this.g = g / 255;
+                this.b = b / 255;
+                this.a = a;
+            }
+            RenderWebGL.prototype.clear = function() {
+                this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+                this.gl.clearColor(0, 0, 0, 0);
+                this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+            }
+            RenderWebGL.prototype.buffersCanFit = function() {
+                return (this.penLinesIndex) > (this.penLines.length / 2);
+            }
+            RenderWebGL.prototype.drawPendingOperations = function() {
+                this.useShader(this.shaderColorLine);
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.lineBuffer);
+                this.gl.bufferData(this.gl.ARRAY_BUFFER, this.penLines, this.gl.STREAM_DRAW);
+                this.gl.vertexAttribPointer(this.currentShader.getAttribute("position"), 2, this.gl.FLOAT, false, 0, 0);
+                this.gl.enableVertexAttribArray(this.currentShader.getAttribute("position"));
+                this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.colorBuffer);
+                this.gl.bufferData(this.gl.ARRAY_BUFFER, this.penColors, this.gl.STREAM_DRAW);
+                this.gl.vertexAttribPointer(this.currentShader.getAttribute("color"), 4, this.gl.FLOAT, false, 0, 0);
+                this.gl.enableVertexAttribArray(this.currentShader.getAttribute("color"));
+                var matrix = projection(this.canvas.width, this.canvas.height);
+                this.currentShader.uniformMatrix3("view_matrix", matrix);
+                this.gl.drawArrays(this.gl.TRIANGLES, 0, (this.penLinesIndex / 2));
+                this.penLinesIndex = 0;
+                this.penColorsIndex = 0;
+            }
+            RenderWebGL.prototype.drawRect = function(x, y, w, h, typeColor) {
+                if (this.buffersCanFit()) this.drawPendingOperations();
+                var r = this.penLines, s = this.penLinesIndex, t = this.penColors, u = this.penColorsIndex;
+                var scale = this.scale;
+                r[s++] = x * scale;
+                r[s++] = y * scale;
+                r[s++] = (x + w) * scale;
+                r[s++] = y * scale;
+                r[s++] = (x + w) * scale;
+                r[s++] = (y + h) * scale;
+                r[s++] = x * scale;
+                r[s++] = y * scale;
+                r[s++] = x * scale;
+                r[s++] = (y + h) * scale;
+                r[s++] = (x + w) * scale;
+                r[s++] = (y + h) * scale;
+                var r = this.r;
+                var g = this.g;
+                var b = this.b;
+                var a = this.a;
+                for (var i = 0; i < 6; i++) {
+                    t[u++] = r;
+                    t[u++] = g;
+                    t[u++] = b;
+                    t[u++] = a;
+                };
+                this.penLinesIndex = s;
+                this.penColorsIndex = u;
+            }
+            RenderWebGL.prototype.flush = function() {
+                if (this.penLinesIndex > 0) {
+                    this.drawPendingOperations();
+                }
+            }
+
+			var player = new AnimTredInstruments.Player();
+
+            var bdfgdgd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			
+			var trackRender = [];
+
+            var renderer;
+            try {
+                renderer = new RenderWebGL();
+            } catch (e) {
+                renderer = new RenderCanvas2d();
+            }
+
+            var oaG = document.createElement("div");
+
+            oaG.classList.add("gdgdfgd");
+            
+            var playerArea = document.getElementById("playerArea");
+
+            var scene = renderer.canvas;
+
+            scene.onclick = function() {
+                if (player.isPaused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            }
+
+            playerArea.appendChild(scene);
+            playerArea.appendChild(oaG);
+
+            renderer.rescale(2);
+
+			var ss_isplaySpeed = 100;
+
+            function fsToUcolor(str) {
+                var r = Number("0x" + str.slice(1, 3));
+                var g = Number("0x" + str.slice(3, 5));
+                var b = Number("0x" + str.slice(5, 7));
+                return [r, g, b, 1]
+            }
+
+            var channelColor = [
+                fsToUcolor("#2f5fed"), // 0
+                fsToUcolor("#ed752f"), // 1
+                fsToUcolor("#2fed5f"), // 2
+                fsToUcolor("#ed2f78"), // 3
+                fsToUcolor("#31f7f7"), // 4
+                fsToUcolor("#dd31f7"), // 5
+                fsToUcolor("#94f731"), // 6
+                fsToUcolor("#4931f7"), // 7
+                fsToUcolor("#f7c631"), // 8
+                fsToUcolor("#31aef7"), // 9
+                fsToUcolor("#f73131"), // 10
+                fsToUcolor("#31f7ab"), // 11
+                fsToUcolor("#f731c6"), // 12
+                fsToUcolor("#4cf731"), // 13
+                fsToUcolor("#9431f7"), // 14
+                fsToUcolor("#e2fa32"), // 15
+            ];
+
+            var channelColor2 = [];
+            var channelColor4 = [];
+            for (var i = 0; i < channelColor.length; i++) {
+                var color = channelColor[i];
+                channelColor2.push([(color[0] / 2) | 0, (color[1] / 2) | 0, (color[2] / 2) | 0, 1]);
+                channelColor4.push([(color[0] / 1.5) | 0, (color[1] / 1.5) | 0, (color[2] / 1.5) | 0, 1]);
+            }
+
+			var yrtyryr6464 = document.getElementById('yrtyryr6464');
+            
+            var Adfgdgfd = "01010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010";
+            var xpiano = [];
+            var g = 0;
+            for (var i = 0; i < Adfgdgfd.length; i++) {
+                if (Adfgdgfd[i] == "1") {
+                    g += 0;
+                    xpiano.push(g + 1);
+                } else {
+                    g++;
+                    xpiano.push(g);
+                }
+            }
+            var notesG = [];
+            for (var i = 0; i < Adfgdgfd.length; i++) {
+                if (Adfgdgfd[i] == "0") {
+                    notesG.push([1, ((xpiano[i] - 1) * 8), 0, 7, 40, i]);
+                }
+                if (Adfgdgfd[i] == "1") {
+                    notesG.push([0, (((xpiano[i] - 1) * 8) - 3), 0, 5, 25, i]);
+                }
+            }
+
+            var dColor = [0, 0, 0, 1];
+
+            var modeF = false;
+
+            var minHH = 0;
+
+            function __resize_() {
+                var iw = window.innerWidth;
+                var ih = window.innerHeight - minHH;
+                var w = 600;
+                var h = RENDERER_HEIGHT;
+                if (modeF && ((iw >= w) && (ih >= h))) {
+                    playerArea.style.left = (((iw / 2) - (w / 2)) | 0) + "px";
+                    playerArea.style.top = ((((ih / 2) - (h / 2)) | 0) + minHH) + "px";
+                } else {
+                    var sca = 1;
+                    var fa = false;
+                    if ((ih / h) > (iw / w)) {
+                        sca = iw / w;
+                        fa = true;
+                    } else {
+                        sca = ih / h;
+                        fa = false;
+                    }
+                    var ww = w * sca;
+                    var hh = h * sca;
+                    renderer.rescale(sca);
+                    if (fa) {
+                        playerArea.style.left = 0 + "px";
+                        playerArea.style.top = ((((ih - hh)) / 2) + minHH) + "px";
+                    } else {
+                        playerArea.style.left = (((iw - ww)) / 2) + "px";
+                        playerArea.style.top = minHH + "px";
+                    }
+                }
+            }
+
+            window.onresize = function() {
+                __resize_(600, RENDERER_HEIGHT);
+            }
+            
+            __resize_(600, RENDERER_HEIGHT);
+
+            function mod(x, y) {
+                var r = x % y;
+                if (r / y < 0) 
+                    r += y;
+                return r; 
+            };
+            function getDuraction(num) {
+                var txt = '';
+                if (Math.floor(num) >= 3600) {
+                    txt += '' + Math.floor(num / 3600);
+                    txt += ':';
+                    if (mod(Math.floor(num / 60), 60) >= 10) {
+                        txt += '' + mod(Math.floor(num / 60), 60);
+                    } else {
+                        txt += '0' + mod(Math.floor(num / 60), 60);
+                    }
+                    txt += ':';
+                    if (mod(Math.floor(num), 60) >= 10) {
+                        txt += '' + mod(Math.floor(num), 60);
+                    } else {
+                        txt += '0' + mod(Math.floor(num), 60);
+                    }
+                } else {
+                    txt += '' + mod(Math.floor(num / 60), 60);
+                    txt += ':';
+                    if (mod(Math.floor(num), 60) >= 10) {
+                        txt += '' + mod(Math.floor(num), 60);
+                    } else {
+                        txt += '0' + mod(Math.floor(num), 60);
+                    }
+                }
+                return txt;
+            }
+
+            var tempos = [[0, 0, 0.001]];
+            var tempoIdx = 1;
+
+            var bdfgdgd = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                
+            var noteChannelColor = [channelColor4, channelColor];
+
+            function renderNotes(typ) {
+                var fx, fw, fh, fy, color;
+                for (var trackID = 0; trackID < player.trackQueue.length; trackID++) {
+                    var _oti = tempoIdx;
+                    var TINEd = 0;
+                    var tracksRender = trackRender[trackID];
+                    var track = player.trackQueue[trackID];
+                    var noteQueue = track.noteQueue;
+                    if (noteQueue.tickOn.length > 0) {
+                        while (tracksRender.indexRe < noteQueue.tickOn.length && player.currentPulse >= noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe++;
+                        tracksRender.indexRe--;
+                        while (tracksRender.indexRe >= 0 && player.currentPulse < noteQueue.tickOff[tracksRender.indexRe]) tracksRender.indexRe--;
+                        tracksRender.indexRe++;
+                        for (var id = tracksRender.indexRe; id < noteQueue.tickOn.length; id++) {
+                            var noteOn = noteQueue.tickOn[id];
+                            var noteOff = noteQueue.tickOff[id];
+                            while(true) {
+                                var tt = tempos[_oti - 1];
+                                TINEd = tt[1] + ((noteOn - tt[0]) * tt[2]);
+                                if ((_oti < tempos.length) && !(TINEd < tempos[_oti][1])) {
+                                    _oti++;
+                                } else {
+                                    break;
+                                }
+                            }
+                            TINEd -= player.currentTime;
+                            var note = notesG[noteQueue.pitch[id]];
+                            var _nt = note[0];
+                            if (_nt == typ) {
+                                var _tic = _oti;
+                                var durH = 0;
+                                var pfc = noteOn;
+                                var prfc = noteOff - noteOn;
+                                var tempo = tempos[_tic - 1][2];
+                                while(prfc > 0) {
+                                    var tt = tempos[_tic];
+                                    if ((_tic < tempos.length) && ((pfc + prfc) > tt[0])) {
+                                        durH += (tt[0] - pfc) * tempo;
+                                        prfc += (pfc - tt[0]);
+                                        pfc = tt[0];
+                                        tempo = tt[2];
+                                        _tic++;
+                                    } else {
+                                        durH += prfc * tempo;
+                                        prfc = 0;
+                                    }
+                                }
+                                var channel = noteQueue.channel[id];
+                                if ((TINEd + durH) > 0) {
+                                    if (TINEd < 0) 
+                                        bdfgdgd[noteQueue.pitch[id]] = noteChannelColor[_nt][channel];
+                                    if (_nt == 1) {
+                                        color = channelColor2[channel];
+                                        fx = note[1] - 0.5;
+                                        fw = note[3] + 1;
+                                        fh = durH * ss_isplaySpeed;
+                                        fy = (RENDERER_HEIGHT - 40) - fh - (TINEd * ss_isplaySpeed);
+                                        renderer.setColor(color[0], color[1], color[2], 1);
+                                        renderer.drawRect(fx, fy, fw, fh, 0);
+                                        fh -= 2;
+                                        fy += 1;
+                                        if (fh > 0) {
+                                            fx += 1;
+                                            fw -= 2;
+                                            color = channelColor[channel];
+                                            renderer.setColor(color[0], color[1], color[2], 1);
+                                            renderer.drawRect(fx, fy, fw, fh, 0);    
+                                        }
+                                    } else {
+                                        color = channelColor2[channel];
+                                        fx = note[1];
+                                        fw = note[3];
+                                        fh = (durH * ss_isplaySpeed);
+                                        fy = (RENDERER_HEIGHT - 40) - fh - (TINEd * ss_isplaySpeed);
+                                        renderer.setColor(color[0], color[1], color[2], 1);
+                                        renderer.drawRect(fx, fy, fw, fh, 0);
+                                        fh -= 2;
+                                        fy += 1;
+                                        if (fh > 0) {
+                                            fx += 1;
+                                            fw -= 2;
+                                            color = channelColor4[channel];
+                                            renderer.setColor(color[0], color[1], color[2], 1);
+                                            renderer.drawRect(fx, fy, fw, fh, 0);    
+                                        }
+                                    }    
+                                }
+                            }
+                            if (40 + (TINEd * ss_isplaySpeed) > RENDERER_HEIGHT) break;
+                        }
+                    }
+                }
+            }
+
+			var cuer = document.getElementById('cuer');
+            
+
+            function render() {
+                fgdgdfg.value = (player.currentTime / player.duration) * 100000;
+                var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration));
+                if (f_ggg !== cuer.innerHTML) cuer.innerHTML = f_ggg;
+                for (var index = 0; index < bdfgdgd.length; index++) 
+                    bdfgdgd[index] = null;
+                var _cp = player.currentPulse;
+                while((tempoIdx < tempos.length) && (_cp >= tempos[tempoIdx][0])) {
+                    tempoIdx++;
+                }
+                tempoIdx--;
+                while((tempoIdx >= 0) && (_cp < tempos[tempoIdx][0])) {
+                    tempoIdx--;
+                }
+                tempoIdx++;
+                renderer.clear();
+                renderer.setColor(32, 32, 32, 1);
+                renderer.drawRect(0, 0, 600, RENDERER_HEIGHT, 3);
+                renderer.setColor(16, 16, 16, 1);
+                for (var i = 0; i < notesG.length; i++) {
+                    var note = notesG[i];
+                    if (note[0] == 0)
+                        renderer.drawRect(note[1], 0, note[3], RENDERER_HEIGHT, 2);
+                }
+                renderNotes(1);
+                renderNotes(0);
+                renderer.setColor(64, 64, 64, 1);
+                renderer.drawRect(0, RENDERER_HEIGHT - 40, 600, 40);
+                var polyphon = 0;
+                for (var i = 0; i < notesG.length; i++) {
+                    var note = notesG[i];
+                    if (note[0] == 1) {
+                        var color = bdfgdgd[i];
+                        if (color) {
+                            renderer.setColor(color[0], color[1], color[2], 1);
+                            polyphon++;
+                        } else {
+                            renderer.setColor(255, 255, 255, 1);
+                        }
+                        renderer.drawRect(note[1], note[2] + RENDERER_HEIGHT - 40, note[3], note[4], note[0]);
+                    }
+                }
+                for (var i = 0; i < notesG.length; i++) {
+                    var note = notesG[i];
+                    if (note[0] == 0) {
+                        var color = bdfgdgd[i];
+                        if (color) {
+                            renderer.setColor(color[0], color[1], color[2], 1);
+                            polyphon++;
+                        } else {
+                            renderer.setColor(0, 0, 0, 1);
+                        }
+                        renderer.drawRect(note[1], note[2] + RENDERER_HEIGHT - 40, note[3], note[4], note[0]);
+                    }
+                }
+                renderer.flush();    
+                var __gfd = "Time: " + getDuraction(player.currentTime) + " / " + getDuraction(Math.ceil(player.duration));
+                __gfd += "<br>" + "Notes: " + player.getNoteTracker() + " / " + player.getNoteLength();
+                __gfd += "<br>" + "Tempos: " + player.getTempoTracker() + " / " + player.getTempoLength();
+                __gfd += "<br>" + "Polyphony: " + polyphon;
+                __gfd += "<br>" + "Renderer: " + renderer.name;
+                oaG.innerHTML = __gfd;
+            }
+
+            var fgdgdfg = document.getElementById("yrtyryry");
+            fgdgdfg.addEventListener('input', function() {
+                player.setCurrentTime(player.duration * (fgdgdfg.value / 100000));
+            }, false);
+
+			var fgdgdfg2 = document.getElementById("yrtyryry2");
+            
+            fgdgdfg2.addEventListener('input', function() {
+                player.setVolume(fgdgdfg2.value / 100);
+            }, false);
+
+            yrtyryr6464.addEventListener('input', function() {
+                ss_isplaySpeed = +yrtyryr6464.value;
+            }, false);
+
+            function genTempos() {
+                var duration = 0;
+                var _pulseCounterLength = 0;
+                var _tracks = [];
+                for (var i = 0; i < player.trackQueue.length; i++) {
+                    var len = player.trackQueue[i].pulseCounterLength;
+                    if (len > _pulseCounterLength) 
+                        _pulseCounterLength = len;
+                    _tracks.push({
+                        tempoIdx: 0
+                    });
+                }
+                var tempoTick = 0;
+                var tempo = 500000 / player.timeDivision;
+                var result = [[0, 0, tempo / 1000000]];
+                while (true) {
+                    var resTT = null;
+                    var resTrack = null;
+                    var resValue = null;
+                    for (var i = 0; i < player.trackQueue.length; i++) {
+                        var _track = _tracks[i];
+                        var _tempoQueue = player.trackQueue[i].tempoQueue;
+                        if (_track.tempoIdx < _tempoQueue.tick.length) {
+                            var tt = Math.min(Math.max(_tempoQueue.tick[_track.tempoIdx], tempoTick), _pulseCounterLength);
+                            if (resTT == null || tt < resTT) {
+                                resValue = _tempoQueue.setting[_track.tempoIdx];
+                                resTT = tt;
+                                resTrack = i;
+                            }
+                        }
+                    }
+                    if (resTrack != null) {
+                        duration += (resTT - tempoTick) * tempo;
+                        tempoTick = resTT;
+                        tempo = resValue / player.timeDivision;
+                        result.push([tempoTick, duration / 1000000, tempo / 1000000]);
+                        _tracks[resTrack].tempoIdx++;
+                    } else {
+                        break;
+                    }
+                }
+                return result;
+            }
+        
+            player.onload = function () {
+                trackRender = [];
+                for (var i = 0; i < player.trackQueue.length; i++) {
+                    var track = player.trackQueue[i];
+                    trackRender.push({
+                        indexRe: 0,
+                        tes: [0,0,0,0,0,0,0,0,0,0,0]
+                    });
+                }
+                tempos = genTempos();
+                tempoIdx = 1;
+                player.loadSoundbank(function(e) {
+                    player.play();
+                });
+            }
+
+            setInterval(render, 10);
+
+            function loadMidiFile(file) {
+                var a = new FileReader();
+                a.onload = (function() {
+                    player.loadMid(a.result);
+                }).bind(this);
+                a.readAsArrayBuffer(file);
+            }
+
+            function dropHandler(ev) {
+                ev.preventDefault();
+                if (ev.dataTransfer.items) {
+                    var item = ev.dataTransfer.items[0];
+                    if (item) {
+                        if (item.kind === 'file') {
+                            var file = item.getAsFile();
+                            loadMidiFile(file);
+                        }
+                    };
+                }
+            }
+            function dragOverHandler(ev) {
+                ev.preventDefault();
+            }
+            window.addEventListener("drop", dropHandler);
+            window.addEventListener("dragover", dragOverHandler);
+
+            var loadmidifile = document.getElementById('loadmidifile');
+            loadmidifile.onclick = function () {
+                var sa = document.createElement('input');
+                sa.type = 'file';
+                sa.accept = '.mid, .rmi, .midi';
+                sa.addEventListener('change', function (e) {
+                    var file = e.target.files[0];
+                    loadMidiFile(file);
+                }, false);
+                sa.click();
+            }
+
+        </script>
+    </body>
 </html>

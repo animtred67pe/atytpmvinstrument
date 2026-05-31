@@ -67,7 +67,7 @@
 				<label id="cuer46"></label>
 				<br>
 				<div id="viewe555" title="">
-					<label id="cuer44">YTPMV Cartoon Instruments</label>
+					<label id="cuer44">YTPMV Cartoon Midi</label>
 					<br>
 					<label id="cuer">Support RMI,MID,MIDI</label>
 				</div>
@@ -87,6 +87,7 @@
 				<a href="test.html">Instruments</a>
 				<a href="midi_list.html">Midi Playlist</a>
 				<a href="blackmidi.html">Black midi</a>
+				<a href="notesview.html">Notes View</a>
 				<a href="visualisation.html">Midi Visualisation</a>
 				<a href="player.html">Midi Player</a>
 				<a href="about.html">About</a>
@@ -115,36 +116,21 @@
 				var z_dir3_3 = false;
 				var mid_name = "";
 
-				function mod(x, y) {
-					var r = x % y;
-					if (r / y < 0) 
-						r += y;
-					return r; 
-				};
 				function getDuraction(num) {
-					var txt = '';
+					var txt = "";
 					if (Math.floor(num) >= 3600) {
-						txt += '' + Math.floor(num / 3600);
-						txt += ':';
-						if (mod(Math.floor(num / 60), 60) >= 10) {
-							txt += '' + mod(Math.floor(num / 60), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num / 60), 60);
+						txt += Math.floor(num / 3600);
+						txt += ":";
+						if ((Math.floor(num / 60) % 60) < 10) {
+							txt += "0";
 						}
-						txt += ':';
-						if (mod(Math.floor(num), 60) >= 10) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
+					}
+					txt += Math.floor(num / 60) % 60;
+					txt += ":";
+					if ((Math.floor(num) % 60) >= 10) {
+						txt += Math.floor(num) % 60;
 					} else {
-						txt += '' + mod(Math.floor(num / 60), 60);
-						txt += ':';
-						if (mod(Math.floor(num), 60) >= 10) {
-							txt += '' + mod(Math.floor(num), 60);
-						} else {
-							txt += '0' + mod(Math.floor(num), 60);
-						}
+						txt += "0" + Math.floor(num) % 60;
 					}
 					return txt;
 				}
@@ -200,7 +186,7 @@
 						for (var i = 0; i < rchannel.length; i++) {
 							var rch = rchannel[i];
 							if (rch) {
-								if (player.currentPulse >= rch.tickOn && player.currentPulse < rch.tickOff) {
+								if ((player.currentPulse >= rch.tickOn && player.currentPulse < rch.tickOff) || rch.sustain) {
 									f6fhf++;
 									fgdlll[rch._pitch] = channelColor[rch.channel];
 								}

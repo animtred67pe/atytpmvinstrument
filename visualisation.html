@@ -217,7 +217,7 @@
 							this.graphicEqualizers.push({
 								pitch: e.pitch,
 								volume: e.volume,
-								d: e.dur + 0.2,
+								d: e.beats + 0.2,
 								s: this.mse.currentTime,
 								b: 0,
 								c: 0,
@@ -229,7 +229,7 @@
 						this.circles.push({
 							color: this.channelColor[e.channel],
 							volume: e.volume,
-							d: Math.max(0.3, e.dur) * 30,
+							d: Math.max(0.3, e.beats) * 30,
 							b: 0,
 							c: this._counter,
 							x: 0,
