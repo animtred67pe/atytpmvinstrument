@@ -1,9 +1,6 @@
 /*
- * YTPMV Cartoon Midi v1.4.0
- * 
- * The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
- * 
- * soundbank size 1.9 MB
+ * YTPMV Cartoon Midi v1.4.1
+ * soundbank size 1.86 MB
  */
 
 var AnimTredInstruments = (function() {
@@ -120,7 +117,7 @@ var AnimTredInstruments = (function() {
       "saxophone": [[60, "Saxophone", null, [0.44307, 1.92369]]],
       "clarinet": [[60, "Clarinet", null, [0.27574, 0.29464]]],
       "bassoon": [[36, "Bassoon_C1", null, [0.084, 0.16]], [48, "Bassoon_C2", null, [0.08, 0.325]], [60, "Bassoon_C3", null, [0.067, 0.339]]],
-      "flute": [[60, "Flute", null, [1.85452, 4.09411]]],
+      "flute": [[86, "Flute", null, [0.05069, 0.07277]]],
       "wooden flute": [[60, "WoodenFlute", null, [1.16056, 1.2029]]],
       "whistle": [[60, "Whistle", null, [1.13851, 1.35201]]],
       "synth lead": [[48, "SynthLead_C3", 0.1, [0.1, 1.5]], [60, "SynthLead_C4", 0.1, [0.1, 1.5]], [72, "SynthLead_C5", 0.1, [0.1, 1.5]], [84, "SynthLead_C6", 0.1, [0.1, 1.5]]],
@@ -150,7 +147,7 @@ var AnimTredInstruments = (function() {
       "bass", "bass", "bass", "bass",
       "violin", "violin", "cello", "cello",
       "tremolo-string-1", "pizzicato", "bass", "timpani",
-      "tremolo-string-1", "tremolo-string-2", "tremolo-string-1", "tremolo-string-1",
+      "tremolo-string-1", "tremolo-string-2", "tremolo-string-2", "tremolo-string-2",
       "choir", "choir", "synth-voice", "orchestra hit",
       "trumpet", "trumpet", "trumpet", "trumpet",
       "trumbone", "trumpet", "trumpet", "trumpet",
@@ -400,7 +397,7 @@ var AnimTredInstruments = (function() {
       "SynthPad": "instruments/mlp-s1e13-fim-40.wav"
     },
     "Friendship is Musical | Season 5 (First Half)": {
-      "Flute": "instruments/mlp-s5-117.wav"
+      "Flute": "instruments/mlp-flute.wav"
     },
     "Friendship is Musical | Season 3": {
       "Pizzicato": "instruments/mlp-s3-scootaloo-168.wav",
@@ -1482,7 +1479,7 @@ var AnimTredInstruments = (function() {
       if (!span) return;
       var buffer = this._soundbank[span[0]];
       if (!buffer) return;
-      var isStart = (tickOff - tickOn) > 0;
+      var isStart = ((tickOff - tickOn) > 0) || this._getSustainPedalChannel(channel);
       var te = {
         _pitch: pitch,
         _volume: volume,
@@ -1510,7 +1507,7 @@ var AnimTredInstruments = (function() {
       var buffer = this._soundbank[span[1]];
       if (!buffer) return;
       var _pitch = pitch - span[0];
-      var isStart = (tickOff - tickOn) > 0;
+      var isStart = ((tickOff - tickOn) > 0) || this._getSustainPedalChannel(channel);
       var releaseDuration = span[2];
       if (releaseDuration == null || !isStart) 
         releaseDuration = 0;
@@ -1569,7 +1566,7 @@ var AnimTredInstruments = (function() {
         var _pitch = note.pitch + this._getPitch(note.channel);
         if (source) source.playbackRate.value = Math.pow(2, _pitch / 12);
         var volumeEffect = Math.min(_volume * this._getVolumeChannel(note.channel), 1.27);
-        var volumeOld = (Math.pow(5, volumeEffect) - 1.0) / 4; // Normal
+        var volumeOld = (Math.pow(5, volumeEffect) - 1) / 4; // Normal
         if (node) node.gain.value = volumeOld * note.releaseGainVolume;
       } else {
         if (source) source.playbackRate.value = Math.pow(2, note.pitch / 12);
@@ -2092,6 +2089,6 @@ var AnimTredInstruments = (function() {
     INSTRUMENT_INFO: INSTRUMENT_INFO,
     SOUNDBANKS: SOUNDBANKS,
     formats: ["mid", "rmi", "midi"],
-    version: "v1.4.0"
+    version: "v1.4.1"
   }
 }());
