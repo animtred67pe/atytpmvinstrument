@@ -1,5 +1,5 @@
 /*
- * YTPMV Cartoon Midi v1.4.1
+ * YTPMV Cartoon Midi v1.5.0
  * soundbank size 1.86 MB
  */
 
@@ -110,7 +110,7 @@ var AnimTredInstruments = (function() {
       "timpani": [[60, "Timpani", 0.25, null]],
       "choir": [[60, "Choir", 0.1, [0.386, 0.654]]],
       "voice-oohs": [[69, "VoiceOohs", 0.1, [0.08424, 0.08651]]],
-      "synth-voice": [[60, "SynthVoice", 0.1, [0.18401, 0.1879]]],
+      "synth-voice": [[59.8, "SynthVoice", 0.1, [0.18401, 0.1879]]],
       "orchestra hit": [[60, "OrchestraHit", 0.25, null]],
       "trumpet": [[60, "Trumpet", null, [0.236, 0.278]]],
       "trumbone": [[60, "Trumbone", null, [1.60053, 1.635]]],
@@ -443,6 +443,63 @@ var AnimTredInstruments = (function() {
     "Peppa Pig Makes Music Instrument with Marbles | Peppa Pig Official Family Kids Cartoon": {
       "WoodenFlute": "instruments/peppa-pig-mmiwm-144.wav",
       "Conga": "drums/peppa-pig-mmiwm-64.wav"
+    }
+  }
+  var SoundbankLoader = function(needfiles) {
+    this.url = "ytpmv_cartoon_soundbank.dat";
+    this.progressSoundbank = false;
+    this.needfiles = needfiles;
+    this.result = null;
+    this.requests = [];
+  }
+  SoundbankLoader.prototype.loadSoundbanks = function() {
+    var _this = this;
+    this.progressSoundbank = true;
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var g = new WavReader(new Uint8Array(xhr.response));
+      var result = {};
+      var len = g.readInt();
+      while(len--) {
+        var slen = g.readInt();
+        var sf = g.readString(slen);
+        var dlen = g.readInt();
+        result[sf] = g.readSub(dlen);
+      }
+      _this.result = result;
+      _this.callback(); 
+    };
+    xhr.responseType = "arraybuffer";
+    xhr.open("GET", this.url);
+    xhr.send();
+  }
+  SoundbankLoader.prototype.callback = function() {
+    if (this.result) {
+      for (var i = 0; i < this.requests.length; i++) {
+        var r = this.requests[i];
+        var data = this.result[r[0]];
+        var buffer = data.buffer.slice(data.byteOffset, data.byteOffset + data.length);
+        r[1](buffer);
+      }
+      this.requests = [];  
+    }
+  }
+  SoundbankLoader.prototype.loadFile = function(name, callback) {
+    if (this.needfiles) {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        callback(xhr.response);
+      };
+      xhr.responseType = "arraybuffer";
+      xhr.open("GET", "soundbank/" + name);
+      xhr.send();
+    } else {
+      this.requests.push([name, callback]);
+      if (this.progressSoundbank) {
+        this.callback();
+      } else {
+        this.loadSoundbanks();
+      }
     }
   }
   var WavReader = function(data) {
@@ -788,8 +845,8 @@ var AnimTredInstruments = (function() {
               var dat = [];
               for (var i = 0; i < ii; i++) dat.push(_data[index++]);
               systemExclusive.tick.push(pulseCounter);
-              systemExclusive.data.push(dat);
               systemExclusive.fx.push(event - 240);
+              systemExclusive.data.push(new Uint8Array(dat));
             } else {
               if (event > 127) {
                 midiChannel = event % 16;
@@ -990,17 +1047,18 @@ var AnimTredInstruments = (function() {
       pulseCounterLength: this.pulseCounterLength
     };
   }
-  Track.prototype.reset = function(resetNotes) {
+  Track.prototype.reset = function() {
     this.tempoTracker = 0;
     this.textIndex = 0;
     this.programIndex = 0;
     this.controllerIndex = 0;
     this.pitchBendIndex = 0;
+    this.sysExIndex = 0;
   }
   Track.prototype.resetNotes = function() {
     this.noteIndex = 0;
   }
-  Track.prototype.getNote = function(_currentPulse, mute, k) {
+  Track.prototype.getNote = function(_currentPulse, k) {
     var tickOn = this.noteQueue.tickOn;
     var len = tickOn.length;
     if (len > 0) {
@@ -1008,7 +1066,7 @@ var AnimTredInstruments = (function() {
       var startIndex = this.noteIndex;
       var endIndex = this.noteIndex;
       while (this.noteIndex < len && _currentPulse >= tickOn[this.noteIndex]) {
-        if (!mute && count) {
+        if (count) {
           count--;
           endIndex++;
         }
@@ -1023,6 +1081,59 @@ var AnimTredInstruments = (function() {
       return null;
     }
   }
+  var Channel = function() {
+    this.patch = 0;
+    this.volume = 0;
+    this.expression = 0;
+    this.panning = 0;
+    this.vibrato = 0;
+    this.sustain = false;
+    this.bend = 0;
+    this.bendsense = 0;
+    this.bendsense_lsb = 0;
+    this.bendsense_msb = 0;
+    this.lastlrpn = 0;
+    this.lastmrpn = 0;
+    this.nrpn = false;
+    this.reset();
+  }
+  Channel.prototype.reset = function() {
+    this.resetAllControllers();
+    this.patch = 0;
+    this.lastmrpn = 127;
+    this.lastlrpn = 127;
+    this.nrpn = false;
+  }
+  Channel.prototype.resetAllControllers = function() {
+    this.volume = 100;
+    this.panning = 64;
+    this.resetAllControllers121();
+  }
+  Channel.prototype.resetAllControllers121 = function() {
+    this.bend = 0;
+    this.bendsense_msb = 2;
+    this.bendsense_lsb = 0;
+    this.updateBendSensitivity();
+    this.expression = 127;
+    this.sustain = false;
+    this.vibrato = 0;
+  }
+  Channel.prototype.updateBendSensitivity = function() {
+    var cent = this.bendsense_msb * 128 + this.bendsense_lsb;
+    this.bendsense = cent * (1 / (128 * 8192));
+  }
+  var Pan = function(inputNode, leftGain, rightGain) {
+    this.inputNode = inputNode;
+    this.leftGain = leftGain;
+    this.rightGain = rightGain;
+  }
+  Pan.prototype.setPan = function(p1) {
+    var p = (p1 + 1) / 2;
+    var leftVal = Math.cos(p * Math.PI / 2) / 0.7071067690849304;
+    var rightVal = Math.sin(p * Math.PI / 2) / 0.7071067690849304;
+    this.leftGain.gain.value = Math.max(0, leftVal);
+    this.rightGain.gain.value = Math.max(0, rightVal);
+  }
   function allCallbackLoader(prs, fun1, funend) {
     var count = prs.length;
     if (count == 0) 
@@ -1036,10 +1147,6 @@ var AnimTredInstruments = (function() {
             funend();
         });
   }
-  function fillArray(arr, val) {
-    for (var i = 0; i < arr.length; i++) 
-      arr[i] = val;
-  }
   function setEndedFunc(te) {
     var endedFunction = function() {
       te.isStop = true;
@@ -1047,115 +1154,23 @@ var AnimTredInstruments = (function() {
     te.endedFunction = endedFunction;
     te.source.addEventListener("ended", endedFunction);
   }
-  var Controller = function() {
-    this.modulationChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.volumeChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    this.expressionChannel = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-    this.panChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.dataEntryMSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-    this.dataEntryLSB = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2];
-    this.registeredParameterMSBchannel = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
-    this.registeredParameterLSBchannel = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null];
-    this.sustainPedalChannel = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-  }
-  Controller.prototype.reset = function() {
-    fillArray(this.modulationChannel, 0);
-    fillArray(this.volumeChannel, 1);
-    fillArray(this.expressionChannel, 1);
-    fillArray(this.panChannel, 0);
-    fillArray(this.dataEntryMSB, 2);
-    fillArray(this.dataEntryLSB, 2);
-    fillArray(this.registeredParameterMSBchannel, null);
-    fillArray(this.registeredParameterLSBchannel, null);
-    fillArray(this.sustainPedalChannel, false);
-  }
-  var Pan = function(inputNode, leftGain, rightGain) {
-    this.inputNode = inputNode;
-    this.leftGain = leftGain;
-    this.rightGain = rightGain;
-  }
-  Pan.prototype.setPan = function(p1) {
-    var p = ((p1 * 100) + 100) / 200;
-    var leftVal = Math.cos(p * Math.PI / 2);
-    var rightVal = Math.sin(p * Math.PI / 2);
-    this.rightGain.gain.value = Math.max(rightVal / 0.7071067690849304, 0);
-    this.leftGain.gain.value = Math.max(leftVal / 0.7071067690849304, 0);
-  }
   function getNextTick(ticks, index, next) {
     return ((index < ticks.length) && (next == null || ticks[index] < next)) ? ticks[index] : null;
   }
-
-  var SoundbankLoader = function(needfiles) {
-    this.url = "ytpmv_cartoon_soundbank.dat";
-    this.progressSoundbank = false;
-    this.needfiles = needfiles;
-    this.result = null;
-    this.requests = [];
-  }
-  SoundbankLoader.prototype.loadSoundbanks = function() {
-    var _this = this;
-    this.progressSoundbank = true;
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      var g = new WavReader(new Uint8Array(xhr.response));
-      var result = {};
-      var len = g.readInt();
-      while(len--) {
-        var slen = g.readInt();
-        var sf = g.readString(slen);
-        var dlen = g.readInt();
-        result[sf] = g.readSub(dlen);
-      }
-      _this.result = result;
-      _this.callback(); 
-    };
-    xhr.responseType = "arraybuffer";
-    xhr.open("GET", this.url);
-    xhr.send();
-  }
-  SoundbankLoader.prototype.callback = function() {
-    if (this.result) {
-      for (var i = 0; i < this.requests.length; i++) {
-        var r = this.requests[i];
-        var data = this.result[r[0]];
-        var buffer = data.buffer.slice(data.byteOffset, data.byteOffset + data.length);
-        r[1](buffer);
-      }
-      this.requests = [];  
-    }
-  }
-  SoundbankLoader.prototype.loadFile = function(name, callback) {
-    if (this.needfiles) {
-      var xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        callback(xhr.response);
-      };
-      xhr.responseType = "arraybuffer";
-      xhr.open("GET", "soundbank/" + name);
-      xhr.send();
-    } else {
-      this.requests.push([name, callback]);
-      if (this.progressSoundbank) {
-        this.callback();
-      } else {
-        this.loadSoundbanks();
-      }
-    }
-  }
+  var audioContext = new AudioContext();
   var sloader = new SoundbankLoader(false);
-
   var TRACKER_PROGRAM = 1;
   var TRACKER_CONTROLLER = 2;
   var TRACKER_PITCH = 3;
-  var TRACKER_TEXT = 4;
+  var TRACKER_SYSEX = 4;
+  var TRACKER_TEXT = 5;
   var Player = function() {
     this._debug = false;
-    this.audioContext = new AudioContext();
-    this.node = this.audioContext.createGain();
+    this.node = audioContext.createGain();
     this.node.gain.value = 1;
-    this.node.connect(this.audioContext.destination);
+    this.node.connect(audioContext.destination);
+    this.masterVolume = 1;
     this.duration = 0;
-    this._muteMusicr = false;
     this.oncleanup = null;
     this.onload = null;
     this.onerror = null;
@@ -1169,21 +1184,20 @@ var AnimTredInstruments = (function() {
     this.isPaused = true;
     this.currentTime = 0;
     this.concurrencyCounter = 0;
-    this.programChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.pitchBendChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    this.channels = [];
     this.notesPlayingChannel = new Array(16);
     for (var i = 0; i < 16; i++) {
       var gg = new Array(128);
       for (var i2 = 0; i2 < gg.length; i2++)
         gg[i2] = null;
       this.notesPlayingChannel[i] = gg;
+      this.channels.push(new Channel());
     }
     this.trackQueue = [];
     this.formatType = 0;
     this.timeDivision = 500;
     this.currentPulse = 0;
     this.tempo = 0;
-    this.controller = new Controller();
     this.tempoTick = 0;
     this.tempoTime = 0;
     this._currentTimeLast = 0;
@@ -1206,17 +1220,15 @@ var AnimTredInstruments = (function() {
   }
   Player.CONCURRENCY_LIMIT = 256;
   Player.prototype._getTime = function() {
-    if (this.audioContext.state != "running") 
+    if (audioContext.state != "running") 
       this._d2 = Date.now() - this._d;
-    return (this.audioContext.currentTime * 1000) + this._d2;
+    return (audioContext.currentTime * 1000) + this._d2;
   }
   Player.prototype.resetEffect = function() {
-    this.resetController();
-    this.programChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    this.pitchBendChannel = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  }
-  Player.prototype.resetController = function() {
-    this.controller.reset();
+    this.masterVolume = 1;
+    for (var i = 0; i < 16; i++) {
+      this.channels[i].reset();
+    }
   }
   Player.prototype.cleanup = function() {
     this.stop();
@@ -1249,20 +1261,18 @@ var AnimTredInstruments = (function() {
     if (this.onreset) this.onreset();
   }
   Player.prototype.setCurrentTime = function(s) {
-    this._muteMusicr = true;
     this.stopAllPlaying();
     if (this.currentTime == s) return;
     var h = Math.max(0, Math.min(this.duration, s));
     if (h > 0) {
       this.currentTime = h;
-      this.setStartTime(this.currentTime);
+      this.setStartTime(h);
       this._stepUpdateTrack();
       for (var i = 0; i < this.trackQueue.length; i++) {
-        this.trackQueue[i].getNote(this.currentPulse, true);
+        this.trackQueue[i].getNote(this.currentPulse, 0);
       }
     } else {
       this.resetEffect();
-      this._muteMusicr = false;
       this.currentTime = 0;
       this._currentTimeLast = 0;
       this.setStartTime(0);
@@ -1277,7 +1287,7 @@ var AnimTredInstruments = (function() {
     this.setStartTime(this.currentTime);
   }
   Player.prototype._decodeAudio = function(k, callback) {
-    callback(decodeWav(this.audioContext, new Uint8Array(k)));
+    callback(decodeWav(audioContext, new Uint8Array(k)));
   }
   Player.prototype._loadSoundFile = function(f, callback) {
     sloader.loadFile(f, callback);
@@ -1334,7 +1344,6 @@ var AnimTredInstruments = (function() {
     this._date = this._getTime();
     if (this.currentTime <= 0) {
       this.resetEffect();
-      this._muteMusicr = false;
       this.currentTime = 0;
       this._currentTimeLast = 0;
       this.setStartTime(0);
@@ -1412,10 +1421,10 @@ var AnimTredInstruments = (function() {
     return _pulseCounterLength;
   }
   Player.prototype._createPan = function() {
-    var inputNode = this.audioContext.createGain();
-    var leftGain = this.audioContext.createGain();
-    var rightGain = this.audioContext.createGain();
-    var channelMerger = this.audioContext.createChannelMerger(2);
+    var inputNode = audioContext.createGain();
+    var leftGain = audioContext.createGain();
+    var rightGain = audioContext.createGain();
+    var channelMerger = audioContext.createChannelMerger(2);
     inputNode.connect(leftGain);
     inputNode.connect(rightGain);
     leftGain.connect(channelMerger, 0, 0);
@@ -1429,8 +1438,8 @@ var AnimTredInstruments = (function() {
       if (!span) return;
       var buffer = this._soundbank[span[1]];
       if (!buffer) return;
-      var source = this.audioContext.createBufferSource();
-      var node = this.audioContext.createGain();
+      var source = audioContext.createBufferSource();
+      var node = audioContext.createGain();
       source.buffer = buffer.buffer;
       var loop = span[3];
       if (loop) {
@@ -1443,16 +1452,16 @@ var AnimTredInstruments = (function() {
       var gain = node.gain;
       var volume = n.volume;
       gain.value = volume;
-      var releaseGain = this.audioContext.createGain();
+      var releaseGain = audioContext.createGain();
       var releaseDuration = span[2];
       if (releaseDuration == null) releaseDuration = 0.01;
-      var releaseStart = this.audioContext.currentTime + n.duration;
+      var releaseStart = audioContext.currentTime + n.duration;
       var releaseEnd = releaseStart + releaseDuration;
       releaseGain.gain.setValueAtTime(1, releaseStart);
       releaseGain.gain.linearRampToValueAtTime(0.0001, releaseEnd);
       node.connect(releaseGain);
       releaseGain.connect(this.node);
-      source.start(this.audioContext.currentTime, 0);
+      source.start(audioContext.currentTime, 0);
       source.stop(releaseEnd);
       return { source: source, node: node };
     } else if (n.type == 0) {
@@ -1460,8 +1469,8 @@ var AnimTredInstruments = (function() {
       if (!span) return;
       var buffer = this._soundbank[span[0]];
       if (!buffer) return;
-      var source = this.audioContext.createBufferSource();
-      var node = this.audioContext.createGain();
+      var source = audioContext.createBufferSource();
+      var node = audioContext.createGain();
       source.buffer = buffer.buffer;
       source.connect(node);
       source.playbackRate.value = Math.pow(2, ((span[1] || 0) / 12));
@@ -1530,7 +1539,7 @@ var AnimTredInstruments = (function() {
         releaseGainVolume: 1,
         release: {
           duration: releaseDuration * 1000,
-          ended: false,
+          ended: false
         },
         pitch: _pitch,
         track: trackNumber,
@@ -1542,17 +1551,17 @@ var AnimTredInstruments = (function() {
     }
   }
   Player.prototype._getSustainPedalChannel = function(channel) {
-    return this.controller.sustainPedalChannel[channel];
+    return this.channels[channel].sustain;
   }
   Player.prototype._getPanChannel = function(channel) {
-    return this.controller.panChannel[channel];
+    return (this.channels[channel].panning - 64) / 100;
   }
   Player.prototype._getVolumeChannel = function(channel) {
-    return this.controller.volumeChannel[channel] * this.controller.expressionChannel[channel];
+    return (this.channels[channel].volume * this.channels[channel].expression) / 12700;
   }
   Player.prototype._getPitch = function(channel) {
     if (channel == 9) return 0;
-    return this.pitchBendChannel[channel] * this.controller.dataEntryMSB[channel];
+    return this.channels[channel].bend * this.channels[channel].bendsense;
   }
   Player.prototype._startNote = function(n) {
     if (this.isEffect && n.track) if (this._getSustainPedalChannel(n.channel)) n.sustain = true;
@@ -1565,9 +1574,9 @@ var AnimTredInstruments = (function() {
       if (this.isEffect) {
         var _pitch = note.pitch + this._getPitch(note.channel);
         if (source) source.playbackRate.value = Math.pow(2, _pitch / 12);
-        var volumeEffect = Math.min(_volume * this._getVolumeChannel(note.channel), 1.27);
-        var volumeOld = (Math.pow(5, volumeEffect) - 1) / 4; // Normal
-        if (node) node.gain.value = volumeOld * note.releaseGainVolume;
+        var volumeEffect = (_volume * this._getVolumeChannel(note.channel)) * this.masterVolume;
+        var volumeMixed = volumeEffect * volumeEffect;
+        if (node) node.gain.value = volumeMixed * note.releaseGainVolume;
       } else {
         if (source) source.playbackRate.value = Math.pow(2, note.pitch / 12);
         if (node) node.gain.value = _volume * note.releaseGainVolume;
@@ -1582,16 +1591,20 @@ var AnimTredInstruments = (function() {
       this.currentTime = this.duration;
       this.setStartTime(this.duration);
       this.stopAllPlaying();
-      if (this.onended) this.onended();
       this.isPaused = true;
+      if (this.onended) this.onended();
     }
     this._currentTimeLast = this.currentTime;
-    if (!this.isPaused && !this._muteMusicr) this.currentTime = ((this._date - this._startTime) * this.speed) / 1000;
-    this._stepUpdateTrack();
+    var isPlaying = !this.isPaused;
+    if (isPlaying) {
+      this.currentTime = ((this._date - this._startTime) * this.speed) / 1000;
+      this._stepUpdateTrack();
+    }
     this._stepUpdateEffect();
     this._stepNotesPlaying();
-    this._stepPlayingNote();
-    if (this._muteMusicr) this._muteMusicr = false;
+    if (isPlaying) {
+      this._stepPlayingNote();
+    }
     this._date = this._getTime();
   }
   Player.prototype._stepUpdateEffect = function() {
@@ -1635,6 +1648,12 @@ var AnimTredInstruments = (function() {
           resTrack = track;
           type = TRACKER_PITCH;
         }
+        var tt = getNextTick(track.systemExclusiveQueue.tick, track.sysExIndex, resTT);
+        if (tt != null) {
+          resTT = tt;
+          resTrack = track;
+          type = TRACKER_SYSEX;
+        }
         var tt = getNextTick(track.textQueue.tick, track.textIndex, resTT);
         if (tt != null) {
           resTT = tt;
@@ -1647,21 +1666,28 @@ var AnimTredInstruments = (function() {
         var _pitchBendQueue = resTrack.pitchBendQueue;
         var _controllerQueue = resTrack.controllerQueue;
         var _textQueue = resTrack.textQueue;
+        var _systemExclusiveQueue = resTrack.systemExclusiveQueue;
         switch (type) {
           case TRACKER_PROGRAM:
-            this._setProgram(_programQueue.channel[resTrack.programIndex], _programQueue.program[resTrack.programIndex]);
+            this.realTime_PatchChange(_programQueue.channel[resTrack.programIndex] % 16, _programQueue.program[resTrack.programIndex]);
             resTrack.programIndex++;
             break;
           case TRACKER_PITCH:
-            this._setPitch(_pitchBendQueue.channel[resTrack.pitchBendIndex], _pitchBendQueue.pitch[resTrack.pitchBendIndex]);
+            this.realTime_PitchBend(_pitchBendQueue.channel[resTrack.pitchBendIndex] % 16, _pitchBendQueue.pitch[resTrack.pitchBendIndex]);
             resTrack.pitchBendIndex++;
             break;
           case TRACKER_CONTROLLER:
             var channel = _controllerQueue.channel[resTrack.controllerIndex];
             var control = _controllerQueue.control[resTrack.controllerIndex];
             var value = _controllerQueue.value[resTrack.controllerIndex];
-            this._setController(channel, control, value);
+            this.realTime_Controller(channel % 16, control, value);
             resTrack.controllerIndex++;
+            break;
+          case TRACKER_SYSEX:
+            var data = _systemExclusiveQueue.data[resTrack.sysExIndex];
+            var fx = _systemExclusiveQueue.fx[resTrack.sysExIndex];
+            this.realTime_SysEx(data, data.length, fx);
+            resTrack.sysExIndex++;
             break;
           case TRACKER_TEXT:
             if (this.ontext) this.ontext(_textQueue.type[resTrack.textIndex], _textQueue.text[resTrack.textIndex]);
@@ -1702,25 +1728,25 @@ var AnimTredInstruments = (function() {
       }
     }
   }
-  Player.prototype._setProgram = function(channel, value) {
-    this.programChannel[channel] = value;
+  Player.prototype.realTime_PatchChange = function(channel, value) {
+    this.channels[channel].patch = value;
   }
-  Player.prototype._setController = function(channel, control, value) {
+  Player.prototype.realTime_Controller = function(channel, control, value) {
     switch (control) {
       case 1: // Modulation wheel (MSB)
-        this.controller.modulationChannel[channel] = value / 200;
+        this.channels[channel].vibrato = value;
         break;
       case 6: // Data Entry (MSB)
-        this.controller.dataEntryMSB[channel] = value;
+        this.setRPN(channel, value, true);
         break;
       case 7: // Channel Volume (formerly Main Volume)
-        this.controller.volumeChannel[channel] = value / 100;
+        this.channels[channel].volume = value;
         break;
       case 10: // Pan
-        this.controller.panChannel[channel] = (value - 64) / 100;
+        this.channels[channel].panning = value;
         break;
       case 11: // Expression Controller
-        this.controller.expressionChannel[channel] = value / 127;
+        this.channels[channel].expression = value;
         break;
       case 0: // Bank Select (MSB)
       case 2: // Breath control (MSB)
@@ -1733,11 +1759,11 @@ var AnimTredInstruments = (function() {
       case 17: // General Purpose Controller #2 (MSB)
       case 18: // General Purpose Controller #3 (MSB)
       case 19: // General Purpose Controller #4 (MSB)
+      case 32: // Bank Select (LSB)
         break;
       case 38: // Data entry (LSB)
-        this.controller.dataEntryLSB[channel] = value;
+        this.setRPN(channel, value, false);
         break;
-      case 32: // Bank Select (LSB)
       case 33: // Modulation wheel (LSB)
       case 34: // Breath control (LSB)
       case 36: // Foot controller (LSB)
@@ -1754,28 +1780,8 @@ var AnimTredInstruments = (function() {
       case 51: // General Purpose Controller #4 (LSB)
         break;
       case 64:
-        var sustain = value > 0;
-        this.controller.sustainPedalChannel[channel] = sustain;
-        if (this.isEffect) {
-          var _notesPlaying = this.notesPlayingChannel[channel];
-          for (var i = 0; i < _notesPlaying.length; i++) {
-            var note = _notesPlaying[i];
-            if (!note) continue;
-            if (sustain) {
-              note.sustain = true;
-            } else {
-              note.sustain = false;
-              if (this.currentPulse >= note.tickOff) {
-                var release = note.release;
-                if (release) {
-                  release.ended = true;
-                } else {
-                  note.ended = true;
-                }
-              }
-            }
-          }
-        }
+        this.channels[channel].sustain = value >= 64;
+        this._sustainingNotes(channel);
         break;
       case 65: // Portamento on/off
       case 66: // Sustenuto on/off
@@ -1808,13 +1814,20 @@ var AnimTredInstruments = (function() {
       case 97: // Data entry -1
         break;
       case 98: // Non-Registered Parameter Number (LSB)
+        this.channels[channel].lastlrpn = value;
+        this.channels[channel].nrpn = true;
+        break;
       case 99: // Non-Registered Parameter Number (MSB)
+        this.channels[channel].lastmrpn = value;
+        this.channels[channel].nrpn = true;
         break;
       case 100: // Registered Parameter Number LSB
-        this.controller.registeredParameterLSBchannel[channel] = value || 0;
+        this.channels[channel].lastlrpn = value;
+        this.channels[channel].nrpn = false;
         break;
       case 101: // Registered Parameter Number MSB
-        this.controller.registeredParameterMSBchannel[channel] = value || 0;
+        this.channels[channel].lastmrpn = value;
+        this.channels[channel].nrpn = false;
         break;
       case 120: // All Sound Off
       case 126: // Poly mode on/off (+ all notes off)
@@ -1839,7 +1852,8 @@ var AnimTredInstruments = (function() {
         }
         break;
       case 121:
-        if (value > 0) this.resetController();
+        this.channels[channel].resetAllControllers121();
+        this._sustainingNotes(channel);
         break;
       case 122: // Local control on/off
       case 124: // Omni mode off (+ all notes off)
@@ -1847,8 +1861,55 @@ var AnimTredInstruments = (function() {
         break;
     }
   }
-  Player.prototype._setPitch = function(channel, value) {
-    this.pitchBendChannel[channel] = (value / 8192) - 1;
+  Player.prototype.realTime_PitchBend = function(channel, value) {
+    this.channels[channel].bend = value - 8192;
+  }
+  Player.prototype.realTime_SysEx = function(msg, size, fx) {
+  }
+  Player.prototype._sustainingNotes = function(channel) {
+    var sustain = this.channels[channel].sustain;
+    if (this.isEffect) {
+      var _notesPlaying = this.notesPlayingChannel[channel];
+      for (var i = 0; i < _notesPlaying.length; i++) {
+        var note = _notesPlaying[i];
+        if (!note) continue;
+        if (sustain) {
+          note.sustain = true;
+        } else {
+          note.sustain = false;
+          if (this.currentPulse >= note.tickOff) {
+            var release = note.release;
+            if (release) {
+              release.ended = true;
+            } else {
+              note.ended = true;
+            }
+          }
+        }
+      }
+    }
+  }
+  Player.prototype.setRPN = function(channel, value, MSB) {
+    var nrpn = this.channels[channel].nrpn ? 1 : 0;
+    var addr = this.channels[channel].lastmrpn * 0x100 + this.channels[channel].lastlrpn;
+    switch (addr + nrpn * 0x10000 + MSB * 0x20000) {
+      case 0x0000 + 0*0x10000 + 1*0x20000: // Pitch-bender sensitivity
+        this.channels[channel].bendsense_msb = value;
+        this.channels[channel].updateBendSensitivity();
+        break;
+      case 0x0000 + 0*0x10000 + 0*0x20000: // Pitch-bender sensitivity LSB
+        this.channels[channel].bendsense_lsb = value;
+        this.channels[channel].updateBendSensitivity();
+        break;
+      case 0x0108 + 1*0x10000 + 1*0x20000: // Vibrato speed
+        break;
+      case 0x0109 + 1*0x10000 + 1*0x20000: // Vibrato depth
+        break;
+      case 0x010A + 1*0x10000 + 1*0x20000: // Vibrato delay in millisecons
+        break;
+      default:
+        break;
+    }
   }
   Player.prototype._noteStop = function(note) {
     if (note.isPlay) {
@@ -1876,14 +1937,14 @@ var AnimTredInstruments = (function() {
     for (var i = 0; i < this.trackQueue.length; i++) {
       var track = this.trackQueue[i];
       var _noteQueue = track.noteQueue;
-      var notes = track.getNote(this.currentPulse, this._muteMusicr, 1024);
+      var notes = track.getNote(this.currentPulse, 1024);
       if (!notes) continue;
       if (this.isPaused) continue;
       var startIndex = notes[0];
       var endIndex = notes[1];
       for (var n = startIndex; n < endIndex; n++) {
         var channel = _noteQueue.channel[n];
-        var program = this.programChannel[channel];
+        var program = this.channels[channel].patch;
         var tickOff = _noteQueue.tickOff[n];
         var tickOn = _noteQueue.tickOn[n];
         var pitch = _noteQueue.pitch[n];
@@ -1922,10 +1983,10 @@ var AnimTredInstruments = (function() {
           var h = _notesPlaying[i];
           if (!h) continue;
           if (!h.isPlay) {
-            var node = this.audioContext.createGain();
+            var node = audioContext.createGain();
             node.gain.value = 0;
             node.connect(this._outputGainChannel[channel]);
-            var source = this.audioContext.createBufferSource();
+            var source = audioContext.createBufferSource();
             source.buffer = h.buffer;
             var loop = h.loop;
             if (loop) {
@@ -1938,7 +1999,7 @@ var AnimTredInstruments = (function() {
             this._startNote(h);
             this._updateEffectNote(h);
             if (!loop) setEndedFunc(h);
-            source.start(this.audioContext.currentTime, 0);
+            source.start(audioContext.currentTime, 0);
             h.isPlay = true;
           }
         }
@@ -2089,6 +2150,6 @@ var AnimTredInstruments = (function() {
     INSTRUMENT_INFO: INSTRUMENT_INFO,
     SOUNDBANKS: SOUNDBANKS,
     formats: ["mid", "rmi", "midi"],
-    version: "v1.4.1"
+    version: "v1.5"
   }
 }());

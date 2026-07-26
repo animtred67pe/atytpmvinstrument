@@ -34,8 +34,7 @@
             <input type="range" name="" value="100" min="100" max="2500" step="0.01" id="yrtyryr6464" style="width: 200px;">
             <label>Volume:</label>
             <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
-            <label id="cuer">0:00/0:00</label>
-            <input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 360px;">
+            <input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 320px;">
         </div>
 		<div style="position: absolute; top: 0%; right: 0%; padding: 8px;">
 			<a href="./" style="color: #fff;">Back</a>
@@ -592,13 +591,8 @@ void main() {
                 }
             }
 
-			var cuer = document.getElementById('cuer');
-            
-
             function render() {
                 fgdgdfg.value = (player.currentTime / player.duration) * 100000;
-                var f_ggg = getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration));
-                if (f_ggg !== cuer.innerHTML) cuer.innerHTML = f_ggg;
                 for (var index = 0; index < bdfgdgd.length; index++) 
                     bdfgdgd[index] = null;
                 var _cp = player.currentPulse;
@@ -742,6 +736,17 @@ void main() {
                     player.loadMid(a.result);
                 }).bind(this);
                 a.readAsArrayBuffer(file);
+            }
+            function loadUrlAudioFile(url) {
+                var xhr = new XMLHttpRequest();
+                xhr.onload = function() {
+                    player.loadMid(xhr.response);
+                };
+                xhr.onerror = function() {
+                };
+                xhr.responseType = "arraybuffer";
+                xhr.open("GET", url);
+                xhr.send();
             }
 
             function dropHandler(ev) {

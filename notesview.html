@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAXDMLPFSXFF</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAXDMLPSXF</div>
 		<canvas width="1000" height="622" id="hfggf3" style="display: none;"></canvas>
 		<script src="animtredinstruments.js"></script>
 		<script>
@@ -253,20 +253,20 @@
 					ct.font = "10px Arial";
 					ct.fillText(channel, x + 237, y + 12);
 					ct.textAlign = "center";
-					dddhgkjh2(ct, x + 20, y + 20, -1, 1, player.pitchBendChannel[channel]);
+					dddhgkjh2(ct, x + 20, y + 20, -8192, 8192, player.channels[channel].bend);
 					ct.fillText("pitch", x + 20, y + 40);
-					dddhgkjh2(ct, x + 50, y + 20, -0.64, 0.63, player.controller.panChannel[channel]);
+					dddhgkjh2(ct, x + 50, y + 20, 0, 127, player.channels[channel].panning);
 					ct.fillText("pad", x + 50, y + 40);
 					ct.font = "15px Arial";
-					ct.fillText(player.programChannel[channel], x + 80, y + 25);
+					ct.fillText(player.channels[channel].patch, x + 80, y + 25);
 					ct.font = "10px Arial";
 					ct.fillText("program", x + 80, y + 40);
-					dddhgkjh2(ct, x + 120, y + 20, 0, 1.27, player.controller.volumeChannel[channel]);
+					dddhgkjh2(ct, x + 120, y + 20, 0, 127, player.channels[channel].volume);
 					ct.fillText("volume", x + 120, y + 40);
-					dddhgkjh2(ct, x + 165, y + 20, 0, 1, player.controller.expressionChannel[channel]);
+					dddhgkjh2(ct, x + 165, y + 20, 0, 127, player.channels[channel].expression);
 					ct.fillText("expression", x + 165, y + 40);
 					ct.font = "15px Arial";
-					ct.fillText(player.controller.sustainPedalChannel[channel] > 0, x + 210, y + 25);
+					ct.fillText(player.channels[channel].sustain + "", x + 210, y + 25);
 					ct.font = "10px Arial";
 					ct.fillText("sustain", x + 210, y + 40);
 				}

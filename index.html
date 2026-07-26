@@ -90,10 +90,11 @@
 				<a href="notesview.html">Notes View</a>
 				<a href="visualisation.html">Midi Visualisation</a>
 				<a href="player.html">Midi Player</a>
+				<a href="desktop.html">Desktop</a>
 				<a href="about.html">About</a>
 			</div>
 		</div>
-		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAXDMLPFSXFF</div>
+		<div style="position: absolute; bottom: 2px; left: 2px; padding: 8px; color: #777;">(c) 2026 EAXDMLPSXF</div>
 		<script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
@@ -105,6 +106,8 @@
 				var cuer44 = document.getElementById("cuer44");
 				var cuer46 = document.getElementById("cuer46");
 				var viewe555 = document.getElementById("viewe555");
+
+				var autoplay = false;
 
 				var fgdgdfg = document.getElementById("yrtyryry");
 				var fgdgdfg2 = document.getElementById("yrtyryry2");
@@ -233,17 +236,23 @@
 						playstop.removeAttribute("disabled");
 						playstop2.removeAttribute("disabled");
 						fgdgdfg.removeAttribute("disabled");
-						playstop.innerHTML = 'Pause';
 						cuer46.innerHTML = mid_name;
 						z_dir3_3 = true;
-						player.play();
+						if (autoplay) {
+							playstop.innerHTML = 'Pause';
+							player.play();
+						}
 					});
 				}
-				function loadMidiFile(file) {
+				function _reset() {
 					playstop.setAttribute("disabled", true);
 					playstop2.setAttribute("disabled", true);
 					fgdgdfg.setAttribute("disabled", true);
 					viewe555.title = "Midi not loaded";
+				}
+				function loadMidiFile(file) {
+					autoplay = true;
+					_reset();
 					mid_name = file.name || "";
 					var a = new FileReader();
 					a.onload = (function() {
@@ -258,6 +267,29 @@
 						}, 2);
 					}).bind(this);
 					a.readAsArrayBuffer(file);
+				}
+				function loadUrlAudioFile(url) {
+					autoplay = false;
+					_reset();
+					mid_name = "";
+					var xhr = new XMLHttpRequest();
+					xhr.onload = function() {
+						var data = xhr.response;
+						z_dir3_3 = false;
+						if (z_dir2) {
+							clearInterval(z_dir2);
+						}
+						fgdgdfg.value = 0;
+						playstop.innerHTML = 'Play';
+						setTimeout(function () {
+							player.loadMid(data);
+						}, 2);
+					};
+					xhr.onerror = function() {
+					};
+					xhr.responseType = "arraybuffer";
+					xhr.open("GET", url);
+					xhr.send();
 				}
 				var loadmidifile = document.getElementById('loadmidifile');
 				function dropHandler(ev) {
@@ -306,6 +338,10 @@
 				if (URLsearchParams('offeffect',true)) {
 					player.isEffect = false;
 					effect55.innerHTML = 'Effect: Off';
+				}
+				var midurl = URLsearchParams('midi_url',false)
+				if (midurl) {
+					loadUrlAudioFile(midurl);
 				}
 				effect55.onclick = function () {
 					if (player.isEffect) {

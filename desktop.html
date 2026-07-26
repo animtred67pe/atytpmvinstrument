@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>YTPMV Cartoon Midi Player</title>
+        <style>
+			body {
+				font-family: monospace;
+				margin: 0;
+				overflow: hidden;
+				background-color: #000;
+                color: #fff;
+			}
+			a {
+				cursor: pointer;
+                text-decoration: none;
+			}
+			.pinkfie-root {
+				margin: 0;
+			}
+            #pinkfieArea {
+                position: absolute;
+                margin: 0;
+            }
+            #yrtyryry {
+                position: absolute;
+                bottom: 75px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .btnmm{
+                position: absolute;
+                bottom: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 50px;
+                background-color: #000;
+                border: 2px solid #fff;
+                border-radius: 50%;
+            }
+            .btnmm:hover{
+                background-color: #222;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="playstop" class="btnmm"><label style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="playpauselabel">Play</label></div>
+		<input type="range" name="" value="0" min="0" max="1000" id="yrtyryry" style="width: 95%;">
+        <div style="position: absolute; right: 2%; bottom: 20px;">
+            <label>Volume:</label>
+            <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
+        </div>
+        <div style="position: absolute; left: 2%; bottom: 20px;">
+            <label>Speed:</label>
+            <input type="range" name="" value="1" min="0.25" max="2" step="0.25" id="yrtyryry3" style="width: 60px;">
+        </div>
+        <label id="cuer1" style="position: absolute; left: 2%; bottom: 55px;">--:--</label>
+        <label id="cuer2" style="position: absolute; right: 2%; bottom: 55px;">--:--</label>
+        <div style="margin: 0px; background: rgb(34, 34, 34); height: 23px; overflow: hidden; position: absolute; width: 100%;">
+            <a style="cursor: pointer; text-decoration: none; color: rgb(221, 221, 221);" id="eaxdmf_open">Open .mid</a>
+            <input type="text" id="eaxdmf_url" placeholder="https://..." name="YCM_URL">
+            <a id="eaxdmf_load" style="cursor: pointer; text-decoration: none; color: rgb(221, 221, 221);">Load</a>
+        </div>
+        <script src="animtredinstruments.js"></script>
+		<script>
+			(function() {
+				var fgdgdfg = document.getElementById("yrtyryry");
+				var fgdgdfg2 = document.getElementById("yrtyryry2");
+				var fgdgdfg3 = document.getElementById("yrtyryry3");
+				var playstop = document.getElementById('playstop');
+				var cuer1 = document.getElementById("cuer1");
+				var cuer2 = document.getElementById("cuer2");
+                var playpauselabel = document.getElementById("playpauselabel");
+
+                function getDuraction(num) {
+					var txt = "";
+					if (Math.floor(num) >= 3600) {
+						txt += Math.floor(num / 3600);
+						txt += ":";
+						if ((Math.floor(num / 60) % 60) < 10) {
+							txt += "0";
+						}
+					}
+					txt += Math.floor(num / 60) % 60;
+					txt += ":";
+					if ((Math.floor(num) % 60) >= 10) {
+						txt += Math.floor(num) % 60;
+					} else {
+						txt += "0" + Math.floor(num) % 60;
+					}
+					return txt;
+				}
+
+                var pkfcontrols = document.getElementById('pkfcontrols');
+
+                var player = new AnimTredInstruments.Player();
+				window.player = player;
+
+				fgdgdfg.addEventListener('input', function() {
+					player.setCurrentTime(player.duration * (fgdgdfg.value / 1000));
+				}, false);
+
+                var autoplay = true;
+
+				player.onload = function () {
+					player.loadSoundbank(function(e) {
+						if (autoplay) {
+							player.play();
+						}
+					});
+				}
+				playstop.onclick = function () {
+					if (player.isPaused) {
+						player.play();
+					} else {
+						player.pause();
+					}
+				}
+
+                function loadJnx(buffer) {
+                    player.loadMid(buffer);
+                }
+
+                function loadSwfFromFile(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(r) {
+                        loadJnx(r.target.result);
+                    }
+                    reader.readAsArrayBuffer(file);
+                }
+
+                function dropHandler(ev) {
+					ev.preventDefault();
+					if (ev.dataTransfer.items) {
+                        var item = ev.dataTransfer.items[0];
+                        if (item) {
+                            switch (item.kind) {
+                                case "file":
+                                    loadSwfFromFile(item.getAsFile(), true);
+                                    break;
+                                case "string":
+                                    item.getAsString(function(url) {
+                                        loadUrlAudioFile(url);
+                                    })
+                                    break;
+                            }
+                        }
+					}
+				}
+				function dragOverHandler(ev) {
+					ev.preventDefault();
+				}
+
+				window.ondrop = dropHandler;
+				window.ondragover = dragOverHandler;
+
+                function openSWFfile(callback) {
+                    var sa = document.createElement('input');
+					sa.type = 'file';
+					sa.accept = '.mid, .rmi, .midi';
+					sa.addEventListener('change', function(e) {
+						var file = e.target.files[0];
+						if (!file) return;
+                        callback(file);
+					}, false);
+					sa.click();
+                }
+
+                function loadUrlAudioFile(url) {
+					var xhr = new XMLHttpRequest();
+					xhr.onload = function() {
+						var data = xhr.response;
+                        loadJnx(data);
+					};
+					xhr.onerror = function() {
+					};
+					xhr.responseType = "arraybuffer";
+					xhr.open("GET", url);
+					xhr.send();
+				}
+                
+				fgdgdfg2.addEventListener('input', function() {
+					player.setVolume(fgdgdfg2.value / 100);
+				}, false);
+
+				fgdgdfg3.addEventListener('input', function() {
+					player.setSpeed(+fgdgdfg3.value);
+				}, false);
+
+                setInterval(function() {
+                    playpauselabel.textContent = player.isPaused ? "Play" : "Pause";
+                    if (player.duration) fgdgdfg.value = (player.currentTime / player.duration) * 1000;
+                    if (player.duration) {
+                        cuer1.textContent = getDuraction(player.currentTime);
+                        cuer2.textContent = getDuraction(Math.ceil(player.duration));
+                    } else {
+                        cuer1.textContent = "--:--";
+                        cuer2.textContent = "--:--";
+                    }
+                }, 16);
+
+                var eaxdmf_open = document.getElementById("eaxdmf_open");
+                var eaxdmf_url = document.getElementById("eaxdmf_url");
+                var eaxdmf_load = document.getElementById("eaxdmf_load");
+                eaxdmf_load.onclick = function() {
+                    loadUrlAudioFile(eaxdmf_url.value);
+                }
+                eaxdmf_open.onclick = function() {
+                    openSWFfile(function(file) {
+                        loadSwfFromFile(file);
+                    });
+                }
+            }());
+        </script>
+    </body>
+</html>
