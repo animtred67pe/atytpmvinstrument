@@ -1243,7 +1243,7 @@ var AnimTredInstruments = (function() {
     this.resetEffect();
     this._interval = setInterval(this._step.bind(this), 5);
   }
-  Player.sountbankLoader = new SoundbankLoader("ytpmv_cartoon_soundbank.dat", "soundbank");
+  Player.sountbankLoader = new SoundbankLoader("ytpmv_cartoon_soundbank.dat", null);
   Player.CONCURRENCY_LIMIT = 256;
   Player.prototype._getTime = function() {
     if (audioContext.state != "running") 
