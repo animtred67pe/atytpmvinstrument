@@ -28,6 +28,7 @@
     </head>
     <body>
         <div id="playerArea"></div>
+        <label id="cuer48" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></label>
         <div style="position: absolute; bottom: 10px; left: 10px; background-color: #111;">
             <button id="loadmidifile">Open Mid</button>
             <label>Display Speed:</label>
@@ -651,6 +652,13 @@ void main() {
                 __gfd += "<br>" + "Polyphony: " + polyphon;
                 __gfd += "<br>" + "Renderer: " + renderer.name;
                 oaG.innerHTML = __gfd;
+            }
+
+			var cuer48 = document.getElementById("cuer48");
+
+            player.onprogress = function (a) {
+                if (a) cuer48.innerHTML = a;
+                else cuer48.innerHTML = "";
             }
 
             var fgdgdfg = document.getElementById("yrtyryry");

@@ -43,21 +43,33 @@
             .btnmm:hover{
                 background-color: #222;
             }
+            #volumeBtn {
+                padding: 2px;
+                background-color: #000;
+                border: 2px solid #fff;
+                border-radius: 50%;
+            }
+            #volumeBtn:hover{
+                background-color: #222;
+            }
         </style>
     </head>
     <body>
         <div id="playstop" class="btnmm"><label style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="playpauselabel">Play</label></div>
 		<input type="range" name="" value="0" min="0" max="1000" id="yrtyryry" style="width: 95%;">
-        <div style="position: absolute; right: 2%; bottom: 20px;">
-            <label>Volume:</label>
-            <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
-        </div>
-        <div style="position: absolute; left: 2%; bottom: 20px;">
-            <label>Speed:</label>
-            <input type="range" name="" value="1" min="0.25" max="2" step="0.25" id="yrtyryry3" style="width: 60px;">
+        <div style="position: absolute; right: 2%; bottom: 10px;">
+            <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px; display: none;">
+            <svg width="21" height="21" id="volumeBtn">
+                <path fill="#fff" d="M2,7 L6,7 L10,5 L10,16 L6,14 L2,14" />
+                <path stroke="#fff" stroke-width="1" d="M12,8 L14,11 L12,13" />
+                <path stroke="#fff" stroke-width="1" d="M14,6 L16,8 L16,13 L14,15" />
+                <path stroke="#fff" stroke-width="1" d="M16,4 L18,6 L18,15 L16,17" />
+            </svg>
         </div>
         <label id="cuer1" style="position: absolute; left: 2%; bottom: 55px;">--:--</label>
         <label id="cuer2" style="position: absolute; right: 2%; bottom: 55px;">--:--</label>
+        <label id="cuer46" style="position: absolute; left: 20px; top: 40px;"></label>
+        <label id="cuer48" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></label>
         <div style="margin: 0px; background: rgb(34, 34, 34); height: 23px; overflow: hidden; position: absolute; width: 100%;">
             <a style="cursor: pointer; text-decoration: none; color: rgb(221, 221, 221);" id="eaxdmf_open">Open .mid</a>
             <input type="text" id="eaxdmf_url" placeholder="https://..." name="YCM_URL">
@@ -68,11 +80,14 @@
 			(function() {
 				var fgdgdfg = document.getElementById("yrtyryry");
 				var fgdgdfg2 = document.getElementById("yrtyryry2");
-				var fgdgdfg3 = document.getElementById("yrtyryry3");
+                var volumeBtn = document.getElementById("volumeBtn");
 				var playstop = document.getElementById('playstop');
 				var cuer1 = document.getElementById("cuer1");
 				var cuer2 = document.getElementById("cuer2");
                 var playpauselabel = document.getElementById("playpauselabel");
+				var cuer46 = document.getElementById("cuer46");
+				var cuer48 = document.getElementById("cuer48");
+				var mid_name = "";
 
                 function getDuraction(num) {
 					var txt = "";
@@ -102,9 +117,23 @@
 					player.setCurrentTime(player.duration * (fgdgdfg.value / 1000));
 				}, false);
 
+				player.onprogress = function (a) {
+					if (a) cuer48.innerHTML = a;
+                    else cuer48.innerHTML = "";
+				}
+
+                volumeBtn.onclick = function() {
+                    if (fgdgdfg2.style.display == "none") {
+                        fgdgdfg2.style.display = "";
+                    } else {
+                        fgdgdfg2.style.display = "none";
+                    }
+                }
+
                 var autoplay = true;
 
 				player.onload = function () {
+                    cuer46.innerHTML = mid_name;
 					player.loadSoundbank(function(e) {
 						if (autoplay) {
 							player.play();
@@ -120,12 +149,14 @@
 				}
 
                 function loadJnx(buffer) {
+                    cuer46.innerHTML = "";
                     player.loadMid(buffer);
                 }
 
                 function loadSwfFromFile(file) {
                     var reader = new FileReader();
                     reader.onload = function(r) {
+                        mid_name = file.name || "";
                         loadJnx(r.target.result);
                     }
                     reader.readAsArrayBuffer(file);
@@ -168,11 +199,27 @@
 					sa.click();
                 }
 
+                function urlToNameFile(url) {
+                    try {
+                        var j = url;
+                        var h = j.indexOf("?");
+                        var s = j.length;
+                        if (h >= 0) 
+                            s = h;
+                        var o = s;
+                        while((s >= 0) && (j.charAt(s) != "/")) 
+                            s--;
+                        return decodeURIComponent(j.slice(s + 1, o));
+                    } catch(e) {
+                        return null;
+                    }
+                };
+
                 function loadUrlAudioFile(url) {
 					var xhr = new XMLHttpRequest();
 					xhr.onload = function() {
-						var data = xhr.response;
-                        loadJnx(data);
+                        mid_name = urlToNameFile(url);
+                        loadJnx(xhr.response);
 					};
 					xhr.onerror = function() {
 					};
@@ -183,10 +230,6 @@
                 
 				fgdgdfg2.addEventListener('input', function() {
 					player.setVolume(fgdgdfg2.value / 100);
-				}, false);
-
-				fgdgdfg3.addEventListener('input', function() {
-					player.setSpeed(+fgdgdfg3.value);
 				}, false);
 
                 setInterval(function() {
