@@ -117,11 +117,19 @@
 				}
 				player.onplaynote = function (e) {
 					if (e.channel == 9) {
-						var span = AnimTredInstruments.getDrumSpan(e.program, e.pitch);
+						var drums = player.drumMidi[e.program];
+						if (!drums) return;
+						var span = drums[e.pitch];
 						if (!span) return;
 						addScS(fHH[span[0]]);
 					} else {
-						var span = AnimTredInstruments.getInstrumentSpan(e.program, e.pitch);
+						var spans = player.instrumentMidi[e.program];
+						if (!spans) return;
+						var span = spans[0];
+						for (var i = 1; i < spans.length; i++) {
+							var s = spans[i];
+							if (e.pitch >= s[0]) span = s;
+						}
 						if (!span) return;
 						addScS(fHH[span[1]]);
 					}
@@ -438,7 +446,7 @@
 						ctx.fillText(getDuraction(vassf4 + player.currentTime) + "/" + getDuraction(Math.ceil(vassf5)) + " song "+ (current_song + 1) +"/"+songsDatas.length + " " + getDuraction(player.currentTime) + "/" + getDuraction(Math.ceil(player.duration)), 6, 18);
 						ctx.textAlign = "right";
 						ctx.fillStyle = '#fff';
-						ctx.fillText("YTPMV Cartoon Midi " + AnimTredInstruments.version, 640 - 6, 18);
+						ctx.fillText("YTPMV Cartoon Midi", 640 - 6, 18);
 						ctx.fillStyle = '#ddd';
 						ctx.globalAlpha = 1;
 						ctx.fillRect(0, 350, 640, 10);

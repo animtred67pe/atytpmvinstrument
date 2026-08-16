@@ -71,7 +71,7 @@
 					<br>
 					<label id="cuer">Support RMI,MID,MIDI</label>
 				</div>
-				<input type="range" name="" value="0" min="0" max="100" id="yrtyryry" style="width: 445px;">
+				<input type="range" name="" value="0" min="0" max="10000" id="yrtyryry" style="width: 445px;">
 				<br>
 				<button id="playstop">Play</button>
 				<button id="playstop2">Stop</button>
@@ -181,7 +181,7 @@
 					}
 				}
 				function z_dir() {
-					fgdgdfg.value = (player.currentTime / player.duration) * 100;
+					fgdgdfg.value = (player.currentTime / player.duration) * 10000;
 					var f6fhf = 0;
 					var fgdlll = [];
 					for (var cid = 0; cid < 16; cid++) {
@@ -220,14 +220,14 @@
 					if (!z_dir3_3) {
 						fgdgdfg.value = 0;
 					};
-					player.setCurrentTime(player.duration * (fgdgdfg.value / 100));
+					player.setCurrentTime(player.duration * (fgdgdfg.value / 10000));
 				}, false);
 				player.onended = function () {
 					player.setCurrentTime(0);
 					playstop.innerHTML = 'Play';
 				}
 				player.onprogress = function (a) {
-					if (a) cuer46.innerHTML = a;
+					cuer46.innerHTML = a;
 				}
 				player.onload = function () {
 					viewe555.title = "";

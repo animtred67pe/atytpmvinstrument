@@ -81,7 +81,7 @@
 				var player = new AnimTredInstruments.Player();
 
 				player.onprogress = function (a) {
-					if (a) ggdf_loaded = a; else ggdf_loaded = "";
+					ggdf_loaded = a;
 				}
 
 				window.player = player;
@@ -202,6 +202,7 @@
 				];
 				player.onload = function () {
 					player.loadSoundbank(function(e) {
+						ggdf_loaded = ""
 						playstop.innerHTML = 'Pause';
 						player.play();
 					});

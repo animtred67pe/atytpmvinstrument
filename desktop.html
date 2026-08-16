@@ -9,8 +9,8 @@
 				font-family: monospace;
 				margin: 0;
 				overflow: hidden;
-				background-color: #000;
-                color: #fff;
+				background-color: #111;
+                color: #eee;
 			}
 			a {
 				cursor: pointer;
@@ -36,8 +36,8 @@
                 transform: translateX(-50%);
                 width: 50px;
                 height: 50px;
-                background-color: #000;
-                border: 2px solid #fff;
+                background-color: #111;
+                border: 2px solid #eee;
                 border-radius: 50%;
             }
             .btnmm:hover{
@@ -45,8 +45,8 @@
             }
             #volumeBtn {
                 padding: 2px;
-                background-color: #000;
-                border: 2px solid #fff;
+                background-color: #111;
+                border: 2px solid #eee;
                 border-radius: 50%;
             }
             #volumeBtn:hover{
@@ -55,15 +55,16 @@
         </style>
     </head>
     <body>
+        <div id="blackp" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #111;"></div>
         <div id="playstop" class="btnmm"><label style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="playpauselabel">Play</label></div>
 		<input type="range" name="" value="0" min="0" max="1000" id="yrtyryry" style="width: 95%;">
         <div style="position: absolute; right: 2%; bottom: 10px;">
             <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px; display: none;">
             <svg width="21" height="21" id="volumeBtn">
-                <path fill="#fff" d="M2,7 L6,7 L10,5 L10,16 L6,14 L2,14" />
-                <path stroke="#fff" stroke-width="1" d="M12,8 L14,11 L12,13" />
-                <path stroke="#fff" stroke-width="1" d="M14,6 L16,8 L16,13 L14,15" />
-                <path stroke="#fff" stroke-width="1" d="M16,4 L18,6 L18,15 L16,17" />
+                <path fill="#eee" d="M2,7 L6,7 L10,5 L10,16 L6,14 L2,14" />
+                <path stroke="#eee" stroke-width="1" d="M12,8 L14,11 L12,13" />
+                <path stroke="#eee" stroke-width="1" d="M14,6 L16,8 L16,13 L14,15" />
+                <path stroke="#eee" stroke-width="1" d="M16,4 L18,6 L18,15 L16,17" />
             </svg>
         </div>
         <label id="cuer1" style="position: absolute; left: 2%; bottom: 55px;">--:--</label>
@@ -78,6 +79,7 @@
         <script src="animtredinstruments.js"></script>
 		<script>
 			(function() {
+                var blackp = document.getElementById("blackp");
 				var fgdgdfg = document.getElementById("yrtyryry");
 				var fgdgdfg2 = document.getElementById("yrtyryry2");
                 var volumeBtn = document.getElementById("volumeBtn");
@@ -118,8 +120,7 @@
 				}, false);
 
 				player.onprogress = function (a) {
-					if (a) cuer48.innerHTML = a;
-                    else cuer48.innerHTML = "";
+                    cuer48.innerHTML = a;
 				}
 
                 volumeBtn.onclick = function() {
@@ -133,8 +134,10 @@
                 var autoplay = true;
 
 				player.onload = function () {
+                    cuer48.innerHTML = "";
                     cuer46.innerHTML = mid_name;
 					player.loadSoundbank(function(e) {
+                        cuer48.innerHTML = "";
 						if (autoplay) {
 							player.play();
 						}
@@ -183,6 +186,30 @@
 				function dragOverHandler(ev) {
 					ev.preventDefault();
 				}
+
+                var rrr = null;
+                window.addEventListener("click", function(e) {
+                    rrr = e.target;
+                });
+                window.addEventListener("keydown", function(e) {
+                    if (rrr === blackp || rrr === playstop || rrr === volumeBtn || rrr === fgdgdfg) {
+                        e.preventDefault();
+                        var keyCode = e.keyCode;
+                        if (keyCode == 37) {
+                            player.setCurrentTime(player.currentTime - 10);
+                        }
+                        if (keyCode == 39) {
+                            player.setCurrentTime(player.currentTime + 10);
+                        }
+                        if (keyCode == 32) {
+                            if (player.isPaused) {
+                                player.play();
+                            } else {
+                                player.pause();
+                            }
+                        }
+                    }
+                });
 
 				window.ondrop = dropHandler;
 				window.ondragover = dragOverHandler;

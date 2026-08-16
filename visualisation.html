@@ -419,6 +419,7 @@
 				var midcontrol = new MidiControls(player, document.getElementById('midiscene'));
 				player.onload = function() {
 					player.loadSoundbank(function() {
+						midcontrol.textprogress = "";
 						player.play();
 					});
 				}

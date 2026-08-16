@@ -1,3 +1,3 @@
 # YTPMV Cartoon Midi
 The YTPMV Cartoon Sounds My Little Pony & Peppa Pig
-soundbank size 1.71 MB
+soundbank size 1.65 MB

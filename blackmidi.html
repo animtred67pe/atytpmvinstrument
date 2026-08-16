@@ -29,7 +29,7 @@
     <body>
         <div id="playerArea"></div>
         <label id="cuer48" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></label>
-        <div style="position: absolute; bottom: 10px; left: 10px; background-color: #111;">
+        <div style="position: absolute; bottom: 10px; left: 10px; background-color: #111;" id="bbqfdg1">
             <button id="loadmidifile">Open Mid</button>
             <label>Display Speed:</label>
             <input type="range" name="" value="100" min="100" max="2500" step="0.01" id="yrtyryr6464" style="width: 200px;">
@@ -37,7 +37,7 @@
             <input type="range" name="" value="100" min="0" max="100" step="0.01" id="yrtyryry2" style="width: 60px;">
             <input type="range" name="" value="0" min="0" max="100000" id="yrtyryry" style="width: 320px;">
         </div>
-		<div style="position: absolute; top: 0%; right: 0%; padding: 8px;">
+		<div style="position: absolute; top: 0%; right: 0%; padding: 8px;" id="bbqfdg2">
 			<a href="./" style="color: #fff;">Back</a>
 		</div>
         <script src="animtredinstruments.js"></script>
@@ -391,6 +391,10 @@ void main() {
             }
 
 			var yrtyryr6464 = document.getElementById('yrtyryr6464');
+
+            var bbqfdgV = false;
+            var bbqfdg1 = document.getElementById('bbqfdg1');
+            var bbqfdg2 = document.getElementById('bbqfdg2');
             
             var Adfgdgfd = "01010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010101001010010";
             var xpiano = [];
@@ -657,8 +661,7 @@ void main() {
 			var cuer48 = document.getElementById("cuer48");
 
             player.onprogress = function (a) {
-                if (a) cuer48.innerHTML = a;
-                else cuer48.innerHTML = "";
+                cuer48.innerHTML = a;
             }
 
             var fgdgdfg = document.getElementById("yrtyryry");
@@ -719,6 +722,37 @@ void main() {
                 }
                 return result;
             }
+
+            window.addEventListener("keydown", function(e) {
+                var keyCode = e.keyCode;
+                if (keyCode == 37) {
+                    e.preventDefault();
+                    player.setCurrentTime(player.currentTime - 10);
+                }
+                if (keyCode == 39) {
+                    e.preventDefault();
+                    player.setCurrentTime(player.currentTime + 10);
+                }
+                if (keyCode == 81) {
+                    e.preventDefault();
+                    bbqfdgV = !bbqfdgV;
+                    if (bbqfdgV) {
+                        bbqfdg1.style.display = "none";
+                        bbqfdg2.style.display = "none";
+                    } else {
+                        bbqfdg1.style.display = "";
+                        bbqfdg2.style.display = "";
+                    }
+                }
+                if (keyCode == 32) {
+                    e.preventDefault();
+                    if (player.isPaused) {
+                        player.play();
+                    } else {
+                        player.pause();
+                    }
+                }
+            });
         
             player.onload = function () {
                 trackRender = [];
@@ -732,6 +766,7 @@ void main() {
                 tempos = genTempos();
                 tempoIdx = 1;
                 player.loadSoundbank(function(e) {
+                    cuer48.innerHTML = "";
                     player.play();
                 });
             }
