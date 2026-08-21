@@ -107,7 +107,7 @@ var AnimTredInstruments = (function() {
       [60, "TremoloString", 60, [0.09934, 0.64666], 0.2]
     ],
     "tremolo-string-2": [
-      [60, "TremoloString", 60, [0.09934, 0.64666], 0.5, 0.5]
+      [60, "TremoloString", 60, [0.09934, 0.64666], 0.4, 0.4]
     ],
     "tremolo-string-3": [
       [60, "TremoloString", 60, [0.09934, 0.64666], 0.2, 0.2]
@@ -177,7 +177,7 @@ var AnimTredInstruments = (function() {
       [72, "Bowed_C5", 72, [0.57448, 0.7529], 0.25]
     ],
     "metallic": [
-      [60, "TremoloString", 60, [0.09934, 0.64666], 0.5, 0.5, 1, 5]
+      [60, "TremoloString", 60, [0.09934, 0.64666], 0.4, 0.4, 1, 5]
     ],
     "sitar": [
       [60, "OverdrivenGuitar", 60, [0.27618, 0.64141], 1, 0, 0, 5]
@@ -1253,6 +1253,7 @@ var AnimTredInstruments = (function() {
     this._currentTimeLast = 0;
     this._soundbankLoaded = 0;
     this._soundbank = {};
+    this._soundbankBuffer = {};
     this._date = this._getTime();
     this._startTime = 0;
     this._loader = null;
@@ -1268,6 +1269,7 @@ var AnimTredInstruments = (function() {
     this.resetEffect();
     this._interval = setInterval(this._step.bind(this), 5);
   }
+  Player.sountbankLoader = new SoundbankLoader("ytpmv_cartoon_soundbank.dat", null);
   Player.prototype.compileInstrument = function() {
     this.instrumentMidi = [];
     for (var i = 0; i < MIDI_INSTRUMENT.length; i++) {
@@ -1294,7 +1296,6 @@ var AnimTredInstruments = (function() {
       }
     }
   }
-  Player.sountbankLoader = new SoundbankLoader("ytpmv_cartoon_soundbank.dat", null);
   Player.CONCURRENCY_LIMIT = 256;
   Player.prototype._getTime = function() {
     if (audioContext.state != "running") 
@@ -1375,6 +1376,7 @@ var AnimTredInstruments = (function() {
     return function (callback) {
       _this._loadSoundFile(f, function (buffer) {
         _this._decodeAudio(buffer, function (audioBuffer) {
+          _this._soundbankBuffer[s] = audioBuffer;
           _this._soundbank[s] = {
             data: new Uint8Array(buffer),
             buffer: audioBuffer,
@@ -1506,11 +1508,11 @@ var AnimTredInstruments = (function() {
         if (n.pitch >= s[0]) span = s;
       }
       if (!span) return;
-      var buffer = this._soundbank[span[1]];
+      var buffer = this._soundbankBuffer[span[1]];
       if (!buffer) return;
       var source = audioContext.createBufferSource();
       var node = audioContext.createGain();
-      source.buffer = buffer.buffer;
+      source.buffer = buffer;
       var loop = span[3];
       if (loop) {
         source.loop = true;
@@ -1563,7 +1565,7 @@ var AnimTredInstruments = (function() {
       if (!drums) return;
       var span = drums[n.drum];
       if (!span) return;
-      var buffer = this._soundbank[span[0]];
+      var buffer = this._soundbankBuffer[span[0]];
       if (!buffer) return;
       var source = audioContext.createBufferSource();
       var node = audioContext.createGain();
@@ -1574,7 +1576,7 @@ var AnimTredInstruments = (function() {
         attackGain.gain.setValueAtTime(1, time);
         attackGain.gain.linearRampToValueAtTime(0, time + decayEnd);
       }
-      source.buffer = buffer.buffer;
+      source.buffer = buffer;
       source.connect(node);
       source.playbackRate.value = pitchForKey(60 + (span[1] || 0)) / pitchForKey(60);
       attackGain.connect(this.node);
@@ -1595,7 +1597,7 @@ var AnimTredInstruments = (function() {
       if (!drums) return;
       var span = drums[pitch];
       if (!span) return;
-      var buffer = this._soundbank[span[0]];
+      var buffer = this._soundbankBuffer[span[0]];
       if (!buffer) return;
       var isStart = ((tickOff - tickOn) > 0) || this._getSustainPedalChannel(channel);
       var decayEnd = span[2] || 0;
@@ -1605,7 +1607,7 @@ var AnimTredInstruments = (function() {
         program: program,
         tickOn: tickOn,
         tickOff: tickOff,
-        buffer: buffer.buffer,
+        buffer: buffer,
         source: null,
         node: null,
         ended: !isStart,
@@ -1632,7 +1634,7 @@ var AnimTredInstruments = (function() {
         if (pitch >= s[0]) span = s;
       }
       if (!span) return;
-      var buffer = this._soundbank[span[1]];
+      var buffer = this._soundbankBuffer[span[1]];
       if (!buffer) return;
       var isStart = ((tickOff - tickOn) > 0) || this._getSustainPedalChannel(channel);
       var releaseDuration = span[4] || 0;
@@ -1646,7 +1648,7 @@ var AnimTredInstruments = (function() {
         program: program,
         tickOn: tickOn,
         tickOff: tickOff,
-        buffer: buffer.buffer,
+        buffer: buffer,
         source: null,
         node: null,
         ended: false,
@@ -1690,19 +1692,18 @@ var AnimTredInstruments = (function() {
   Player.prototype._updateEffectNote = function(note) {
     if (note.track) {
       var channel = note.channel;
-      var _volume = note.volume / 127;
-      var p = (channel == 9) ? 60 : note.pitch;
       var source = note.source;
       var node = note.node;
+      var _volume = note.volume / 127;
+      var p = (channel == 9) ? 60 : note.pitch;
       var envelopeVolume = note.envelopeVolume;
       if (this.isEffect) {
-        if (source) source.playbackRate.value = pitchForKey(p + this._getPitch(channel)) / note.baseRatio;
-        var volumeEffect = _volume * this._getVolumeChannel(channel) * this.masterVolume;
-        if (node) node.gain.value = (volumeEffect * volumeEffect) * envelopeVolume;
-      } else {
-        if (source) source.playbackRate.value = pitchForKey(p) / note.baseRatio;
-        if (node) node.gain.value = _volume * envelopeVolume;
+        p += this._getPitch(channel);
+        _volume *= this._getVolumeChannel(channel) * this.masterVolume;
+        _volume *= _volume;
       }
+      if (source) source.playbackRate.value = pitchForKey(p) / note.baseRatio;
+      if (node) node.gain.value = _volume * envelopeVolume;
     }
   }
   Player.prototype._step = function() {
@@ -1981,6 +1982,8 @@ var AnimTredInstruments = (function() {
       case 125: // Omni mode on (+ all notes off)
         break;
     }
+  }
+  Player.prototype.realTime_ChannelAfterTouch = function(channel, value) {
   }
   Player.prototype.realTime_PitchBend = function(channel, value) {
     this.channels[channel].bend = value - 8192;
