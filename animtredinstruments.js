@@ -1,6 +1,6 @@
 /*
  * YTPMV Cartoon Midi
- * soundbank size 1.65 MB
+ * soundbank size 1.53 MB
  */
 
 var AnimTredInstruments = (function() {
@@ -96,12 +96,12 @@ var AnimTredInstruments = (function() {
       [36, "Bass_C2", 36, null, 0.1],
       [48, "Bass_C3", 48, null, 0.1]
     ],
-    "violin": [
-      [60, "Violin", 60, [0.09934, 0.64666], 0.2]
-    ],
     "cello": [
-      [60, "Cello_C3", 60, [0.65718, 1.24772], 0.2],
-      [72, "Cello_C4", 72, [0.94187, 1.22214], 0.2]
+      [60, "Cello", 60, [0.09934, 0.64666], 0.2]
+    ],
+    "violin": [
+      [60, "Violin_C3", 60, [0.65718, 1.24772], 0.2],
+      [72, "Violin_C4", 72, [0.94187, 1.22214], 0.2]
     ],
     "tremolo-string-1": [
       [60, "TremoloString", 60, [0.09934, 0.64666], 0.2]
@@ -157,10 +157,10 @@ var AnimTredInstruments = (function() {
       [60, "Whistle", 60, [1.13851, 1.35201]]
     ],
     "synth lead": [
-      [48, "SynthLead_C3", 48, [0.1, 1.5], 0.1],
-      [60, "SynthLead_C4", 60, [0.1, 1.5], 0.1],
-      [72, "SynthLead_C5", 72, [0.1, 1.5], 0.1],
-      [84, "SynthLead_C6", 84, [0.1, 1.5], 0.1]
+      [48, "SynthLead_C3", 48, [0.08461, 0.09225], 0.1],
+      [60, "SynthLead_C4", 60, [0.00772, 0.09601], 0.1],
+      [72, "SynthLead_C5", 72, [0.00388, 0.09601], 0.1],
+      [84, "SynthLead_C6", 84, [0.00386, 0.09888], 0.1]
     ],
     "synth pad": [
       [60, "SynthPad", 60, [1.55, 2], 0.1]
@@ -215,7 +215,7 @@ var AnimTredInstruments = (function() {
     "electric guitar", "overdriven guitar", "overdriven guitar", "overdriven guitar",
     "bass", "bass", "bass", "bass",
     "bass", "bass", "bass", "bass",
-    "violin", "violin", "cello", "cello",
+    "cello", "cello", "violin", "violin",
     "tremolo-string-1", "pizzicato", "bass", "timpani",
     "tremolo-string-1", "tremolo-string-2", "tremolo-string-3", "tremolo-string-3",
     "choir", "choir", "synth-voice", "orchestra hit",
@@ -229,10 +229,10 @@ var AnimTredInstruments = (function() {
     "synth lead", "choir", "synth lead", "synth lead",
     "synth pad", "warm", "synth pad", "choir",
     "bowed", "metallic", "choir", "tremolo-string-2",
-    "synth pad", "violin", "synth-pad-2", "choir",
+    "synth pad", "cello", "synth-pad-2", "choir",
     "vibraphone", "bowed", "choir", "harmonica",
     "sitar", "pizzicato", "bass", "bass",
-    "marimba", "bassoon", "violin", "bassoon",
+    "marimba", "bassoon", "cello", "bassoon",
     "vibraphone", "agogo", "steel drum", "woodblock",
     "taiko drum", "melodic tom", "synth drum", "reverse cymbal",
     "electric guitar", "wooden flute", "steel drum", "wooden flute",
@@ -470,9 +470,9 @@ var AnimTredInstruments = (function() {
       "Tambourine": "drums/peppa-pig-drums-51.wav"
     },
     "Peppa Pig - Musical Instruments (full episode)": {
-      "Violin": "instruments/peppa-pig-mi-69-violin.wav",
-      "Cello_C3": "instruments/peppa-pig-mi-69-cello_C3.wav",
-      "Cello_C4": "instruments/peppa-pig-mi-69-cello_C4.wav",
+      "Cello": "instruments/peppa-pig-mi-69-cello.wav",
+      "Violin_C3": "instruments/peppa-pig-mi-69-violin_C3.wav",
+      "Violin_C4": "instruments/peppa-pig-mi-69-violin_C4.wav",
       "TremoloString": "instruments/peppa-pig-mi-69-tm.wav",
       "Timpani": "instruments/peppa-pig-mi-114.wav",
       "Accordion": "instruments/peppa-pig-mi-131-1.wav",
@@ -1373,7 +1373,7 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype._loadSoundbankBuffer = function(s, f) {
     var _this = this;
-    return function (callback) {
+    return function(callback) {
       _this._loadSoundFile(f, function (buffer) {
         _this._decodeAudio(buffer, function (audioBuffer) {
           _this._soundbankBuffer[s] = audioBuffer;
@@ -1498,7 +1498,7 @@ var AnimTredInstruments = (function() {
     channelMerger.connect(this.node);
     return new Pan(inputNode, leftGain, rightGain);
   }
-  Player.prototype.playNote = function(n, infD) {
+  Player.prototype.playNote = function(n) {
     if (n.type == 1) {
       var spans = this.instrumentMidi[n.instrument - 1];
       if (!spans) return;
@@ -1691,9 +1691,9 @@ var AnimTredInstruments = (function() {
   }
   Player.prototype._updateEffectNote = function(note) {
     if (note.track) {
-      var channel = note.channel;
       var source = note.source;
       var node = note.node;
+      var channel = note.channel;
       var _volume = note.volume / 127;
       var p = (channel == 9) ? 60 : note.pitch;
       var envelopeVolume = note.envelopeVolume;
