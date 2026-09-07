@@ -189,7 +189,7 @@ var AnimTredInstruments = (function() {
       [60, "SteelDrum", 60, null, 0.5, 0, 0, 2]
     ],
     "woodblock": [
-      [60, "WoodBlock", 63, null]
+      [60, "WoodBlock", 62, null]
     ],
     "taiko drum": [
       [60, "TaikoDrum", 60, null, 0.25]
@@ -809,6 +809,7 @@ var AnimTredInstruments = (function() {
       texts.text = [];
       keyPressure.tick = [];
       keyPressure.channel = [];
+      keyPressure.note = [];
       keyPressure.key = [];
       channelPressure.tick = [];
       channelPressure.channel = [];
@@ -935,7 +936,8 @@ var AnimTredInstruments = (function() {
                 case 160:
                   keyPressure.tick.push(pulseCounter);
                   keyPressure.channel.push(midiChannel);
-                  keyPressure.key.push(parameter1);
+                  keyPressure.note.push(parameter1);
+                  keyPressure.key.push(parameter2);
                   break;
                 case 176:
                   controllers.tick.push(pulseCounter);
