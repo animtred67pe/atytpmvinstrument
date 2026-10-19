@@ -37,7 +37,7 @@ var AnimTredInstruments = (function() {
     "long guiro": ["GuiroLong"],
     "claves": ["Claves"],
     "wood": ["WoodBlock", 4],
-    "low wood": ["WoodBlock"],
+    "low wood": ["WoodBlock", 0],
     "cuica": ["Cuica"],
     "low cuica": ["CuicaLow"],
     "mute triangle": ["Triangle", 0, 0.2],
@@ -47,7 +47,7 @@ var AnimTredInstruments = (function() {
     "unknown_2": ["Unknown2"],
     "unknown_3": ["Unknown3"]
   };
-  var INSTRUMENT_INFO = {
+  var INSTRUMENT_INFO =  {
     "piano": [
       [60, "Piano_C4", 60, null, 0.1],
       [84, "Piano_C6", 84, null, 0.1]
@@ -78,7 +78,7 @@ var AnimTredInstruments = (function() {
       [60, "Accordion", 60, [0.2295, 0.23333]]
     ],
     "tango accordion": [
-      [60, "TangoAccordion", 60, [0.03518, 0.05462]]
+      [60, "TangoAccordion", 60, [0.03518, 0.05454]]
     ],
     "harmonica": [
       [60, "Harmonica", 60, [0.15032, 0.17322]]
@@ -189,7 +189,7 @@ var AnimTredInstruments = (function() {
       [60, "SteelDrum", 60, null, 0.5, 0, 0, 2]
     ],
     "woodblock": [
-      [60, "WoodBlock", 62, null]
+      [60, "WoodBlock", 62.6, null]
     ],
     "taiko drum": [
       [60, "TaikoDrum", 60, null, 0.25]
@@ -497,27 +497,37 @@ var AnimTredInstruments = (function() {
     var _this = this;
     this.progressSoundbank = true;
     var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      var g = new Uint8Array(xhr.response);
-      var o = 0;
-      var result = {};
-      var len = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
-      while(len--) {
-        var slen = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
-        var sf = "";
-        while(slen--) {
-          sf += String.fromCharCode(g[o++]);
-        }
-        var dlen = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
-        result[sf] = g.subarray(o, o + dlen);
-        o += dlen;
+    xhr.onload = function() {
+      if (xhr.status == 200) {
+        _this.result = _this.parseFiles(new Uint8Array(xhr.response));
+        _this.callback();
+      } else {
+        console.log(xhr.status);
       }
-      _this.result = result;
-      _this.callback(); 
     };
     xhr.responseType = "arraybuffer";
     xhr.open("GET", this.url);
     xhr.send();
+  }
+  SoundbankLoader.prototype.parseFiles = function(g) {
+    var o = 0;
+    var result = {};
+    var len = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
+    if (len > 65535) 
+      throw "File is too long";
+    while(len--) {
+      var slen = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
+      if (slen > 65535) 
+        throw "String is too long";
+      var sf = "";
+      while(slen--) {
+        sf += String.fromCharCode(g[o++]);
+      }
+      var dlen = g[o++] + (g[o++] << 8) + (g[o++] << 16) + (g[o++] << 24);
+      result[sf] = g.subarray(o, o + dlen);
+      o += dlen;
+    }
+    return result;
   }
   SoundbankLoader.prototype.callback = function() {
     if (this.result) {
